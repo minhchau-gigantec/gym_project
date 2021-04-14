@@ -1,0 +1,26 @@
+version: '3.5'
+
+services:
+  gym.mongo.db:
+    container_name: gym.mongo.db
+    image: mongo:latest
+    networks:
+      default_gym:
+        aliases:
+          - db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: minhchau
+      MONGO_INITDB_ROOT_PASSWORD: minhchau
+    ports:
+      - 27018:27017
+    volumes: 
+      - mongodb_data_container:/data/db
+
+
+networks:
+  default_gym:
+
+volumes:
+  mongodb_data_container:
+
