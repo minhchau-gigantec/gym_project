@@ -51,6 +51,116 @@
         "application/json"
     ],
     "paths": {
+        "/questions": {
+            "post": {
+                "summary": "Create or update question",
+                "tags": [
+                    "questions"
+                ],
+                "description": "Create or update question",
+
+                "parameters": [{
+                    "name": "question",
+                    "in": "body",
+                    "description": "Question that we want to create or update",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "name",
+                            "content"
+                        ],
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "example": "Question 1"
+                            },
+                            "content": {
+                                "type": "string",
+                                "example": "Content question 1"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "410": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/questions ": {
+            "get": {
+                "summary": "List all questions",
+                "tags": [
+                    "questions"
+                ],
+                "description": "List all questions in database",
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "412": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/questions/{id}": {
+            "get": {
+                "summary": "List questions with id",
+                "tags": [
+                    "questions"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of questions you want to get",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "413": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/questions/{id}  ": {
+            "delete": {
+                "summary": "Delete question with id",
+                "tags": [
+                    "questions"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4",
+                    "description": "ID of question you want to delete"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "411": {
+                        "description": "Question not found"
+                    }
+                }
+            }
+        },
+
+
         "/answers": {
             "post": {
                 "summary": "Create or update answer",
@@ -188,116 +298,6 @@
                     },
                     "406": {
                         "description": "answers not found"
-                    }
-                }
-            }
-        },
-
-
-        "/questions": {
-            "post": {
-                "summary": "Create or update question",
-                "tags": [
-                    "questions"
-                ],
-                "description": "Create or update question",
-
-                "parameters": [{
-                    "name": "question",
-                    "in": "body",
-                    "description": "Question that we want to create or update",
-                    "schema": {
-                        "type": "object",
-                        "required": [
-                            "name",
-                            "content"
-                        ],
-                        "properties": {
-                            "name": {
-                                "type": "string",
-                                "example": "Question 1"
-                            },
-                            "content": {
-                                "type": "string",
-                                "example": "Content question 1"
-                            }
-                        }
-                    }
-                }],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "410": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/questions ": {
-            "get": {
-                "summary": "List all questions",
-                "tags": [
-                    "questions"
-                ],
-                "description": "List all questions in database",
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "412": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/questions/{id}": {
-            "get": {
-                "summary": "List questions with id",
-                "tags": [
-                    "questions"
-                ],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "ID of questions you want to get",
-                    "type": "string",
-                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "413": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/questions/{id}  ": {
-            "delete": {
-                "summary": "Delete question with id",
-                "tags": [
-                    "questions"
-                ],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4",
-                    "description": "ID of question you want to delete"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "411": {
-                        "description": "Question not found"
                     }
                 }
             }
