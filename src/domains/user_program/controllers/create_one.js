@@ -1,6 +1,6 @@
 const user_program = require('../services/user_program')
 
-module.exports = async(req, res) => {
+module.exports = async (req, res) => {
     try{
         const item = req.body
         const result = await user_program.create_one(item)
