@@ -20,6 +20,7 @@ const create_one = (user_id, tracker_model) => new Promise(async(resolve, reject
             _id: id,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
+            time: tracker_model.time,
             user_id,
             step: tracker_model.step,
             weight: tracker_model.weight

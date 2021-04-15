@@ -2,7 +2,7 @@ const schedule = require('../services/schedule')
 
 module.exports = async(req, res) => {
     try {
-        const { id } = req.prarams
+        const { id } = req.params
         const {user} = req
         const user_id = user._id
         const result = await schedule.delete_one(user_id, id)
