@@ -9,7 +9,7 @@ const get_one = require('./controllers/get_one')
 const validate = require('../../middleware/check_validate')
 const dataExample = require('./models/validate')
 
-router.post('/', validate(dataExample.create_question), create_or_update)
+router.post('/', validate(dataExample.create), create_or_update)
 
 router.get('/', get_list)
 

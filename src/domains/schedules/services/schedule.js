@@ -1,8 +1,8 @@
 const mongo = require('../../../core/mongo')
-const {v4: uuid} = require('uuid')
+const { v4: uuid } = require('uuid')
 
-const create_or_update = (schedule_model) => new Promise((resolve, reject) => {
-    try{
+const create_or_update = (schedule_model) => new Promise(async(resolve, reject) => {
+    try {
         const id = uuid()
         const query = {
             user_id: schedule_model.user_id,
@@ -26,31 +26,29 @@ const create_or_update = (schedule_model) => new Promise((resolve, reject) => {
         }
 
         const collection = mongo.db.collection('schedules')
-        var value = await collection.findOneAndUpdate(query,
-            {
-                $set: update,
-                $setOnInsert: insert
-            }, options)
+        var value = await collection.findOneAndUpdate(query, {
+            $set: update,
+            $setOnInsert: insert
+        }, options)
 
-        if(!value){
-            value = await collection.findOne({_id: id})
-        }else {
-            value = await collection.findOne({_id: value._id})
+        if (!value) {
+            value = await collection.findOne({ _id: id })
+        } else {
+            value = await collection.findOne({ _id: value._id })
         }
         return resolve(value)
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
-const get_list = () => new Promise(async (resolve, reject) => {
-    try{
+const get_list = () => new Promise(async(resolve, reject) => {
+    try {
 
         const collection = mongo.db.collection('schedules')
-        const result = await collection.aggregate([
-            {
+        const result = await collection.aggregate([{
                 $lookup: {
                     from: 'programs',
                     localField: 'program_id',
@@ -58,7 +56,7 @@ const get_list = () => new Promise(async (resolve, reject) => {
                     as: 'program'
                 }
             },
-            {$unwind: '$program'},
+            { $unwind: '$program' },
             {
                 $lookup: {
                     from: 'user_profiles',
@@ -67,22 +65,22 @@ const get_list = () => new Promise(async (resolve, reject) => {
                     as: 'user'
                 }
             },
-            {$unwind: '$user'}
+            { $unwind: '$user' }
         ]).toArray()
 
         return resolve(result)
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
-const get_list_by_user = (user_id) => new Promise(async (resolve, reject) => {
-    try{
+const get_list_by_user = (user_id) => new Promise(async(resolve, reject) => {
+    try {
 
         const collection = mongo.db.collection('schedules')
         const result = await collection.aggregate([
-            {$match: {user_id}},
+            { $match: { user_id } },
             {
                 $lookup: {
                     from: 'programs',
@@ -91,7 +89,7 @@ const get_list_by_user = (user_id) => new Promise(async (resolve, reject) => {
                     as: 'program'
                 }
             },
-            {$unwind: '$program'},
+            { $unwind: '$program' },
             {
                 $lookup: {
                     from: 'user_profiles',
@@ -100,22 +98,22 @@ const get_list_by_user = (user_id) => new Promise(async (resolve, reject) => {
                     as: 'user'
                 }
             },
-            {$unwind: '$user'}
+            { $unwind: '$user' }
         ]).toArray()
 
         return resolve(result)
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
-const get_one = (id) => new Promise(async (resolve, reject) => {
-    try{
+const get_one = (id) => new Promise(async(resolve, reject) => {
+    try {
 
         const collection = mongo.db.collection('schedules')
         const result = await collection.aggregate([
-            {$match: {_id: id}},
+            { $match: { _id: id } },
             {
                 $lookup: {
                     from: 'programs',
@@ -124,7 +122,7 @@ const get_one = (id) => new Promise(async (resolve, reject) => {
                     as: 'program'
                 }
             },
-            {$unwind: '$program'},
+            { $unwind: '$program' },
             {
                 $lookup: {
                     from: 'user_profiles',
@@ -133,35 +131,35 @@ const get_one = (id) => new Promise(async (resolve, reject) => {
                     as: 'user'
                 }
             },
-            {$unwind: '$user'}
+            { $unwind: '$user' }
         ]).toArray()
 
         return resolve(result)
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
-const delete_one = (id) => new Promise(async (resolve, reject) => {
-    try{
+const delete_one = (id) => new Promise(async(resolve, reject) => {
+    try {
         const collection = mongo.db.collection('schedules')
-        const exsted_schedule = await collection.finOne({_id: id})
+        const exsted_schedule = await collection.finOne({ _id: id })
 
-        if(!exsted_schedule){
+        if (!exsted_schedule) {
             return reject('schedule not found')
         }
-        await collection.deleteOne({_id: id})
+        await collection.deleteOne({ _id: id })
         return resolve('delete schedule success')
 
-    }catch(error) {
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
 
-module.exports  = {
+module.exports = {
     create_or_update,
     get_one,
     get_list,

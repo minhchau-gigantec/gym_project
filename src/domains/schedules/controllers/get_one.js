@@ -1,8 +1,8 @@
 const schedule = require('../services/schedule')
 
-module.exports = (req, res) => {
-    try{
-        const {id} = req.params
+module.exports = async(req, res) => {
+    try {
+        const { id } = req.params
 
         const result = await schedule.get_one(id)
         return res.json({
@@ -11,8 +11,8 @@ module.exports = (req, res) => {
             data: result
         })
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
-        return res.status(438).send({message: error})
+        return res.status(438).send({ message: error })
     }
 }

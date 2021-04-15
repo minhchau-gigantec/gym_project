@@ -1,7 +1,7 @@
 const tracker = require('../services/tracker')
 
-module.exports = (req, res) => {
-    try{
+module.exports = async(req, res) => {
+    try {
         const result = await tracker.get_list()
         return res.json({
             code: 200,
@@ -9,8 +9,8 @@ module.exports = (req, res) => {
             data: result
         })
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
-        return res.status(441).send({message: error})
+        return res.status(441).send({ message: error })
     }
 }

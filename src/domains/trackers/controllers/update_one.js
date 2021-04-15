@@ -1,7 +1,7 @@
 const tracker = require('../services/tracker')
 
-module.exports = (req, res) => {
-    try{
+module.exports = async(req, res) => {
+    try {
         const item = req.body
         const result = await tracker.update_one(item)
         return res.json({
@@ -10,8 +10,8 @@ module.exports = (req, res) => {
             data: result
         })
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
-        return res.status(442).send({message: error})
+        return res.status(442).send({ message: error })
     }
 }

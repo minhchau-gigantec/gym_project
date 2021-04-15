@@ -1,4 +1,4 @@
-const create_question = {
+const create = {
     additionalProperties: false,
     type: 'object',
     properties: {
@@ -9,5 +9,5 @@ const create_question = {
 }
 
 module.exports = {
-    create_question
+    create
 }

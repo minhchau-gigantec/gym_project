@@ -23,6 +23,14 @@
         {
             "name": "programs",
             "description": "API for programs in the system"
+        },
+        {
+            "name": "schedules",
+            "description": "API for schedules in the system"
+        },
+        {
+            "name": "trackers",
+            "description": "API for trackers in the system"
         }
     ],
     "schemes": [
@@ -577,6 +585,306 @@
                     },
                     "423": {
                         "description": "program not found"
+                    }
+                }
+            }
+        },
+
+
+        "/schedules": {
+            "post": {
+                "summary": "Create or update schedule",
+                "tags": [
+                    "schedules"
+                ],
+                "description": "Create or update schedule",
+
+                "parameters": [{
+                    "name": "schedule",
+                    "in": "body",
+                    "description": "schedule info",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "user_id",
+                            "time",
+                            "note",
+                            "program_id"
+                        ],
+                        "properties": {
+                            "user_id": {
+                                "type": "string",
+                                "example": "ba8f8d01-d500-4f45-ae26-a1b238fadf4c"
+                            },
+                            "time": {
+                                "type": "string"
+                            },
+                            "note": {
+                                "type": "string"
+                            },
+                            "program_id": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "434": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/schedules ": {
+            "get": {
+                "summary": "List all schedules",
+                "tags": [
+                    "schedules"
+                ],
+                "description": "List all schedules in database",
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "437": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/schedules/user/{user_id}": {
+            "get": {
+                "summary": "Get list schedules by user_id",
+                "tags": [
+                    "schedules"
+                ],
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "user_id",
+                    "type": "string",
+                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "435": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/schedules/{id} ": {
+            "get": {
+                "summary": "Get schedule by id",
+                "tags": [
+                    "schedules"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of schedule",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "438": {
+                        "description": "booking not found"
+                    }
+                }
+            }
+        },
+        "/schedules/{id}  ": {
+            "delete": {
+                "summary": "Delete schedule with id",
+                "tags": [
+                    "schedules"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "example": "8d960b70-bb50-4102-9a89-48c99a4db7b0",
+                    "description": "ID of schedule you want to delete"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "436": {
+                        "description": "schedule not found"
+                    }
+                }
+            }
+        },
+
+
+        "/trackers": {
+            "post": {
+                "summary": "Create tracker",
+                "tags": [
+                    "trackers"
+                ],
+                "description": "Create tracker",
+
+                "parameters": [{
+                    "name": "tracker",
+                    "in": "body",
+                    "description": "tracker info",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "user_id",
+                            "time",
+                            "step",
+                            "weight"
+                        ],
+                        "properties": {
+                            "user_id": {
+                                "type": "string",
+                                "example": "ba8f8d01-d500-4f45-ae26-a1b238fadf4c"
+                            },
+                            "time": {
+                                "type": "string"
+                            },
+                            "step": {
+                                "type": "integer"
+                            },
+                            "weight": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "437": {
+                        "description": "tracker is existed"
+                    }
+                }
+            }
+        },
+        "/trackers ": {
+            "get": {
+                "summary": "List all trackers",
+                "tags": [
+                    "trackers"
+                ],
+                "description": "List all trackers in database",
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "441": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/trackers/user/{user_id}": {
+            "get": {
+                "summary": "Get list trackers by user_id",
+                "tags": [
+                    "trackers"
+                ],
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "user_id",
+                    "type": "string",
+                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "440": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/trackers/{id} ": {
+            "put": {
+                "summary": "Update tracker by id",
+                "tags": [
+                    "trackers"
+                ],
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of tracker",
+                        "type": "string",
+                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                    },
+                    {
+                        "name": "tracker",
+                        "in": "body",
+                        "description": "tracker info that we want to update",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "user_id": {
+                                    "type": "string"
+                                },
+                                "time": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "442": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/trackers/{id}  ": {
+            "delete": {
+                "summary": "Delete tracker with id",
+                "tags": [
+                    "trackers"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "example": "8d960b70-bb50-4102-9a89-48c99a4db7b0",
+                    "description": "ID of tracker you want to delete"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "439": {
+                        "description": "tracker not found"
                     }
                 }
             }
