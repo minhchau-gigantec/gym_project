@@ -1,43 +1,55 @@
 const {v4: uuid} = require('uuid')
 const mongo = require('../../../core/mongo')
+const { options } = require('../../answers/router')
 
-const create_or_update = (program_model) => new Promise(async (resolve, reject) => {
+const create_one = (program_model) => new Promise(async (resolve, reject) => {
     try{
-        const id = uuid()
-
+        
         const query = {
             name: program_model.name
         }
 
-        const update = {
+        const collection = mongo.db.collection('programs')
+        const existed_item = collection.findOne(query)
+
+        if(existed_item){
+            return reject("program is existed")
+        }
+
+        const id = uuid()
+        const create_item = {
+            _id: id,
+            name: program_model.name,
             min_points: program_model.min_points,
             max_points: program_model.max_points,
+            created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         }
+      
+        await collection.insertOne(create_item)
 
-        const insert = {
-            _id: id,
-            created_at: new Date().toISOString()
-        }
+        const result = await collection.findOne({_id: id})
+        
+        return resolve(result)
+    }catch(error){
+        console.log(error)
+        return reject(error)
+    }
+})
+
+const update_one = (id, item) => new Promise(async (resolve, reject) =>{
+    try{
 
         const options = {
-            upsert: true,
             returnNewDocument: true
         }
-
         const collection = mongo.db.collection('programs')
-        var {value} = await collection.findOneAndUpdate(query, {
-            $set: update,
-            $setOnInsert: insert
+        const result = await collection.updateOne({_id: id}, {
+            $set: item
         }, options)
 
-        if(!value){
-            value = await collection.findOne({_id: id})
-        }else {
-            value = await collection.findOne({_id: value._id})
-        }
+        return resolve(result)
 
-        return resolve(value)
     }catch(error){
         console.log(error)
         return reject(error)
@@ -89,7 +101,8 @@ const get_list = () => new Promise(async (resolve, reject) => {
 })
 
 module.exports = {
-    create_or_update,
+    create_one,
+    update_one,
     get_list,
     get_one,
     delete_one

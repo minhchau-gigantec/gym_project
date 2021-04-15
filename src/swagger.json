@@ -45,16 +45,16 @@
     "paths": {
         "/answers": {
             "post": {
-                "summary": "Create or update answer",
+                "summary": "Create answer",
                 "tags": [
                     "answers"
                 ],
-                "description": "Create or update answer",
+                "description": "Create answer",
 
                 "parameters": [{
                     "name": "answer",
                     "in": "body",
-                    "description": "answer that we want to create or update",
+                    "description": "Answer that we want to create",
                     "schema": {
                         "type": "object",
                         "required": [

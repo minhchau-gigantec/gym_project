@@ -3,7 +3,7 @@ const question = require('../services/question')
 module.exports = async (req, res) => {
     try{
         const question_model = req.body
-        const result = await question.create_or_update(question_model)
+        const result = await question.create_one(question_model)
         return res.send({
             code: 200,
             message: 'handler success',
