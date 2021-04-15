@@ -102,7 +102,7 @@
                         "description": "validation error"
                     },
                     "409": {
-                        "description": "answer is existed"
+                        "description": "question is not exist/ answer is existed/ "
                     }
                 }
             }
@@ -257,7 +257,7 @@
                 }
             }
         },
-        "/questions/{id}": {
+        "/questions/{id} ": {
             "get": {
                 "summary": "List questions with id",
                 "tags": [
@@ -298,6 +298,49 @@
                     },
                     "411": {
                         "description": "Question not found"
+                    }
+                }
+            }
+        },
+        "/questions/{id}": {
+            "put": {
+                "summary": "Update question by id",
+                "tags": [
+                    "questions"
+                ],
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of question",
+                        "type": "string",
+                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                    },
+                    {
+                        "name": "question",
+                        "in": "body",
+                        "description": "question info that we want to update",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "412": {
+                        "description": ""
                     }
                 }
             }

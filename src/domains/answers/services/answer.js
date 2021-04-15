@@ -4,10 +4,16 @@ const { env } = require('../../../configs/config.service')
 
 const create_one = (answer_model) => new Promise(async(resolve, reject) => {
     try {
-
         const query = {
             question_id: answer_model.question_id,
             name: answer_model.name,
+        }
+
+        const collection_question = mongo.db.collection('questions')
+        const exist_question = await collection_question.findOne({ _id: answer_model.question_id })
+
+        if (exist_question === null) {
+            return reject('question is not exist')
         }
 
         const collection = mongo.db.collection('answers')
