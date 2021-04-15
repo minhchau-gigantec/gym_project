@@ -61,25 +61,7 @@ const get_list = () => new Promise(async(resolve, reject) => {
     try {
 
         const collection = mongo.db.collection('schedules')
-        const result = await collection.aggregate([{
-                $lookup: {
-                    from: 'programs',
-                    localField: 'program_id',
-                    foreignField: '_id',
-                    as: 'program'
-                }
-            },
-            { $unwind: '$program' },
-            {
-                $lookup: {
-                    from: 'user_profiles',
-                    localField: 'user_id',
-                    foreignField: '_id',
-                    as: 'user'
-                }
-            },
-            { $unwind: '$user' }
-        ]).toArray()
+        const result = await collection.find().toArray()
 
         return resolve(result)
     } catch (error) {

@@ -17,7 +17,6 @@ const create_one = (booking_model) => new Promise(async(resolve, reject) => {
         await collection.insertOne(create_booking)
 
         const result = await collection.findOne({ _id: id })
-
         return resolve(result)
     } catch (error) {
         console.log(error)

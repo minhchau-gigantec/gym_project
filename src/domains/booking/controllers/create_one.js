@@ -1,7 +1,7 @@
 const booking = require('../services/booking')
 
-module.exports = async (req, res) => {
-    try{
+module.exports = async(req, res) => {
+    try {
         const booking_model = req.body
         const result = await booking.create_one(booking_model)
        
@@ -11,8 +11,8 @@ module.exports = async (req, res) => {
             data: result
         })
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
-        return res.status(426).send({message: error})
+        return res.send(426).send({ message: error })
     }
 }

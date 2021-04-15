@@ -31,6 +31,14 @@
         {
             "name": "trackers",
             "description": "API for trackers in the system"
+        },
+        {
+            "name": "user_programs",
+            "description": "API for user_programs in the system"
+        },
+        {
+            "name": "users",
+            "description": "API for users in the system"
         }
     ],
     "schemes": [
@@ -94,7 +102,7 @@
                         "description": "validation error"
                     },
                     "409": {
-                        "description": ""
+                        "description": "answer is existed"
                     }
                 }
             }
@@ -134,7 +142,7 @@
                         "description": "handler success"
                     },
                     "405": {
-                        "description": ""
+                        "description": "answer not found"
                     }
                 }
             }
@@ -227,7 +235,7 @@
                         "description": "validation error"
                     },
                     "410": {
-                        "description": ""
+                        "description": "question is existed"
                     }
                 }
             }
@@ -267,7 +275,7 @@
                         "description": "handler success"
                     },
                     "413": {
-                        "description": ""
+                        "description": "Question not found"
                     }
                 }
             }
@@ -318,15 +326,15 @@
                         "properties": {
                             "time": {
                                 "type": "string",
-                                "example": "ba8f8d01-d500-4f45-ae26-a1b238fadf4c"
+                                "example": "10"
                             },
                             "program_id": {
                                 "type": "string",
-                                "example": "50"
+                                "example": "program-id of program"
                             },
                             "note": {
                                 "type": "string",
-                                "example": "100"
+                                "example": "note of program"
                             }
                         }
                     }
@@ -500,13 +508,15 @@
                         "properties": {
                             "name": {
                                 "type": "string",
-                                "example": "Question 1"
+                                "example": "Program 1"
                             },
                             "min_points": {
-                                "type": "integer"
+                                "type": "integer",
+                                "example": "10"
                             },
                             "max_points": {
-                                "type": "integer"
+                                "type": "integer",
+                                "example": "100"
                             }
                         }
                     }
@@ -522,7 +532,7 @@
                         "description": "validation error"
                     },
                     "422": {
-                        "description": ""
+                        "description": "program is existed"
                     }
                 }
             }
@@ -562,7 +572,7 @@
                         "description": "handler success"
                     },
                     "425": {
-                        "description": ""
+                        "description": "program not found"
                     }
                 }
             }
@@ -593,11 +603,11 @@
 
         "/schedules": {
             "post": {
-                "summary": "Create or update schedule",
+                "summary": "Create schedule",
                 "tags": [
                     "schedules"
                 ],
-                "description": "Create or update schedule",
+                "description": "Create schedule",
 
                 "parameters": [{
                     "name": "schedule",
@@ -617,13 +627,16 @@
                                 "example": "ba8f8d01-d500-4f45-ae26-a1b238fadf4c"
                             },
                             "time": {
-                                "type": "string"
+                                "type": "string",
+                                "example": "10"
                             },
                             "note": {
-                                "type": "string"
+                                "type": "string",
+                                "example": "note of schedule"
                             },
                             "program_id": {
-                                "type": "string"
+                                "type": "string",
+                                "example": "program_id of schedule"
                             }
                         }
                     }
@@ -885,6 +898,306 @@
                     },
                     "439": {
                         "description": "tracker not found"
+                    }
+                }
+            }
+        },
+
+        "/user_programs": {
+            "post": {
+                "summary": "Create user_programs",
+                "tags": [
+                    "user_programs"
+                ],
+                "description": "Create user_programs",
+
+                "parameters": [{
+                    "name": "user_program",
+                    "in": "body",
+                    "description": "user_program info",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "user_id",
+                            "program_id"
+                        ],
+                        "properties": {
+                            "user_id": {
+                                "type": "string",
+                                "example": "user_id of user"
+                            },
+                            "program_id": {
+                                "type": "string",
+                                "example": "program_id of user"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "445": {
+                        "description": "user_program is existed"
+                    }
+                }
+            }
+        },
+        "/user_programs ": {
+            "get": {
+                "summary": "List all user_program",
+                "tags": [
+                    "user_programs"
+                ],
+                "description": "List all user_program in database",
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "448": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user_programs/user/{user_id}": {
+            "get": {
+                "summary": "Get list trackers by user_id",
+                "tags": [
+                    "trackers"
+                ],
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "user_id",
+                    "type": "string",
+                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "447": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user_programs/{id} ": {
+            "get": {
+                "summary": "Get user_program by id",
+                "tags": [
+                    "user_programs"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of user_program",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "449": {
+                        "description": "user program not found"
+                    }
+                }
+            }
+        },
+        "/user_programs/{id}  ": {
+            "delete": {
+                "summary": "Delete user_program with id",
+                "tags": [
+                    "user_programs"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "example": "8d960b70-bb50-4102-9a89-48c99a4db7b0",
+                    "description": "ID of user_program you want to delete"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "446": {
+                        "description": "user program not found"
+                    }
+                }
+            }
+        },
+
+
+        "/users": {
+            "post": {
+                "summary": "Create user",
+                "tags": [
+                    "users"
+                ],
+                "description": "Create user",
+
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "user info",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "user_id",
+                            "first_name",
+                            "last_name",
+                            "phone",
+                            "address",
+                            "avatar",
+                            "birthday",
+                            "gender"
+                        ],
+                        "properties": {
+                            "user_id": {
+                                "type": "string",
+                                "example": "user_id for auth"
+                            },
+                            "first_name": {
+                                "type": "string",
+                                "example": "firstname1"
+                            },
+                            "last_name": {
+                                "type": "string",
+                                "example": "lastname1"
+                            },
+                            "phone": {
+                                "type": "string",
+                                "example": "0905111111"
+                            },
+                            "address": {
+                                "type": "string",
+                                "example": "TP.HCM"
+                            },
+                            "avatar": {
+                                "type": "string"
+                            },
+                            "birthday": {
+                                "type": "date",
+                                "example": "2021/15/04"
+                            },
+                            "gender": {
+                                "type": "string",
+                                "example": "male"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "451": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "put": {
+                "summary": "Update user by id",
+                "tags": [
+                    "users"
+                ],
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of user",
+                        "type": "string",
+                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                    },
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "user info",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "user_id": {
+                                    "type": "string",
+                                    "example": "user_id for auth"
+                                },
+                                "first_name": {
+                                    "type": "string",
+                                    "example": "firstname1"
+                                },
+                                "last_name": {
+                                    "type": "string",
+                                    "example": "lastname1"
+                                },
+                                "phone": {
+                                    "type": "string",
+                                    "example": "0905111111"
+                                },
+                                "address": {
+                                    "type": "string",
+                                    "example": "TP.HCM"
+                                },
+                                "avatar": {
+                                    "type": "string"
+                                },
+                                "birthday": {
+                                    "type": "string",
+                                    "example": "2021/15/04"
+                                },
+                                "gender": {
+                                    "type": "string",
+                                    "example": "male"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "450": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{id} ": {
+            "get": {
+                "summary": "Get user by id",
+                "tags": [
+                    "users"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of user",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "452": {
+                        "description": ""
                     }
                 }
             }

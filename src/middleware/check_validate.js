@@ -26,7 +26,7 @@ module.exports = (schema, type = 'body') => async(req, res, next) => {
         return next()
 
     } catch (error) {
-        console.log(error)
+        console.log({ error })
         res.json({
             code: 400,
             message: 'validation error',
