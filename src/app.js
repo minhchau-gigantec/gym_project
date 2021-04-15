@@ -8,7 +8,7 @@ const mongo = require('./core/mongo')
 
 const question_router = require('./domains/questions/router')
 const answer_router = require('./domains/answers/router')
-const booking_router = require('./domains/answers/router')
+const booking_router = require('./domains/booking/router')
 const program_router = require('./domains/programs/router')
 
 const schedule_router = require('./domains/schedules/router')

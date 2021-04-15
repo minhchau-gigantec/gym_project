@@ -10,7 +10,7 @@ const create_one = (program_model) => new Promise(async (resolve, reject) => {
         }
 
         const collection = mongo.db.collection('programs')
-        const existed_item = collection.findOne(query)
+        const existed_item = await collection.findOne(query)
 
         if(existed_item){
             return reject("program is existed")
@@ -20,8 +20,8 @@ const create_one = (program_model) => new Promise(async (resolve, reject) => {
         const create_item = {
             _id: id,
             name: program_model.name,
-            min_points: program_model.min_points,
-            max_points: program_model.max_points,
+            min_points: parseInt(program_model.min_points),
+            max_points: parseInt(program_model.max_points),
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         }
@@ -44,10 +44,11 @@ const update_one = (id, item) => new Promise(async (resolve, reject) =>{
             returnNewDocument: true
         }
         const collection = mongo.db.collection('programs')
-        const result = await collection.updateOne({_id: id}, {
+        await collection.updateOne({_id: id}, {
             $set: item
         }, options)
 
+        const result = await get_one(id)
         return resolve(result)
 
     }catch(error){
@@ -56,7 +57,7 @@ const update_one = (id, item) => new Promise(async (resolve, reject) =>{
     }
 })
 
-const delete_one = (id) => new Promise(async (resovle, reject ) => {
+const delete_one = (id) => new Promise(async (resolve, reject ) => {
     try{
         const collection = mongo.db.collection('programs')
         const existed_program = await collection.findOne({_id: id})
@@ -79,6 +80,10 @@ const get_one = (id) => new Promise(async (resolve, reject) => {
 
         const collection = mongo.db.collection('programs')
         const program = await collection.findOne({_id: id})
+
+        if(!program){
+            return reject('program not found')
+        }
         return resolve(program)
 
     }catch(error){

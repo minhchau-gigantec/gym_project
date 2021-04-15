@@ -2,8 +2,9 @@ const tracker = require('../services/tracker')
 
 module.exports = async (req, res) => {
     try{
+        const {user} = req
         const item = req.body
-        const result = await tracker.create_one(item)
+        const result = await tracker.create_one(user.id, item)
         return res.json({
             code: 200,
             message: 'handler success',

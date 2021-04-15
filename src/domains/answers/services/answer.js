@@ -43,14 +43,13 @@ const create_one = (answer_model) => new Promise(async(resolve, reject) => {
 
 const update_one = (id, item) => new Promise(async(resolve, reject) => {
     try {
-        const options = {
-            returnNewDocument: true
-        }
 
         const collection = mongo.db.collection('answers')
-        const result = await collection.updateOne({ _id: id }, {
+        await collection.updateOne({ _id: id }, {
             $set: item
-        }, options)
+        })
+
+        const result = await get_one(id)
         return resolve(result)
 
     } catch (error) {
@@ -68,8 +67,8 @@ const delete_one = (id) => new Promise(async(resolve, reject) => {
             return reject('answers not found')
         }
 
-        const result = collection.deleteOne({ _id: id })
-        return resolve(result)
+        await collection.deleteOne({ _id: id })
+        return resolve('delete answer success')
 
     } catch (error) {
         console.log(error)
@@ -85,14 +84,17 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
             { $match: { _id: id } },
             {
                 $lookup: {
-                    from: "questions",
+                    from: 'questions',
                     localField: "question_id",
-                    foreignField: "_id",
-                    as: "question"
-                },
+                    foreignField: '_id',
+                    as: 'question'
+
+                }
             },
-            { $unwind: "$quesion" }
+            { $unwind: '$question' }
         ]).toArray()
+
+        console.log({result})
 
         if (result.length == 0) {
             return reject('answer not found')
@@ -137,7 +139,18 @@ const get_list_by_question = (question_id) => new Promise(async(resolve, reject)
 const get_list = () => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('answers')
-        const result = await collection.find().toArray()
+        const result = await collection.aggregate([
+            {
+                $lookup: {
+                    from: 'questions',
+                    localField: "question_id",
+                    foreignField: '_id',
+                    as: 'question'
+
+                }
+            },
+            { $unwind: '$question' }
+        ]).toArray()
 
         return resolve(result)
     } catch (error) {

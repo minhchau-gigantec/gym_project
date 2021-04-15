@@ -20,6 +20,7 @@ const create_one = (question_model) => new Promise(async(resolve, reject) => {
             _id: id,
             name: question_model.name,
             content: question_model.content,
+            type: question_model.type,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         }
@@ -95,6 +96,9 @@ const delete_one = (id) => new Promise(async(resolve, reject) => {
         }
 
         await collection.deleteOne({ _id: id })
+
+        const answer_collection = mongo.db.collection('answers')
+        answer_collection.deleteMany({question_id: id})
 
         return resolve('delete question success')
 

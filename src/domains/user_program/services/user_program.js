@@ -1,12 +1,12 @@
 const mongo = require('../../../core/mongo')
 const { v4: uuid } = require('uuid')
 
-const create_one = (item) => new Promise(async(resolve, reject) => {
+const create_one = (user_id, item) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('user_programs')
 
         const query = {
-            user_id: item.user_id,
+            user_id,
             program_id: item.program_id
         }
 
@@ -18,7 +18,7 @@ const create_one = (item) => new Promise(async(resolve, reject) => {
         const id = uuid()
         const create_item = {
             _id: id,
-            user_id: item.user_id,
+            user_id,
             program_id: item.program_id,
             created_at: new Date().toISOString(),
             udpated_at: new Date().toISOString()
