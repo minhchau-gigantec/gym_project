@@ -1,7 +1,7 @@
 const mongo = require('../../../core/mongo')
 const {v4: uuid} = require('uuid')
 
-const create_or_update = (question_model) => new Promise(async (resolve, reject) => {
+const create_one = (question_model) => new Promise(async (resolve, reject) => {
     try{
         const id = uuid()
         const query = {
