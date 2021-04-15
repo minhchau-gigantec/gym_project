@@ -6,7 +6,10 @@ const delete_one = require('./controllers/delete_one')
 const get_list = require('./controllers/get_list')
 const get_one = require('./controllers/get_one')
 
-router.post('/', create_or_update)
+const validate = require('../../middleware/check_validate')
+const dataExample = require('./models/validate')
+
+router.post('/', validate(dataExample.create_question), create_or_update)
 
 router.get('/', get_list)
 

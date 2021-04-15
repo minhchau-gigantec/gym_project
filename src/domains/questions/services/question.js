@@ -1,8 +1,8 @@
 const mongo = require('../../../core/mongo')
-const {v4: uuid} = require('uuid')
+const { v4: uuid } = require('uuid')
 
-const create_or_update = (question_model) => new Promise(async (resolve, reject) => {
-    try{
+const create_or_update = (question_model) => new Promise(async(resolve, reject) => {
+    try {
         const id = uuid()
         const query = {
             name: question_model.name
@@ -24,64 +24,64 @@ const create_or_update = (question_model) => new Promise(async (resolve, reject)
         }
 
         const collection = mongo.db.collection('questions')
-        var {value} = await collection.findOneAndUpdate(query, {
+        var { value } = await collection.findOneAndUpdate(query, {
             $set: update,
             $setOnInsert: insert
         }, options)
 
-        if(!value) {
-            value = await collection.findOne({_id: id})
-        }else{
-            value = await collection.findOne({_id: value._id})
+        if (!value) {
+            value = await collection.findOne({ _id: id })
+        } else {
+            value = await collection.findOne({ _id: value._id })
         }
 
         return resolve(value)
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
-const get_one = (id) => new Promise(async (resolve, reject) => {
-    try{
+const get_one = (id) => new Promise(async(resolve, reject) => {
+    try {
         const collection = mongo.db.collection('questions')
-        const result = await collection.findOne({_id: id})
+        const result = await collection.findOne({ _id: id })
         return resolve(result)
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
 
-const get_list = () => new Promise(async (resolve, reject) => {
-    try{
+const get_list = () => new Promise(async(resolve, reject) => {
+    try {
         const collection = mongo.db.collection('questions')
-        const result = await collection.find()
+        const result = await collection.find().toArray()
         return resolve(result)
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
-const delete_one = (id) => new Promise(async (resolve, reject) => {
-    try{
+const delete_one = (id) => new Promise(async(resolve, reject) => {
+    try {
 
         const collection = mongo.db.collection('questions')
-        const question = await collection.findOne({_id: id})
+        const question = await collection.findOne({ _id: id })
 
-        if(!question){
+        if (!question) {
             return reject("Question not found")
         }
 
-        await collection.deleteOne({_id: id})
+        await collection.deleteOne({ _id: id })
 
         return resolve('delete question success')
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
@@ -89,7 +89,7 @@ const delete_one = (id) => new Promise(async (resolve, reject) => {
 
 
 module.exports = {
-    create_or_update, 
+    create_or_update,
     get_list,
     get_one,
     delete_one

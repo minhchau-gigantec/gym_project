@@ -7,9 +7,12 @@ const get_one = require('./controllers/get_one')
 const get_list = require('./controllers/get_list')
 const get_list_by_question = require('./controllers/get_list_by_question')
 
-router.post('/', create_or_update)
+const validate = require('../../middleware/check_validate')
+const dataExample = require('./models/validate')
 
-router.delete('/', delete_one)
+router.post('/', validate(dataExample.create_answer), create_or_update)
+
+router.delete('/:id', delete_one)
 
 router.get('/', get_list)
 

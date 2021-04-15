@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const {env} = require('../configs/config.service')
+const { env } = require('../configs/config.service')
 
 const mongo = {
     db: null,
@@ -7,23 +7,19 @@ const mongo = {
 }
 
 
-mongo.connect = async () => {
-    try{
-        const {DB_URL, DB_DATABASE} = env.config
-        // Database Name
-         const client = new MongoClient(DB_URL, ({useNewUrlParser: true, useUnifiedTopology: true}))
-     
+mongo.connect = async() => {
+    try {
+        const { DB_URL, DB_DATABASE } = env.config
+            // Database Name
+        const client = new MongoClient(DB_URL, ({ useNewUrlParser: true, useUnifiedTopology: true }))
+
         // Use connect method to connect to the server 
         await client.connect()
         mongo.db = client.db(DB_DATABASE)
-     
-        // const test = mongo.db.collection('test_1')
-        // const result = await test.insertOne({name: 'hello'})
-        // console.log({result})
-        
+
         console.log(`MONGO DATABASE: connect success: ${DB_URL}/${DB_DATABASE}`)
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         throw error
     }
@@ -31,4 +27,3 @@ mongo.connect = async () => {
 
 
 module.exports = mongo
-

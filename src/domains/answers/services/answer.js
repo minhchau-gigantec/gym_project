@@ -1,10 +1,9 @@
-
-const {v4: uuid} = require('uuid')
+const { v4: uuid } = require('uuid')
 const mongo = require('../../../core/mongo')
-const {env} = require('../../../configs/config.service')
+const { env } = require('../../../configs/config.service')
 
-const create_or_update = (answer_model) => new Promise(async (resolve, reject) => {
-    try{
+const create_or_update = (answer_model) => new Promise(async(resolve, reject) => {
+    try {
         const id = uuid()
 
         const query = {
@@ -25,104 +24,105 @@ const create_or_update = (answer_model) => new Promise(async (resolve, reject) =
 
         const options = {
             upsert: true,
-            returnNewDocument : true
+            returnNewDocument: true
         }
 
         const collection = mongo.db.collection('answers')
-        var {value }= await collection.findOneAndUpdate(query, {
+        var { value } = await collection.findOneAndUpdate(query, {
             $set: update,
             $setOnInsert: insert
         }, options)
 
-        if (!value){
-            value = await collection.findOne({_id: id})
-        }else{
-            value = await collection.findOne({_id: value._id})
+        if (!value) {
+            value = await collection.findOne({ _id: id })
+        } else {
+            value = await collection.findOne({ _id: value._id })
         }
         return resolve(value)
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 
 })
 
-const delete_one = (id) => new Promise(async (resolve, reject) => {
-    try{
-        const collection =  mongo.db.collection('answers')
-        const exist_answers = await collection.findOne({_id: id})
+const delete_one = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const collection = mongo.db.collection('answers')
+        const exist_answers = await collection.findOne({ _id: id })
 
-        if(!exist_answers){
-            return resolve('aswers not found')
+        if (!exist_answers) {
+            return reject('answers not found')
         }
 
-        const result = collection.deleteOne({_id: id})
+        const result = collection.deleteOne({ _id: id })
         return resolve(result)
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
 
-const get_one = (id) => new Promise( async (resolve, reject) => {
-    try{
+const get_one = (id) => new Promise(async(resolve, reject) => {
+    try {
         const collection = mongo.db.collection('answers')
         const result = await collection.aggregate([
-            {$match: {_id: id}},
+            { $match: { _id: id } },
             {
-                $lookup:
-                    {
+                $lookup: {
                     from: "questions",
                     localField: "question_id",
                     foreignField: "_id",
                     as: "question"
                 }
-           }
-         ]).toArray()
+            }
+        ]).toArray()
 
-         console.log({result})
+        console.log({ result })
         return resolve(result)
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
-const get_list_by_question = (question_id) => new Promise(async (resolve, reject) => {
-    try{
+const get_list_by_question = (question_id) => new Promise(async(resolve, reject) => {
+    try {
         const collection = mongo.db.collection('answers')
         const result = await collection.aggregate([
-            {$match: {question_id}},
-            {$lookup: {
-                from: 'questions',
-                localField: "question_id",
-                foreignField: '_id',
-                as: 'question'
+            { $match: { question_id } },
+            {
+                $lookup: {
+                    from: 'questions',
+                    localField: "question_id",
+                    foreignField: '_id',
+                    as: 'question'
 
-            }}
+                }
+            }
         ]).toArray()
         console.log(result)
 
         return resolve(result)
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
 
-const get_list = () => new Promise(async (resolve, reject) => {
-    try{
+const get_list = () => new Promise(async(resolve, reject) => {
+    try {
         const collection = mongo.db.collection('answers')
         const result = await collection.find().toArray()
 
         return resolve(result)
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
