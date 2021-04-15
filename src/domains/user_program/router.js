@@ -17,8 +17,6 @@ router.get('/', get_list)
 
 router.get('/user/:user_id', get_list_by_user)
 
-router.get('/:id', get_one)
-
 router.delete('/:id', delete_one)
 
 module.exports = router

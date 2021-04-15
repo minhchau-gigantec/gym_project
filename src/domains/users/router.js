@@ -8,8 +8,8 @@ const validate = require('../../middleware/check_validate')
 const dataExample = require('./models/validate')
 
 
-router.get('/:id', get_one)
+router.get('/info', get_one)
 
-router.put('/:id', validate(dataExample.update), update_one)
+router.put('/info', validate(dataExample.update), update_one)
 
 module.exports = router

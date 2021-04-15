@@ -51,13 +51,10 @@ const update_one = (id, item) => new Promise(async(resolve, reject) => {
 
         const collection = mongo.db.collection('user_profiles')
 
-        const options = {
-            returnNewObject: true
-        }
-        const result = await collection.updateOne({ _id: id }, {
+        await collection.updateOne({ _id: id }, {
             $set: item
-        }, options)
-
+        })
+        const result = await collection.findOne({_id: id})
         return resolve(result)
     } catch (error) {
         console.log(error)
