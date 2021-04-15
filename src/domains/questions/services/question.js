@@ -34,16 +34,18 @@ const create_one = (question_model) => new Promise(async(resolve, reject) => {
     }
 })
 
-const update_one = (id, item) => new Promise(async(req, res) => {
+const update_one = (id, item) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('questions')
 
         const options = {
             returnNewDocument: true
         }
-        const result = await collection.updateOne({ _id: id }, {
+        await collection.updateOne({ _id: id }, {
             $set: item
         }, options)
+
+        const result = await get_one(id)
 
         return resolve(result)
 
@@ -57,6 +59,10 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('questions')
         const result = await collection.findOne({ _id: id })
+
+        if(!result){
+            return reject("question not found")
+        }
         return resolve(result)
 
     } catch (error) {
