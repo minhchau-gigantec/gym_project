@@ -77,9 +77,14 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
                     localField: "question_id",
                     foreignField: "_id",
                     as: "question"
-                }
-            }
+                },
+            },
+            { $unwind: "$quesion" }
         ]).toArray()
+
+        if (result.length == 0) {
+            return reject('answer not found')
+        }
 
         console.log({ result })
         return resolve(result)
@@ -103,7 +108,8 @@ const get_list_by_question = (question_id) => new Promise(async(resolve, reject)
                     as: 'question'
 
                 }
-            }
+            },
+            { $unwind: '$question' }
         ]).toArray()
         console.log(result)
 

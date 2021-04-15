@@ -1,4 +1,4 @@
-const create_answer = {
+const create = {
     additionalProperties: false,
     type: 'object',
     properties: {
@@ -10,6 +10,19 @@ const create_answer = {
     required: ['question_id', 'name', 'content', 'points']
 }
 
+const update = {
+    additionalProperties: false,
+    type: 'object',
+    properties: {
+        question_id: { type: 'string' },
+        name: { type: 'string' },
+        content: { type: 'string' },
+        points: { type: 'integer' },
+    },
+    required: ['question_id', 'name']
+}
+
 module.exports = {
-    create_answer
+    create,
+    update
 }

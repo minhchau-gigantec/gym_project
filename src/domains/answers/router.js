@@ -10,7 +10,7 @@ const get_list_by_question = require('./controllers/get_list_by_question')
 const validate = require('../../middleware/check_validate')
 const dataExample = require('./models/validate')
 
-router.post('/', validate(dataExample.create_answer), create_or_update)
+router.post('/', validate(dataExample.create), create_or_update)
 
 router.delete('/:id', delete_one)
 

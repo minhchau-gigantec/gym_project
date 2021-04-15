@@ -8,6 +8,8 @@ const mongo = require('./core/mongo')
 
 const question_router = require('./domains/questions/router')
 const answer_router = require('./domains/answers/router')
+const booking_router = require('./domains/booking/router')
+const program_router = require('./domains/programs/router')
 
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json')
@@ -29,6 +31,8 @@ const start = async() => {
 
     app.use('/questions', question_router)
     app.use('/answers', answer_router)
+    app.use('/bookings', booking_router)
+    app.use('/programs', program_router)
 
     app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
