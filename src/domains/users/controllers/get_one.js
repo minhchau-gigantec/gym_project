@@ -1,8 +1,8 @@
 const user_profile = require('../services/user_profile')
 
-module.exports = (req, res) => {
-    try{
-        const {id} = req.params
+module.exports = async(req, res) => {
+    try {
+        const { id } = req.params
         const result = await user_profile.get_one(id)
         return res.json({
             code: 200,
@@ -10,8 +10,8 @@ module.exports = (req, res) => {
             data: result
         })
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
-        return res.status(452).send({massage: error})
+        return res.status(452).send({ massage: error })
     }
 }
