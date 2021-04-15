@@ -3,7 +3,7 @@ const schedule = require('../services/schedule')
 module.exports = async (req, res) => {
     try{
         const schedule_model = req.body
-        const result = await schedule.create_or_update(schedule_model)
+        const result = await schedule.create_one(schedule_model)
         return res.json({
             code: 200,
             message: 'handler success',

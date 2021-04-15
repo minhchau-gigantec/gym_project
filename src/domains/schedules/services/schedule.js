@@ -1,44 +1,56 @@
 const mongo = require('../../../core/mongo')
 const {v4: uuid} = require('uuid')
 
-const create_or_update = (schedule_model) => new Promise((resolve, reject) => {
+const create_one = (schedule_model) => new Promise((resolve, reject) => {
     try{
         const id = uuid()
         const query = {
             user_id: schedule_model.user_id,
             time: schedule_model.time,
         }
+        const collection = mongo.db.collection('schedules')
 
-        const update = {
+        const existed_item = await collection.findOne(query)
+
+        if(existed_item) {
+            return reject('schedule is existed')
+        }
+
+        const create_item = {
+            _id: id,
             note: schedule_model.note,
+            user_id: schedule_model.user_id,
+            time: schedule_model.time,
             program: schedule_model.program_id,
+            created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         }
 
-        const upsert = {
-            _id: id,
-            created_at: new Date().toISOString()
-        }
 
+        await collection.insertOne(create_item)
+        const result = await collection.findOne({_id: id})
+       
+        return resolve(result)
+
+    }catch(error){
+        console.log(error)
+        return reject(error)
+    }
+})
+
+const update_one = (id, item) => new Promise((resolve, reject) => {
+    try{
+
+        const collection = mongo.db.collection('schedules')
         const options = {
-            upsert: true,
             returnNewDocument: true
         }
 
-        const collection = mongo.db.collection('schedules')
-        var value = await collection.findOneAndUpdate(query,
-            {
-                $set: update,
-                $setOnInsert: insert
-            }, options)
+        const result = collection.updateOne({_id: id}, {
+            $set: item
+        }, options)
 
-        if(!value){
-            value = await collection.findOne({_id: id})
-        }else {
-            value = await collection.findOne({_id: value._id})
-        }
-        return resolve(value)
-
+        return resolve(result)
     }catch(error){
         console.log(error)
         return reject(error)
@@ -146,7 +158,7 @@ const get_one = (id) => new Promise(async (resolve, reject) => {
 const delete_one = (id) => new Promise(async (resolve, reject) => {
     try{
         const collection = mongo.db.collection('schedules')
-        const exsted_schedule = await collection.finOne({_id: id})
+        const exsted_schedule = await collection.findOne({_id: id})
 
         if(!exsted_schedule){
             return reject('schedule not found')
@@ -162,7 +174,8 @@ const delete_one = (id) => new Promise(async (resolve, reject) => {
 
 
 module.exports  = {
-    create_or_update,
+    create_one,
+    update_one,
     get_one,
     get_list,
     get_list_by_user,
