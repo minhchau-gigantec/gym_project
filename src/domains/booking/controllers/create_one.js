@@ -4,6 +4,7 @@ module.exports = async(req, res) => {
     try {
         const booking_model = req.body
         const result = await booking.create_one(booking_model)
+       
         return res.json({
             code: 200,
             message: 'handler success',

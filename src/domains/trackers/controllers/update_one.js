@@ -3,7 +3,8 @@ const tracker = require('../services/tracker')
 module.exports = async(req, res) => {
     try {
         const item = req.body
-        const result = await tracker.update_one(item)
+        const {user} = req
+        const result = await tracker.update_one(user.id, item)
         return res.json({
             code: 200,
             message: 'Handler success',

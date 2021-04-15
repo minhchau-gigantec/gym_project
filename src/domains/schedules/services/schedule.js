@@ -1,11 +1,11 @@
 const mongo = require('../../../core/mongo')
 const { v4: uuid } = require('uuid')
 
-const create_one = (schedule_model) => new Promise(async(resolve, reject) => {
+const create_one = (user_id, schedule_model) => new Promise(async(resolve, reject) => {
     try {
         const id = uuid()
         const query = {
-            user_id: schedule_model.user_id,
+            user_id,
             time: schedule_model.time,
         }
         const collection = mongo.db.collection('schedules')
@@ -18,8 +18,8 @@ const create_one = (schedule_model) => new Promise(async(resolve, reject) => {
 
         const create_item = {
             _id: id,
+            user_id,
             note: schedule_model.note,
-            user_id: schedule_model.user_id,
             time: schedule_model.time,
             program: schedule_model.program_id,
             created_at: new Date().toISOString(),
@@ -128,6 +128,10 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
             },
             { $unwind: '$user' }
         ]).toArray()
+
+        if(result.length == 0) {
+            return reject('shedule not found')
+        }
 
         return resolve(result)
     } catch (error) {

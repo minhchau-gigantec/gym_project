@@ -1,10 +1,10 @@
 const mongo = require('../../../core/mongo')
 const { v4: uuid } = require('uuid')
 
-const create_one = (tracker_model) => new Promise(async(resolve, reject) => {
+const create_one = (user_id, tracker_model) => new Promise(async(resolve, reject) => {
     try {
         const query = {
-            user_id: tracker_model.user_id,
+            user_id,
             time: tracker_model.time
         }
 
@@ -20,6 +20,7 @@ const create_one = (tracker_model) => new Promise(async(resolve, reject) => {
             _id: id,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
+            user_id,
             step: tracker_model.step,
             weight: tracker_model.weight
         }
@@ -34,10 +35,10 @@ const create_one = (tracker_model) => new Promise(async(resolve, reject) => {
     }
 })
 
-const update_one = (tracker_model) => new Promise(async(resolve, reject) => {
+const update_one = (user_id, tracker_model) => new Promise(async(resolve, reject) => {
     try {
         const query = {
-            user_id: tracker_model.user_id,
+            user_id,
             time: tracker_model.time
         }
         const options = {

@@ -8,7 +8,6 @@ const create_one = (booking_model) => new Promise(async(resolve, reject) => {
         const create_booking = {
             _id: id,
             time: booking_model.time,
-            program_id: booking_model.program_id,
             note: booking_model.note,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
@@ -58,15 +57,6 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
             { $match: { _id: id } },
             {
                 $lookup: {
-                    from: 'programs',
-                    localField: 'program_id',
-                    foreignField: '_id',
-                    as: 'program'
-                }
-            },
-            { $unwind: '$program' },
-            {
-                $lookup: {
                     from: 'user_profiles',
                     localField: 'user_id',
                     foreignField: '_id',
@@ -90,7 +80,17 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
 const get_list = () => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('booking')
-        const result = await collection.find().toArray()
+        const result = await collection.aggregate([
+            {
+                $lookup: {
+                    from: 'user_profiles',
+                    localField: 'user_id',
+                    foreignField: '_id',
+                    as: 'user'
+                }
+            },
+            { $unwind: '$user' }
+        ]).toArray()
 
         return resolve(result)
     } catch (error) {
@@ -104,15 +104,6 @@ const get_list_by_user = (user_id) => new Promise(async(resolve, reject) => {
         const collection = mongo.db.collection('booking')
         const result = await collection.aggregate([
             { $match: { user_id } },
-            {
-                $lookup: {
-                    from: 'programs',
-                    localField: 'program_id',
-                    foreignField: '_id',
-                    as: 'program'
-                }
-            },
-            { $unwind: '$program' },
             {
                 $lookup: {
                     from: 'user_profiles',

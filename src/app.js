@@ -5,6 +5,8 @@ const cors = require('cors')
 const { env, setConfig } = require('./configs/config.service')
 const mongo = require('./core/mongo')
 
+const check_auth = require('./middleware/check_auth')
+
 
 const question_router = require('./domains/questions/router')
 const answer_router = require('./domains/answers/router')
@@ -30,6 +32,8 @@ const start = async function() {
     app.use(cors())
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: true }))
+
+    app.use(check_auth)
 
 
     app.use('/questions', question_router)

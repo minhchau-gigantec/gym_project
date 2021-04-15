@@ -12,7 +12,7 @@ const validate = require('../../middleware/check_validate')
 const dataExample = require('./models/validate')
 
 
-router.post('/', validate(dataExample.create), create_one)
+router.post('/', create_one)
 
 router.get('/', get_list)
 
