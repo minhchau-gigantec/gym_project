@@ -79,7 +79,7 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
         if (result.length == 0) {
             return reject('booking not found')
         }
-        return resolve(result)
+        return resolve(result[0])
 
     } catch (error) {
         console.log(error)

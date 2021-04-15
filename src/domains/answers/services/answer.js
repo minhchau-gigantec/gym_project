@@ -87,7 +87,7 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
         }
 
         console.log({ result })
-        return resolve(result)
+        return resolve(result[0])
 
     } catch (error) {
         console.log(error)
