@@ -2,9 +2,8 @@ const tracker = require('../services/tracker')
 
 module.exports = (req, res) => {
     try{
-        const {id} = req.params
         const item = req.body
-        const result = await tracker.update_one(id, item)
+        const result = await tracker.update_one(item)
         return res.json({
             code: 200,
             message: 'Handler success',
