@@ -9,6 +9,7 @@ const create_one = (booking_model) => new Promise((resolve, reject) => {
             _id: id,
             time: booking_model.time,
             program_id: booking_model.program_id,
+            note: booking_model.note,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         }
@@ -29,6 +30,7 @@ const update_one = (id, booking_model) => new Promise((resolve, reject) => {
 
         const collection = mongo.db.collection('booking')
         const update = {
+            note: booking_model.note,
             time: booking_model.time,
             updated_at: new Date().toISOString()
         }
