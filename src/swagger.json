@@ -102,7 +102,7 @@
                         "description": "validation error"
                     },
                     "409": {
-                        "description": "question is not exist/ answer is existed/ "
+                        "description": "question is not exist/ answer is existed"
                     }
                 }
             }
