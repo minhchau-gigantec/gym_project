@@ -4,7 +4,8 @@ module.exports = async(req, res) => {
     try {
         const item = req.body
         const {user} = req
-        const result = await tracker.update_one(user.id, item)
+        const user_id = user._id
+        const result = await tracker.update_one(user_id, item)
         return res.json({
             code: 200,
             message: 'Handler success',

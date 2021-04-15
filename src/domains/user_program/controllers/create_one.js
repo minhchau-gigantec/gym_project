@@ -4,6 +4,7 @@ module.exports = async (req, res) => {
     try{
         const item = req.body
         const {user} = req
+        const user_id = user._id
         const result = await user_program.create_one(user_id, item)
         return res.json({
             code: 200,

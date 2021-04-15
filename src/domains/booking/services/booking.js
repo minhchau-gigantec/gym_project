@@ -1,12 +1,13 @@
 const { v4: uuid } = require('uuid')
 const mongo = require('../../../core/mongo')
 
-const create_one = (booking_model) => new Promise(async(resolve, reject) => {
+const create_one = (user_id, booking_model) => new Promise(async(resolve, reject) => {
     try {
         const id = uuid()
 
         const create_booking = {
             _id: id,
+            user_id,
             time: booking_model.time,
             note: booking_model.note,
             created_at: new Date().toISOString(),
@@ -24,7 +25,7 @@ const create_one = (booking_model) => new Promise(async(resolve, reject) => {
     }
 })
 
-const update_one = (id, booking_model) => new Promise(async(resolve, reject) => {
+const update_one = (user_id, id, booking_model) => new Promise(async(resolve, reject) => {
     try {
 
         const collection = mongo.db.collection('booking')
@@ -38,7 +39,7 @@ const update_one = (id, booking_model) => new Promise(async(resolve, reject) => 
             returnNewDocument: true
         }
 
-        const result = await collection.updateOne({ _id: id }, {
+        const result = await collection.updateOne({ _id: id, user_id}, {
             $set: update
         }, options)
 
@@ -50,11 +51,11 @@ const update_one = (id, booking_model) => new Promise(async(resolve, reject) => 
 })
 
 
-const get_one = (id) => new Promise(async(resolve, reject) => {
+const get_one = (user_id, id) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('booking')
         const result = await collection.aggregate([
-            { $match: { _id: id } },
+            { $match: { _id: id, user_id} },
             {
                 $lookup: {
                     from: 'user_profiles',
@@ -123,11 +124,11 @@ const get_list_by_user = (user_id) => new Promise(async(resolve, reject) => {
 })
 
 
-const delete_one = (id) => new Promise(async(resolve, reject) => {
+const delete_one = (user_id, id) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection("booking")
 
-        const existed_booking = await collection.findOne({ _id: id })
+        const existed_booking = await collection.findOne({ _id: id, user_id })
         if (!existed_booking) {
             return reject('booking not found')
         }

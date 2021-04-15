@@ -3,7 +3,9 @@ const schedule = require('../services/schedule')
 module.exports = async(req, res) => {
     try {
         const { id } = req.prarams
-        const result = await schedule.delete_one(id)
+        const {user} = req
+        const user_id = user._id
+        const result = await schedule.delete_one(user_id, id)
         return res.json({
             code: 200,
             message: 'handler success',
