@@ -1,7 +1,7 @@
 const mongo = require('../../../core/mongo')
 const { v4: uuid } = require('uuid')
 
-const create_one = (schedule_model) => new Promise((resolve, reject) => {
+const create_one = (schedule_model) => new Promise(async(resolve, reject) => {
     try {
         const id = uuid()
         const query = {
@@ -38,7 +38,7 @@ const create_one = (schedule_model) => new Promise((resolve, reject) => {
     }
 })
 
-const update_one = (id, item) => new Promise((resolve, reject) => {
+const update_one = (id, item) => new Promise(async(resolve, reject) => {
     try {
 
         const collection = mongo.db.collection('schedules')

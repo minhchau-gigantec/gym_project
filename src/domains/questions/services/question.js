@@ -1,7 +1,7 @@
 const mongo = require('../../../core/mongo')
 const { v4: uuid } = require('uuid')
 
-const create_or_update = (question_model) => new Promise(async(resolve, reject) => {
+const create_one = (question_model) => new Promise(async(resolve, reject) => {
     try {
         const id = uuid()
         const query = {
@@ -12,7 +12,7 @@ const create_or_update = (question_model) => new Promise(async(resolve, reject) 
 
         const existed_item = await collection.findOne(query)
 
-        if(existed_item){
+        if (existed_item) {
             return reject("question is existed")
         }
 
@@ -25,47 +25,29 @@ const create_or_update = (question_model) => new Promise(async(resolve, reject) 
         }
 
         await collection.insertOne(create_item)
-        const result = await collection.findOne({_id: id})
-       
+        const result = await collection.findOne({ _id: id })
+
         return resolve(result)
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
-const update_one = (id, item) => new Promise(async (req, res) => {
-    try{
+const update_one = (id, item) => new Promise(async(req, res) => {
+    try {
         const collection = mongo.db.collection('questions')
 
         const options = {
             returnNewDocument: true
         }
-<<<<<<< HEAD
-
-        const collection = mongo.db.collection('questions')
-        var { value } = await collection.findOneAndUpdate(query, {
-            $set: update,
-            $setOnInsert: insert
-        }, options)
-
-        if (!value) {
-            value = await collection.findOne({ _id: id })
-        } else {
-            value = await collection.findOne({ _id: value._id })
-        }
-
-        return resolve(value)
-    } catch (error) {
-=======
-        const result = await collection.updateOne({_id: id},{
+        const result = await collection.updateOne({ _id: id }, {
             $set: item
         }, options)
 
         return resolve(result)
 
-    }catch(error){
->>>>>>> c269e58743e683297ecc8aabd4bccbf8edc81888
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
@@ -118,12 +100,8 @@ const delete_one = (id) => new Promise(async(resolve, reject) => {
 
 
 module.exports = {
-<<<<<<< HEAD
-    create_or_update,
-=======
     create_one,
-    update_one, 
->>>>>>> c269e58743e683297ecc8aabd4bccbf8edc81888
+    update_one,
     get_list,
     get_one,
     delete_one

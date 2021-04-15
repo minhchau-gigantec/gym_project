@@ -11,12 +11,7 @@ const update_one = require('./controllers/update_one')
 const validate = require('../../middleware/check_validate')
 const dataExample = require('./models/validate')
 
-<<<<<<< HEAD
-
-router.post('/', validate(dataExample.create), create_or_update)
-=======
 router.post('/', create_one)
->>>>>>> c269e58743e683297ecc8aabd4bccbf8edc81888
 
 router.get('/', get_list)
 

@@ -2,14 +2,8 @@ const { v4: uuid } = require('uuid')
 const mongo = require('../../../core/mongo')
 const { env } = require('../../../configs/config.service')
 
-<<<<<<< HEAD
-const create_or_update = (answer_model) => new Promise(async(resolve, reject) => {
+const create_one = (answer_model) => new Promise(async(resolve, reject) => {
     try {
-        const id = uuid()
-=======
-const create_one = (answer_model) => new Promise(async (resolve, reject) => {
-    try{
->>>>>>> c269e58743e683297ecc8aabd4bccbf8edc81888
 
         const query = {
             question_id: answer_model.question_id,
@@ -19,13 +13,13 @@ const create_one = (answer_model) => new Promise(async (resolve, reject) => {
         const collection = mongo.db.collection('answers')
         const existed_item = await collection.findOne(query)
 
-        if(existed_item){
+        if (existed_item) {
             return reject('answer is existed')
         }
 
         const id = uuid()
 
-        const create_item  = {
+        const create_item = {
             _id: id,
             question_id: answer_model.question_id,
             name: answer_model.name,
@@ -36,46 +30,28 @@ const create_one = (answer_model) => new Promise(async (resolve, reject) => {
         }
 
         await collection.insertOne(create_item)
-    
-        const result = await collection.findOne({_id: id})
+
+        const result = await collection.findOne({ _id: id })
         return resolve(result)
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 
 })
 
-const update_one = (id, item) => new Promise((resolve, reject) => {
-    try{
+const update_one = (id, item) => new Promise(async(resolve, reject) => {
+    try {
         const options = {
-<<<<<<< HEAD
-            upsert: true,
-=======
->>>>>>> c269e58743e683297ecc8aabd4bccbf8edc81888
             returnNewDocument: true
         }
 
         const collection = mongo.db.collection('answers')
-<<<<<<< HEAD
-        var { value } = await collection.findOneAndUpdate(query, {
-            $set: update,
-            $setOnInsert: insert
-        }, options)
-
-        if (!value) {
-            value = await collection.findOne({ _id: id })
-        } else {
-            value = await collection.findOne({ _id: value._id })
-        }
-        return resolve(value)
-=======
-        const result = await collection.updateOne({_id: id}, {
+        const result = await collection.updateOne({ _id: id }, {
             $set: item
         }, options)
         return resolve(result)
->>>>>>> c269e58743e683297ecc8aabd4bccbf8edc81888
 
     } catch (error) {
         console.log(error)
