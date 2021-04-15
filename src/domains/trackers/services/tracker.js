@@ -4,29 +4,31 @@ const { v4: uuid } = require('uuid')
 const create_one = (user_id, tracker_model) => new Promise(async(resolve, reject) => {
     try {
         const query = {
-            user_id,
+            user_id: user_id,
             time: tracker_model.time
         }
 
         const collection = mongo.db.collection('trackers')
         const existed_tracker = await collection.findOne(query)
-
-        if (existed_tracker) {
+        console.log({ existed_tracker })
+        if (existed_tracker != null) {
             return reject('tracker is existed')
         }
 
         const id = uuid()
         const item = {
             _id: id,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
             user_id,
             step: tracker_model.step,
-            weight: tracker_model.weight
+            weight: tracker_model.weight,
+            time: tracker_model.time,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
         }
 
         await collection.insertOne(item)
-        const result = await collection.fineOne({ _id: id })
+        const result = await collection.findOne({ _id: id })
+            // console.log({ result })
         return resolve(result)
 
     } catch (error) {
@@ -35,19 +37,28 @@ const create_one = (user_id, tracker_model) => new Promise(async(resolve, reject
     }
 })
 
-const update_one = (user_id, tracker_model) => new Promise(async(resolve, reject) => {
+const update_one = (id, tracker_model) => new Promise(async(resolve, reject) => {
     try {
-        const query = {
-            user_id,
-            time: tracker_model.time
+        const update = {
+            // _id: id,
+            time: tracker_model.time,
+            step: tracker_model.step,
+            weight: tracker_model.weight,
+            updated_at: new Date().toISOString()
         }
         const options = {
             returnNewDocument: true
         }
 
         const collection = mongo.db.collection('trackers')
-        const result = await collection.updateOne(query, {
-            $set: {...tracker_model, updated_at: new Date().toISOString() }
+        const existed_tracker = await collection.findOne({ _id: id })
+        console.log({ existed_tracker })
+        if (existed_tracker === null) {
+            return reject('tracker is not existed')
+        }
+
+        const result = await collection.updateOne({ _id: id }, {
+            $set: update
         }, options)
 
         return resolve(result)
@@ -132,17 +143,17 @@ const get_list_by_user = (user_id) => new Promise(async(resolve, reject) => {
     }
 })
 
-const delete_one = (user_id, id) => new Promise(async(resolve, reject) => {
+const delete_one = (id) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('trackers')
 
-        const existed_item = await collection.findOne({ _id: id, user_id })
+        const existed_item = await collection.findOne({ _id: id })
 
         if (!existed_item) {
             return reject("tracker not found")
         }
 
-        await collection.delete_one({ _id: id })
+        await collection.deleteOne({ _id: id })
         return resolve("delete tracker success")
     } catch (error) {
         console.log(error)

@@ -1,0 +1,30 @@
+-Them ma loi unauthentication vao swagger
+-update_user có đc thay đổi user_id và email k?
+-note trong 1 số bảng có cần require k?
+
+
+Còn program và user_program
+
+
+
+****đã fix
+-answer,question,user_profile,tracker
+-get_one user_profile: k cần nhập id vào -> bỏ id trong param
+-create_booking chưa check trường hợp đã exist
+-get booking theo user_id -> bỏ param đi
+-update_booking chưa check đã exist
+-schedule: thêm swagger update + thêm lỗi 401
+    tạo schedule thiếu add user_id vào
+    delete sai
+    update chưa check exist
+-trackers:
+    create: sai -> có cần lưu time k?
+    delete: chạy sai
+     update: chạy sai + chưa check exist ->(có cần truyền id qua param k)
+           
+
+
+
+
+
+

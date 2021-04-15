@@ -33,6 +33,9 @@ const start = async function() {
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: true }))
 
+
+    app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
     app.use(check_auth)
 
 
@@ -45,9 +48,6 @@ const start = async function() {
     app.use('/trackers', tracker_router)
     app.use('/user_programs', user_program_router)
     app.use('/users', user_router)
-
-
-    app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
     const { PORT, HOST } = env.config
     app.listen(PORT, () => {

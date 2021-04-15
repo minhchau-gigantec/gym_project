@@ -15,6 +15,14 @@ const create_one = (user_id, booking_model) => new Promise(async(resolve, reject
         }
 
         const collection = mongo.db.collection('booking')
+            //check exist
+        const exist_booking = await collection.findOne({ user_id: user_id, time: booking_model.time, note: booking_model.note })
+        console.log({ exist_booking })
+        if (exist_booking != null) {
+            return reject('booking is existed')
+        }
+
+
         await collection.insertOne(create_booking)
 
         const result = await collection.findOne({ _id: id })
@@ -29,17 +37,25 @@ const update_one = (user_id, id, booking_model) => new Promise(async(resolve, re
     try {
 
         const collection = mongo.db.collection('booking')
+
+        //check exist
+        const exist_booking = await collection.findOne({ _id: id })
+        if (exist_booking === null) {
+            return reject('booking is not existed')
+        }
+
         const update = {
             note: booking_model.note,
             time: booking_model.time,
             updated_at: new Date().toISOString()
         }
 
+
         const options = {
             returnNewDocument: true
         }
 
-        const result = await collection.updateOne({ _id: id, user_id}, {
+        const result = await collection.updateOne({ _id: id, user_id }, {
             $set: update
         }, options)
 
@@ -55,7 +71,7 @@ const get_one = (user_id, id) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('booking')
         const result = await collection.aggregate([
-            { $match: { _id: id, user_id} },
+            { $match: { _id: id, user_id } },
             {
                 $lookup: {
                     from: 'user_profiles',
@@ -81,8 +97,7 @@ const get_one = (user_id, id) => new Promise(async(resolve, reject) => {
 const get_list = () => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('booking')
-        const result = await collection.aggregate([
-            {
+        const result = await collection.aggregate([{
                 $lookup: {
                     from: 'user_profiles',
                     localField: 'user_id',

@@ -1,18 +1,19 @@
 const schedule = require('../services/schedule')
 
-module.exports = async (req, res) => {
-    try{
+module.exports = async(req, res) => {
+    try {
         const schedule_model = req.body
-        const {user} = req
-        const result = await schedule.create_one(user.id, schedule_model)
+        const { user } = req
+        const user_id = user._id
+        const result = await schedule.create_one(user_id, schedule_model)
         return res.json({
             code: 200,
             message: 'handler success',
             data: result
         })
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
-        return res.status(434).send({message: error})
+        return res.status(434).send({ message: error })
     }
 }

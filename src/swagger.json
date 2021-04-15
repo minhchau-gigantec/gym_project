@@ -50,6 +50,9 @@
     "produces": [
         "application/json"
     ],
+    "security": [{
+        "Bearer": []
+    }],
     "paths": {
         "/answers": {
             "post": {
@@ -101,6 +104,9 @@
                     "400": {
                         "description": "validation error"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "409": {
                         "description": "question is not exist/ answer is existed"
                     }
@@ -117,6 +123,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "422": {
                         "description": ""
@@ -141,6 +150,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "405": {
                         "description": "answer not found"
                     }
@@ -164,8 +176,11 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "421": {
-                        "description": ""
+                        "description": "question is not exist"
                     }
                 }
             }
@@ -185,6 +200,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "406": {
                         "description": "answers not found"
@@ -239,8 +257,11 @@
                     "400": {
                         "description": "validation error"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "453": {
-                        "description": ""
+                        "description": "answer not found"
                     }
                 }
             }
@@ -263,7 +284,8 @@
                         "type": "object",
                         "required": [
                             "name",
-                            "content"
+                            "content",
+                            "type"
                         ],
                         "properties": {
                             "name": {
@@ -273,6 +295,10 @@
                             "content": {
                                 "type": "string",
                                 "example": "Content question 1"
+                            },
+                            "type": {
+                                "type": "string",
+                                "example": "type 1"
                             }
                         }
                     }
@@ -286,6 +312,9 @@
                     },
                     "400": {
                         "description": "validation error"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "410": {
                         "description": "question is existed"
@@ -303,6 +332,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "412": {
                         "description": ""
@@ -327,6 +359,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "413": {
                         "description": "Question not found"
                     }
@@ -348,6 +383,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "411": {
                         "description": "Question not found"
@@ -380,6 +418,9 @@
                                 },
                                 "content": {
                                     "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
                                 }
                             }
                         }
@@ -392,8 +433,11 @@
                     "400": {
                         "description": "validation error"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "412": {
-                        "description": ""
+                        "description": "question not found"
                     }
                 }
             }
@@ -416,17 +460,12 @@
                         "type": "object",
                         "required": [
                             "time",
-                            "program_id",
                             "note"
                         ],
                         "properties": {
                             "time": {
                                 "type": "string",
                                 "example": "10"
-                            },
-                            "program_id": {
-                                "type": "string",
-                                "example": "program-id of program"
                             },
                             "note": {
                                 "type": "string",
@@ -445,8 +484,11 @@
                     "400": {
                         "description": "validation error"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "426": {
-                        "description": ""
+                        "description": "booking is existed"
                     }
                 }
             }
@@ -462,28 +504,27 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "431": {
                         "description": ""
                     }
                 }
             }
         },
-        "/bookings/user/{user_id}": {
+        "/bookings/user": {
             "get": {
                 "summary": "Get list bookings by user_id",
                 "tags": [
                     "bookings"
                 ],
-                "parameters": [{
-                    "name": "user_id",
-                    "in": "path",
-                    "description": "user_id",
-                    "type": "string",
-                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
-                }],
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "428": {
                         "description": ""
@@ -507,6 +548,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "430": {
                         "description": "booking not found"
@@ -552,8 +596,11 @@
                     "400": {
                         "description": "validation error"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "427": {
-                        "description": ""
+                        "description": "booking is not existed"
                     }
                 }
             }
@@ -573,6 +620,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "432": {
                         "description": "booking not found"
@@ -712,16 +762,10 @@
                     "schema": {
                         "type": "object",
                         "required": [
-                            "user_id",
                             "time",
-                            "note",
-                            "program_id"
+                            "note"
                         ],
                         "properties": {
-                            "user_id": {
-                                "type": "string",
-                                "example": "ba8f8d01-d500-4f45-ae26-a1b238fadf4c"
-                            },
                             "time": {
                                 "type": "string",
                                 "example": "10"
@@ -729,10 +773,6 @@
                             "note": {
                                 "type": "string",
                                 "example": "note of schedule"
-                            },
-                            "program_id": {
-                                "type": "string",
-                                "example": "program_id of schedule"
                             }
                         }
                     }
@@ -747,8 +787,11 @@
                     "400": {
                         "description": "validation error"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "434": {
-                        "description": ""
+                        "description": "schedule is existed"
                     }
                 }
             }
@@ -764,28 +807,27 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "437": {
                         "description": ""
                     }
                 }
             }
         },
-        "/schedules/user/{user_id}": {
+        "/schedules/user": {
             "get": {
-                "summary": "Get list schedules by user_id",
+                "summary": "Get list schedules by user",
                 "tags": [
                     "schedules"
                 ],
-                "parameters": [{
-                    "name": "user_id",
-                    "in": "path",
-                    "description": "user_id",
-                    "type": "string",
-                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
-                }],
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "435": {
                         "description": ""
@@ -810,8 +852,11 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "438": {
-                        "description": "booking not found"
+                        "description": "schedule not found"
                     }
                 }
             }
@@ -832,8 +877,63 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "436": {
                         "description": "schedule not found"
+                    }
+                }
+            }
+        },
+        "/schedules/{id}": {
+            "put": {
+                "summary": "Update schedule",
+                "tags": [
+                    "schedules"
+                ],
+                "description": "Update schedule",
+
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "example": "8d960b70-bb50-4102-9a89-48c99a4db7b0",
+                        "description": "ID of schedule"
+                    },
+                    {
+                        "name": "schedule",
+                        "in": "body",
+                        "description": "schedule info",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "time": {
+                                    "type": "string",
+                                    "example": "10"
+                                },
+                                "note": {
+                                    "type": "string",
+                                    "example": "note of schedule"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "458": {
+                        "description": "schedule is not existed"
                     }
                 }
             }
@@ -855,16 +955,11 @@
                     "schema": {
                         "type": "object",
                         "required": [
-                            "user_id",
                             "time",
                             "step",
                             "weight"
                         ],
                         "properties": {
-                            "user_id": {
-                                "type": "string",
-                                "example": "ba8f8d01-d500-4f45-ae26-a1b238fadf4c"
-                            },
                             "time": {
                                 "type": "string"
                             },
@@ -887,6 +982,9 @@
                     "400": {
                         "description": "validation error"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "437": {
                         "description": "tracker is existed"
                     }
@@ -904,28 +1002,27 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "441": {
                         "description": ""
                     }
                 }
             }
         },
-        "/trackers/user/{user_id}": {
+        "/trackers/user": {
             "get": {
-                "summary": "Get list trackers by user_id",
+                "summary": "Get list trackers by user",
                 "tags": [
                     "trackers"
                 ],
-                "parameters": [{
-                    "name": "user_id",
-                    "in": "path",
-                    "description": "user_id",
-                    "type": "string",
-                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
-                }],
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "440": {
                         "description": ""
@@ -952,11 +1049,17 @@
                         "description": "tracker info that we want to update",
                         "schema": {
                             "type": "object",
+                            "required": [
+                                "time"
+                            ],
                             "properties": {
-                                "user_id": {
+                                "time": {
                                     "type": "string"
                                 },
-                                "time": {
+                                "step": {
+                                    "type": "integer"
+                                },
+                                "weight": {
                                     "type": "integer"
                                 }
                             }
@@ -970,8 +1073,11 @@
                     "400": {
                         "description": "validation error"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "442": {
-                        "description": ""
+                        "description": "tracker is not exist"
                     }
                 }
             }
@@ -992,12 +1098,16 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "439": {
                         "description": "tracker not found"
                     }
                 }
             }
         },
+
 
         "/user_programs": {
             "post": {
@@ -1062,29 +1172,6 @@
                 }
             }
         },
-        "/user_programs/user/{user_id}": {
-            "get": {
-                "summary": "Get list trackers by user_id",
-                "tags": [
-                    "trackers"
-                ],
-                "parameters": [{
-                    "name": "user_id",
-                    "in": "path",
-                    "description": "user_id",
-                    "type": "string",
-                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "447": {
-                        "description": ""
-                    }
-                }
-            }
-        },
         "/user_programs/{id} ": {
             "get": {
                 "summary": "Get user_program by id",
@@ -1131,31 +1218,37 @@
             }
         },
 
-
-        "/users": {
-            "post": {
-                "summary": "Create user",
+        "/users ": {
+            "get": {
+                "summary": "Get user",
                 "tags": [
                     "users"
                 ],
-                "description": "Create user",
-
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "452": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users": {
+            "put": {
+                "summary": "Update user",
+                "tags": [
+                    "users"
+                ],
                 "parameters": [{
                     "name": "user",
                     "in": "body",
                     "description": "user info",
                     "schema": {
                         "type": "object",
-                        "required": [
-                            "user_id",
-                            "first_name",
-                            "last_name",
-                            "phone",
-                            "address",
-                            "avatar",
-                            "birthday",
-                            "gender"
-                        ],
                         "properties": {
                             "user_id": {
                                 "type": "string",
@@ -1181,8 +1274,8 @@
                                 "type": "string"
                             },
                             "birthday": {
-                                "type": "date",
-                                "example": "2021/15/04"
+                                "type": "string",
+                                "example": "1998-01-01"
                             },
                             "gender": {
                                 "type": "string",
@@ -1191,9 +1284,6 @@
                         }
                     }
                 }],
-                "produces": [
-                    "application/json"
-                ],
                 "responses": {
                     "200": {
                         "description": "handler success"
@@ -1201,98 +1291,10 @@
                     "400": {
                         "description": "validation error"
                     },
-                    "451": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/users/{id}": {
-            "put": {
-                "summary": "Update user by id",
-                "tags": [
-                    "users"
-                ],
-                "parameters": [{
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of user",
-                        "type": "string",
-                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
-                    },
-                    {
-                        "name": "user",
-                        "in": "body",
-                        "description": "user info",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "user_id": {
-                                    "type": "string",
-                                    "example": "user_id for auth"
-                                },
-                                "first_name": {
-                                    "type": "string",
-                                    "example": "firstname1"
-                                },
-                                "last_name": {
-                                    "type": "string",
-                                    "example": "lastname1"
-                                },
-                                "phone": {
-                                    "type": "string",
-                                    "example": "0905111111"
-                                },
-                                "address": {
-                                    "type": "string",
-                                    "example": "TP.HCM"
-                                },
-                                "avatar": {
-                                    "type": "string"
-                                },
-                                "birthday": {
-                                    "type": "string",
-                                    "example": "2021/15/04"
-                                },
-                                "gender": {
-                                    "type": "string",
-                                    "example": "male"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "400": {
-                        "description": "validation error"
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "450": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/users/{id} ": {
-            "get": {
-                "summary": "Get user by id",
-                "tags": [
-                    "users"
-                ],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "ID of user",
-                    "type": "string",
-                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "452": {
                         "description": ""
                     }
                 }

@@ -18,7 +18,7 @@ const create_one = (user_id, schedule_model) => new Promise(async(resolve, rejec
 
         const create_item = {
             _id: id,
-            user_id,
+            user_id: user_id,
             note: schedule_model.note,
             time: schedule_model.time,
             created_at: new Date().toISOString(),
@@ -41,6 +41,12 @@ const update_one = (user_id, id, item) => new Promise(async(resolve, reject) => 
     try {
 
         const collection = mongo.db.collection('schedules')
+
+        const existed_item = await collection.findOne({ _id: id })
+
+        if (existed_item === null) {
+            return reject('schedule is not existed')
+        }
         const options = {
             returnNewDocument: true
         }
@@ -98,7 +104,7 @@ const get_one = (user_id, id) => new Promise(async(resolve, reject) => {
 
         const collection = mongo.db.collection('schedules')
         const result = await collection.aggregate([
-            { $match: { _id: id , user_id} },
+            { $match: { _id: id, user_id } },
             {
                 $lookup: {
                     from: 'user_profiles',
@@ -110,7 +116,7 @@ const get_one = (user_id, id) => new Promise(async(resolve, reject) => {
             { $unwind: '$user' }
         ]).toArray()
 
-        if(result.length == 0) {
+        if (result.length == 0) {
             return reject('shedule not found')
         }
 
@@ -124,9 +130,9 @@ const get_one = (user_id, id) => new Promise(async(resolve, reject) => {
 const delete_one = (user_id, id) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('schedules')
-        const exsted_schedule = await collection.findOne({ _id: id, user_id })
+        const existed_schedule = await collection.findOne({ _id: id, user_id })
 
-        if (!exsted_schedule) {
+        if (!existed_schedule) {
             return reject('schedule not found')
         }
         await collection.deleteOne({ _id: id })

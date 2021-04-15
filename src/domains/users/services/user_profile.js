@@ -2,9 +2,7 @@ const { v4: uuid } = require('uuid')
 const mongo = require('../../../core/mongo')
 
 const create_one = (user_model) => new Promise(async(resolve, reject) => {
-    console.log("API create user profile")
     try {
-
         const id = uuid()
 
         const item = {

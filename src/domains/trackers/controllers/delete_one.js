@@ -3,9 +3,8 @@ const tracker = require('../services/tracker')
 module.exports = async(req, res) => {
     try {
         const { id } = req.params
-        const {user} = req
-        const user_id = user._id
-        const result = await tracker.delete_one(user_id, id)
+
+        const result = await tracker.delete_one(id)
         return res.json({
             code: 200,
             message: 'handler success',

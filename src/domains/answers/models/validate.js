@@ -18,8 +18,7 @@ const update = {
         name: { type: 'string', minLength: 1 },
         content: { type: 'string', minLength: 1 },
         points: { type: 'integer', minimum: 10 },
-    },
-    required: ['question_id', 'name']
+    }
 }
 
 module.exports = {
