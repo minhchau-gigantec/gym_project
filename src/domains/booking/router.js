@@ -20,7 +20,7 @@ router.get('/user/:user_id', get_list_by_user)
 
 router.get('/:id', get_one)
 
-router.put('/:id', validate(dataExample.update), update_one)
+router.put('/:id', update_one)
 
 router.delete('/:id', delete_one)
 

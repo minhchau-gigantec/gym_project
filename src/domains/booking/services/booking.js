@@ -17,7 +17,7 @@ const create_one = (booking_model) => new Promise(async(resolve, reject) => {
         const collection = mongo.db.collection('booking')
         await collection.insertOne(create_booking)
 
-        const result = await collection.getOne({ _id: id })
+        const result = await collection.findOne({ _id: id })
         return resolve(result)
     } catch (error) {
         console.log(error)
@@ -90,27 +90,7 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
 const get_list = () => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('booking')
-        const result = await collection.aggregate([
-            { $match: { _id: id } },
-            {
-                $lookup: {
-                    from: 'programs',
-                    localField: 'program_id',
-                    foreignField: '_id',
-                    as: 'program'
-                }
-            },
-            { $unwind: '$program' },
-            {
-                $lookup: {
-                    from: 'user_profiles',
-                    localField: 'user_id',
-                    foreignField: '_id',
-                    as: 'user'
-                }
-            },
-            { $unwind: '$user' }
-        ]).toArray()
+        const result = await collection.find().toArray()
 
         return resolve(result)
     } catch (error) {

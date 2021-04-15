@@ -1,18 +1,18 @@
-const {v4: uuid} = require('uuid')
+const { v4: uuid } = require('uuid')
 const mongo = require('../../../core/mongo')
 const { options } = require('../../answers/router')
 
-const create_one = (program_model) => new Promise(async (resolve, reject) => {
-    try{
-        
+const create_one = (program_model) => new Promise(async(resolve, reject) => {
+    try {
+
         const query = {
             name: program_model.name
         }
 
         const collection = mongo.db.collection('programs')
-        const existed_item = collection.findOne(query)
+        const existed_item = await collection.findOne(query)
 
-        if(existed_item){
+        if (existed_item) {
             return reject("program is existed")
         }
 
@@ -25,76 +25,76 @@ const create_one = (program_model) => new Promise(async (resolve, reject) => {
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         }
-      
+
         await collection.insertOne(create_item)
 
-        const result = await collection.findOne({_id: id})
-        
+        const result = await collection.findOne({ _id: id })
+
         return resolve(result)
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
-const update_one = (id, item) => new Promise(async (resolve, reject) =>{
-    try{
+const update_one = (id, item) => new Promise(async(resolve, reject) => {
+    try {
 
         const options = {
             returnNewDocument: true
         }
         const collection = mongo.db.collection('programs')
-        const result = await collection.updateOne({_id: id}, {
+        const result = await collection.updateOne({ _id: id }, {
             $set: item
         }, options)
 
         return resolve(result)
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
-const delete_one = (id) => new Promise(async (resovle, reject ) => {
-    try{
+const delete_one = (id) => new Promise(async(resolve, reject) => {
+    try {
         const collection = mongo.db.collection('programs')
-        const existed_program = await collection.findOne({_id: id})
+        const existed_program = await collection.findOne({ _id: id })
 
-        if(!existed_program) {
+        if (!existed_program) {
             return reject('program not found')
         }
 
-        await collection.deleteOne({_id: id})
+        await collection.deleteOne({ _id: id })
         return resolve('delete program success')
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
 
-const get_one = (id) => new Promise(async (resolve, reject) => {
-    try{
+const get_one = (id) => new Promise(async(resolve, reject) => {
+    try {
 
         const collection = mongo.db.collection('programs')
-        const program = await collection.findOne({_id: id})
+        const program = await collection.findOne({ _id: id })
         return resolve(program)
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
-const get_list = () => new Promise(async (resolve, reject) => {
-    try{
+const get_list = () => new Promise(async(resolve, reject) => {
+    try {
         const collection = mongo.db.collection('programs')
         const programs = await collection.find().toArray()
 
         return resolve(programs)
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
