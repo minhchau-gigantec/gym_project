@@ -192,6 +192,59 @@
                 }
             }
         },
+        "/answers/{id} ": {
+            "put": {
+                "summary": "Update answer by id",
+                "tags": [
+                    "answers"
+                ],
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of answer",
+                        "type": "string",
+                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                    },
+                    {
+                        "name": "answer",
+                        "in": "body",
+                        "description": "Answer that we want to create",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "question_id": {
+                                    "type": "string",
+                                    "example": "ba8f8d01-d500-4f45-ae26-a1b238fadf4c"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "example": "answer 1"
+                                },
+                                "content": {
+                                    "type": "string",
+                                    "example": "Content answer 1"
+                                },
+                                "points": {
+                                    "type": "integer",
+                                    "example": "10"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "453": {
+                        "description": ""
+                    }
+                }
+            }
+        },
 
 
         "/questions": {

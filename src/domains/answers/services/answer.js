@@ -100,7 +100,7 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
             { $unwind: '$question' }
         ]).toArray()
 
-        console.log({result})
+        console.log({ result })
 
         if (result.length == 0) {
             return reject('answer not found')
@@ -117,6 +117,13 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
 
 const get_list_by_question = (question_id) => new Promise(async(resolve, reject) => {
     try {
+        const collection_question = mongo.db.collection('questions')
+        const exist_question = await collection_question.findOne({ _id: question_id })
+
+        if (exist_question === null) {
+            return reject('question is not exist')
+        }
+
         const collection = mongo.db.collection('answers')
         const result = await collection.aggregate([
             { $match: { question_id } },
@@ -145,8 +152,7 @@ const get_list_by_question = (question_id) => new Promise(async(resolve, reject)
 const get_list = () => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('answers')
-        const result = await collection.aggregate([
-            {
+        const result = await collection.aggregate([{
                 $lookup: {
                     from: 'questions',
                     localField: "question_id",
