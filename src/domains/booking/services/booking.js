@@ -1,0 +1,178 @@
+const {v4: uuid} = require('uuid')
+const mongo = require('../../../core/mongo')
+
+const create_one = (booking_model) => new Promise((resolve, reject) => {
+    try{
+        const id = uuid()
+        
+        const create_booking = {
+            _id: id,
+            time: booking_model.time,
+            program_id: booking_model.program_id,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+        }
+
+        const collection = mongo.db.collection('booking')
+        await collection.insertOne(create_booking)
+
+        const result = await collection.getOne({_id: id})
+        return resolve(result)
+    }catch(error){
+        console.log(error)
+        return reject(error)
+    }
+})
+
+const update_one = (id, booking_model) => new Promise((resolve, reject) => {
+    try{
+
+        const collection = mongo.db.collection('booking')
+        const update = {
+            time: booking_model.time,
+            updated_at: new Date().toISOString()
+        }
+
+        const options = {
+            returnNewDocument: true
+        }
+
+        const result = await collection.updateOne({_id: id}, {
+            $set: update
+        }, options)
+
+        return resolve(result)
+    }catch(error){
+        console.log(error)
+        return reject(error)
+    }
+})
+
+
+const get_one = (id) => new Promise(async (resolve, reject) => {
+    try{
+        const collection = mongo.db.collection('booking')
+        const result = await collection.aggregate([
+            {$match: {_id: id}},
+            {
+                $lookup: {
+                    from: 'programs',
+                    localField: 'program_id',
+                    foreignField: '_id',
+                    as: 'program'
+                }
+            },
+            {$unwind: '$program'},
+            {
+                $lookup: {
+                    from: 'user_profiles',
+                    localField: 'user_id',
+                    foreignField: '_id',
+                    as: 'user'
+                }
+            },
+            {$unwind: '$user'}
+        ]).toArray()
+
+        if(result.length == 0){
+            return reject('booking not found')
+        }
+        return resolve(result)
+
+    }catch(error){
+        console.log(error)
+        return reject(error)
+    }
+})
+
+const get_list = () => new Promise(async (resolve, reject) => {
+    try{
+        const collection = mongo.db.collection('booking')
+        const result = await collection.aggregate([
+            {$match: {_id: id}},
+            {
+                $lookup: {
+                    from: 'programs',
+                    localField: 'program_id',
+                    foreignField: '_id',
+                    as: 'program'
+                }
+            },
+            {$unwind: '$program'},
+            {
+                $lookup: {
+                    from: 'user_profiles',
+                    localField: 'user_id',
+                    foreignField: '_id',
+                    as: 'user'
+                }
+            },
+            {$unwind: '$user'}
+        ]).toArray()
+
+        return resolve(result)
+    }catch(error){
+        console.log(error)
+        return reject(error)
+    }
+})
+
+const get_list_by_user = (user_id) => new Promise(async (resolve, reject) => {
+    try{
+        const collection = mongo.db.collection('booking')
+        const result = await collection.aggregate([
+            {$match: {user_id}},
+            {
+                $lookup: {
+                    from: 'programs',
+                    localField: 'program_id',
+                    foreignField: '_id',
+                    as: 'program'
+                }
+            },
+            {$unwind: '$program'},
+            {
+                $lookup: {
+                    from: 'user_profiles',
+                    localField: 'user_id',
+                    foreignField: '_id',
+                    as: 'user'
+                }
+            },
+            {$unwind: '$user'}
+        ]).toArray()
+        return resolve(result)
+
+    }catch(error){
+        console.log(error)
+        return reject(error)
+    }
+})
+
+
+const delete_one = (id) => new Promise(async (resolve, reject) => {
+    try{
+        const collection = mongo.db.collection("booking")
+        
+        const existed_booking = await collection.findOne({_id: id})
+        if(!existed_booking){
+            return reject('booking not found')
+        }
+        await collection.deleteOne({_id: id})
+        return resolve('delete booking success')
+
+    }catch(error){
+        console.log(error)
+        return 
+    }
+})
+
+
+module.exports = {
+    create_one, 
+    update_one,
+    get_list,
+    get_one,
+    get_list_by_user,
+    delete_one
+}
