@@ -4,9 +4,12 @@ const mongo = require('../core/mongo')
 
 
 module.exports = async (req, res, next) => {
-    const url = env.config.AUTH_DOMAIN = '/userinfo'
+    const url = env.config.AUTH_DOMAIN + '/userinfo'
+    const token = req.headers.authorization
 
-    const response = await axios.get(url,  { headers: { Authorization: AuthStr }})
+    console.log({token})
+    const response = await axios.get(url,  { headers: { Authorization: token}})
+    
 
     if(response.status !== 200) {
         return res.status(401).send({message: 'UnAuthentication'})
