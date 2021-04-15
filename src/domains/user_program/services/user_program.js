@@ -34,11 +34,11 @@ const create_one = (user_id, item) => new Promise(async(resolve, reject) => {
     }
 })
 
-const delete_one = (id) => new Promise(async(resolve, reject) => {
+const delete_one = (user_id, id) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('user_programs')
 
-        const existed_item = await collection.findOne({ _id: id })
+        const existed_item = await collection.findOne({ _id: id, user_id })
 
         if (!existed_item) {
             return reject("user program not found")

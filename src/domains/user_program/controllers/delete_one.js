@@ -3,7 +3,9 @@ const user_manager = require('../services/user_program')
 module.exports = async (req, res) => {
     try{
         const {id} = req.params
-        const result = await user_manager.delete_one(id)
+        const {user} = req
+        const user_id = user._id
+        const result = await user_manager.delete_one(user_id, id)
         return res.json({
             code: 200,
             message: 'handler success',

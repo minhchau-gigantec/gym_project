@@ -21,7 +21,6 @@ const create_one = (user_id, schedule_model) => new Promise(async(resolve, rejec
             user_id,
             note: schedule_model.note,
             time: schedule_model.time,
-            program: schedule_model.program_id,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         }
@@ -38,7 +37,7 @@ const create_one = (user_id, schedule_model) => new Promise(async(resolve, rejec
     }
 })
 
-const update_one = (id, item) => new Promise(async(resolve, reject) => {
+const update_one = (user_id, id, item) => new Promise(async(resolve, reject) => {
     try {
 
         const collection = mongo.db.collection('schedules')
@@ -46,7 +45,7 @@ const update_one = (id, item) => new Promise(async(resolve, reject) => {
             returnNewDocument: true
         }
 
-        const result = collection.updateOne({ _id: id }, {
+        const result = collection.updateOne({ _id: id, user_id }, {
             $set: item
         }, options)
 
@@ -78,15 +77,6 @@ const get_list_by_user = (user_id) => new Promise(async(resolve, reject) => {
             { $match: { user_id } },
             {
                 $lookup: {
-                    from: 'programs',
-                    localField: 'program_id',
-                    foreignField: '_id',
-                    as: 'program'
-                }
-            },
-            { $unwind: '$program' },
-            {
-                $lookup: {
                     from: 'user_profiles',
                     localField: 'user_id',
                     foreignField: '_id',
@@ -103,21 +93,12 @@ const get_list_by_user = (user_id) => new Promise(async(resolve, reject) => {
     }
 })
 
-const get_one = (id) => new Promise(async(resolve, reject) => {
+const get_one = (user_id, id) => new Promise(async(resolve, reject) => {
     try {
 
         const collection = mongo.db.collection('schedules')
         const result = await collection.aggregate([
-            { $match: { _id: id } },
-            {
-                $lookup: {
-                    from: 'programs',
-                    localField: 'program_id',
-                    foreignField: '_id',
-                    as: 'program'
-                }
-            },
-            { $unwind: '$program' },
+            { $match: { _id: id , user_id} },
             {
                 $lookup: {
                     from: 'user_profiles',
@@ -140,10 +121,10 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
     }
 })
 
-const delete_one = (id) => new Promise(async(resolve, reject) => {
+const delete_one = (user_id, id) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('schedules')
-        const exsted_schedule = await collection.findOne({ _id: id })
+        const exsted_schedule = await collection.findOne({ _id: id, user_id })
 
         if (!exsted_schedule) {
             return reject('schedule not found')

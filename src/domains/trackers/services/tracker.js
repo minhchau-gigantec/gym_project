@@ -80,11 +80,11 @@ const get_list = () => new Promise(async(resolve, reject) => {
     }
 })
 
-const get_one = (id) => new Promise(async(resolve, reject) => {
+const get_one = (user_id, id) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('trackers')
         const result = await collection.aggregate([
-            { $match: { _id: id } },
+            { $match: { _id: id, user_id } },
             {
                 $lookup: {
                     from: 'user_profiles',
@@ -132,11 +132,11 @@ const get_list_by_user = (user_id) => new Promise(async(resolve, reject) => {
     }
 })
 
-const delete_one = (id) => new Promise(async(resolve, reject) => {
+const delete_one = (user_id, id) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('trackers')
 
-        const existed_item = await collection.findOne({ _id: id })
+        const existed_item = await collection.findOne({ _id: id, user_id })
 
         if (!existed_item) {
             return reject("tracker not found")

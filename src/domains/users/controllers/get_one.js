@@ -2,12 +2,11 @@ const user_profile = require('../services/user_profile')
 
 module.exports = async(req, res) => {
     try {
-        const { id } = req.params
-        const result = await user_profile.get_one(id)
+        const { user } = req
         return res.json({
             code: 200,
             message: 'handler success',
-            data: result
+            data: user
         })
 
     } catch (error) {

@@ -4,8 +4,10 @@ module.exports = async(req, res) => {
     try {
         const { id } = req.params
         const item = req.body
+        const {user} = req
+        const user_id = user._id
 
-        const result = await schedule.update_one(id, item)
+        const result = await schedule.update_one(user_id, id, item)
         return res.json({
             code: 200,
             message: 'handler success',
