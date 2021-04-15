@@ -47,7 +47,6 @@ const start = async function() {
     app.use('/users', user_router)
 
 
-
     app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
     const { PORT, HOST } = env.config
