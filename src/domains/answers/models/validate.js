@@ -21,7 +21,7 @@ const update = {
     }
 }
 
-const submit = {
+const ids = {
     additionalProperties: false,
     type: 'object',
     properties: {
@@ -30,7 +30,8 @@ const submit = {
             items: {
                 type: 'string',
                 minLength: 1
-            }
+            },
+            minItems: 1,
         }
     },
     required: ['answer_ids']
@@ -39,5 +40,5 @@ const submit = {
 module.exports = {
     create,
     update,
-    submit
+    ids
 }

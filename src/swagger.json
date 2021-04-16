@@ -473,13 +473,16 @@
                             "type": "object",
                             "properties": {
                                 "name": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "name update"
                                 },
                                 "content": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "content update"
                                 },
                                 "type": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "type update"
                                 }
                             }
                         }
@@ -572,7 +575,7 @@
                 }
             }
         },
-        "/bookings/user/{user_id}": {
+        "/bookings/user": {
             "get": {
                 "summary": "Get list bookings by user_id",
                 "tags": [
@@ -959,7 +962,7 @@
                 }
             }
         },
-        "/schedules/user/{user_id}": {
+        "/schedules/user": {
             "get": {
                 "summary": "Get list schedules by user_id",
                 "tags": [
@@ -1161,7 +1164,7 @@
                 }
             }
         },
-        "/trackers/user/{user_id}": {
+        "/trackers/user": {
             "get": {
                 "summary": "Get list trackers by user_id",
                 "tags": [
@@ -1208,6 +1211,12 @@
                             "type": "object",
                             "properties": {
                                 "time": {
+                                    "type": "string"
+                                },
+                                "step": {
+                                    "type": "integer"
+                                },
+                                "weight": {
                                     "type": "integer"
                                 }
                             }
@@ -1325,11 +1334,11 @@
                 }
             }
         },
-        "/user_programs/user/{user_id}": {
+        "/user_programs/user": {
             "get": {
                 "summary": "Get list trackers by user_id",
                 "tags": [
-                    "trackers"
+                    "user_programs"
                 ],
                 "parameters": [{
                     "name": "user_id",

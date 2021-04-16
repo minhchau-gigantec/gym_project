@@ -2,9 +2,9 @@ const create = {
     additionalProperties: false,
     type: 'object',
     properties: {
-        name: { type: 'string' },
-        content: { type: 'string' },
-        type: { type: 'string' }
+        name: { type: 'string', minLength: 1 },
+        content: { type: 'string', minLength: 1 },
+        type: { type: 'string', minLength: 1 }
     },
     required: ['name', 'content', 'type']
 }
@@ -15,7 +15,7 @@ const update = {
     properties: {
         name: { type: 'string', minLength: 1 },
         content: { type: 'string', minLength: 1 },
-        type: { type: 'string' }
+        type: { type: 'string', minLength: 1 }
     }
 }
 
