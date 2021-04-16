@@ -51,9 +51,11 @@ const update_one = (user_id, id, item) => new Promise(async(resolve, reject) => 
             returnNewDocument: true
         }
 
-        const result = collection.updateOne({ _id: id, user_id }, {
+        await collection.updateOne({ _id: id, user_id }, {
             $set: item
-        }, options)
+        })
+
+        const result = await collection.findOne({ _id: id, user_id })
 
         return resolve(result)
     } catch (error) {
@@ -66,7 +68,16 @@ const get_list = () => new Promise(async(resolve, reject) => {
     try {
 
         const collection = mongo.db.collection('schedules')
-        const result = await collection.find().toArray()
+        const result = await collection.aggregate([{
+                $lookup: {
+                    from: 'user_profiles',
+                    localField: 'user_id',
+                    foreignField: '_id',
+                    as: 'user'
+                }
+            },
+            { $unwind: '$user' }
+        ]).toArray()
 
         return resolve(result)
     } catch (error) {

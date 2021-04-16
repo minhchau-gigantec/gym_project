@@ -26,7 +26,7 @@ const start = async function() {
     setConfig()
     console.log(`ENVIRONMENT: ${env.config.NODE_ENV}`)
 
-    // test send email
+    // test connect mongodb
     await mongo.connect()
 
     app.use(cors())

@@ -18,6 +18,12 @@ const create_one = (user_id, tracker_model) => new Promise(async(resolve, reject
         const id = uuid()
         const item = {
             _id: id,
+<<<<<<< HEAD
+=======
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+            time: tracker_model.time,
+>>>>>>> master
             user_id,
             step: tracker_model.step,
             weight: tracker_model.weight,
@@ -28,7 +34,10 @@ const create_one = (user_id, tracker_model) => new Promise(async(resolve, reject
 
         await collection.insertOne(item)
         const result = await collection.findOne({ _id: id })
+<<<<<<< HEAD
             // console.log({ result })
+=======
+>>>>>>> master
         return resolve(result)
 
     } catch (error) {
@@ -37,6 +46,7 @@ const create_one = (user_id, tracker_model) => new Promise(async(resolve, reject
     }
 })
 
+<<<<<<< HEAD
 const update_one = (id, tracker_model) => new Promise(async(resolve, reject) => {
     try {
         const update = {
@@ -60,6 +70,20 @@ const update_one = (id, tracker_model) => new Promise(async(resolve, reject) => 
         const result = await collection.updateOne({ _id: id }, {
             $set: update
         }, options)
+=======
+const update_one = (user_id, id, tracker_model) => new Promise(async(resolve, reject) => {
+    try {
+        const query = {
+            user_id,
+            _id: id
+        }
+
+        const collection = mongo.db.collection('trackers')
+        await collection.updateOne(query, {
+            $set: {...tracker_model, updated_at: new Date().toISOString() }
+        })
+        const result = await collection.findOne(query)
+>>>>>>> master
 
         return resolve(result)
 
@@ -153,7 +177,11 @@ const delete_one = (id) => new Promise(async(resolve, reject) => {
             return reject("tracker not found")
         }
 
+<<<<<<< HEAD
         await collection.deleteOne({ _id: id })
+=======
+        await collection.deleteOne({ _id: id, user_id})
+>>>>>>> master
         return resolve("delete tracker success")
     } catch (error) {
         console.log(error)

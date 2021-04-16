@@ -1,6 +1,7 @@
 const {env} = require('../configs/config.service')
 const axios  = require('axios')
 const mongo = require('../core/mongo')
+const {v4: uuid} = require('uuid')
 
 
 module.exports = async (req, res, next) => {
@@ -18,15 +19,17 @@ module.exports = async (req, res, next) => {
         const user_auth = response.data
         const collection = mongo.db.collection('user_profiles')
 
-        var user_profile = await collection.findOne({_id: user_auth.sub})
+        var user_profile = await collection.findOne({auth_id: user_auth.sub})
 
         if (!user_profile){
+            const id = uuid() 
             await collection.insertOne({
-                _id: user_auth.sub,
-                email: user_auth.email
+                _id: id,
+                email: user_auth.email,
+                auth_id: user_auth.sub
             })
 
-            user_profile = await collection.findOne({_id: user_auth.sub})
+            user_profile = await collection.findOne({auth_id: user_auth.sub})
         }
         console.log({user_profile})
 
