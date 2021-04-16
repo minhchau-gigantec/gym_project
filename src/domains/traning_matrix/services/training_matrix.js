@@ -3,7 +3,7 @@ const {v4: uuid} = require('uuid')
 
 const create_one = (item_model) => new Promise(async (resolve, reject) => {
     try{
-        const collection = mongo.db.colletion('training_matrix')
+        const collection = mongo.db.collection('training_matrix')
         const query = {
             program: item_model.program
         }
@@ -11,7 +11,7 @@ const create_one = (item_model) => new Promise(async (resolve, reject) => {
         const existed_item  = await collection.findOne(query)
 
         if(existed_item){
-            return reject('traning matrix is existed')
+            return reject('training matrix is existed')
         }
 
         const create_matrix = {
@@ -33,14 +33,14 @@ const create_one = (item_model) => new Promise(async (resolve, reject) => {
 })
 
 // get traning maxtrix by program
-const get_one_by_program = (program_id) => new Promise((resolve, reject) => {
+const get_one_by_program = (program_id) => new Promise(async (resolve, reject) => {
     try{
         const collection = mongo.db.collection('training_matrix')
 
         const result = await collection.findOne({program: program_id})
 
-        if(result){
-            return reject('traning matrix not found')
+        if(!result){
+            return reject('training matrix not found')
         }
 
         return resolve(result)
@@ -50,18 +50,18 @@ const get_one_by_program = (program_id) => new Promise((resolve, reject) => {
     }
 })
 
-const delete_one = (id) => new Promise((resolve, reject) => {
+const delete_one = (id) => new Promise(async (resolve, reject) => {
     try{
         const collection = mongo.db.collection('training_matrix')
         
         const existed_item = await collection.findOne({_id: id})
 
         if(!existed_item) {
-            return reject('traning matrix not found')
+            return reject('training matrix not found')
         }
 
         await collection.deleteOne({_id: id})
-        return resolve("delete traning matrix success")
+        return resolve("delete training matrix success")
 
     }catch(error){
         console.log(error)

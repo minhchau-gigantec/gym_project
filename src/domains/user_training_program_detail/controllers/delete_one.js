@@ -1,6 +1,6 @@
 const user_training = require('../services/user_training')
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
     try{
         const {id} = req.params
         const {user} = req

@@ -25,7 +25,6 @@ const create_one = (user_id, item_model) => new Promise(async (resolve, reject) 
 const update_one = (user_id, id, item_model) => new Promise(async (resolve, reject) => {
     try{
  
-
         const collection = mongo.db.collection('user_training')
         await collection.updateOne({_id: id, user_id}, {
             $set: item_model
@@ -44,7 +43,7 @@ const update_one = (user_id, id, item_model) => new Promise(async (resolve, reje
     }
 })
 
-const delete_one = (user_id, id) => new Promise((resolve, reject) => {
+const delete_one = (user_id, id) => new Promise(async (resolve, reject) => {
     try{
         const collection = mongo.db.collection('user_training')
 
@@ -63,12 +62,12 @@ const delete_one = (user_id, id) => new Promise((resolve, reject) => {
     }
 })
 
-const get_one_by_user = (user_id, id) => new Promise((resolve, reject) => {
+const get_one_by_user = (user_id, training_detail_id) => new Promise(async (resolve, reject) => {
     try{
         const collection = mongo.db.collection('user_training')
 
         const result = await collection.aggregate([
-            {$match: {user_id, _id: id}},
+            {$match: {user_id, training_detail_id}},
             {$lookup: {
                 from: "user_profiles",
                 localField: 'user_id',
@@ -98,7 +97,7 @@ const get_one_by_user = (user_id, id) => new Promise((resolve, reject) => {
 })
 
 
-const get_list_by_user = (user_id) => new Promise((resolve, reject) => {
+const get_list_by_user = (user_id) => new Promise(async (resolve, reject) => {
     try{
         const collection = mongo.db.collection('user_training')
 
