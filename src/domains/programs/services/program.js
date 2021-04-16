@@ -20,6 +20,9 @@ const create_one = (program_model) => new Promise(async(resolve, reject) => {
         const create_item = {
             _id: id,
             name: program_model.name,
+            target: program_model.target,
+            duration: program_model.duration,
+            goals: duration.goals,
             min_points: parseInt(program_model.min_points),
             max_points: parseInt(program_model.max_points),
             created_at: new Date().toISOString(),
