@@ -1,9 +1,8 @@
 const mongo = require('../../../core/mongo')
-const traning_program_detail = require('../../training_program_detail/services/training_program_detail')
+const training_program_detail = require('../../training_program_detail/services/training_program_detail')
 const { v4: uuid } = require('uuid')
 
 const create_one = (training_model) => new Promise(async(resolve, reject) => {
-    console.log(training_model)
     try {
         const query = {
             name: training_model.name
@@ -33,7 +32,7 @@ const create_one = (training_model) => new Promise(async(resolve, reject) => {
                 return detail
             })
             // create training_program detail.
-        await traning_program_detail.create_many(detail_items)
+        await training_program_detail.create_many(detail_items)
 
         const training_id = uuid()
         const create_traning = {
@@ -64,7 +63,7 @@ const get_list = () => new Promise(async(resolve, reject) => {
             { $unwind: '$items' },
             {
                 $lookup: {
-                    from: 'traning_program_details',
+                    from: 'training_program_details',
                     localField: 'items',
                     foreignField: '_id',
                     as: 'itemObjects'
@@ -94,7 +93,68 @@ const get_list = () => new Promise(async(resolve, reject) => {
 })
 
 
+const get_one = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const collection = mongo.db.collection('training_programs')
+
+        const result = await collection.aggregate([
+            { $match: { _id: id } },
+            { $unwind: '$items' },
+            {
+                $lookup: {
+                    from: 'training_program_details',
+                    localField: 'items',
+                    foreignField: '_id',
+                    as: 'itemObjects'
+                }
+            },
+            { $unwind: '$itemObjects' },
+            {
+                $group: {
+                    _id: '$_id',
+                    name: { $first: '$name' },
+                    acronym: { $first: '$acronym' },
+                    // items: { $push: '$items'},
+                    items: { $push: '$itemObjects' },
+                    created_at: { $first: '$created_at' },
+                    updated_at: { $first: '$updated_at' }
+
+                }
+            }
+        ]).toArray()
+
+        return resolve(result)
+
+    } catch (error) {
+        console.log(error)
+        return reject(error)
+    }
+})
+
+const delete_one = (id) => new Promise(async(resolve, reject) => {
+    try {
+
+        const collection = mongo.db.collection('training_programs')
+        const existed_item = await collection.findOne({ _id: id })
+
+        if (!existed_item) {
+            return reject('tranining program not found')
+        }
+
+        await training_program_detail.delete_many(existed_item.items)
+
+        await collection.deleteOne({ _id: id })
+        return resolve("delete traning program success")
+
+    } catch (error) {
+        console.log(error)
+        return reject(error)
+    }
+})
+
+
 module.exports = {
     create_one,
-    get_list
+    get_list,
+    delete_one
 }

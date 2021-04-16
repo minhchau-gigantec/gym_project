@@ -1392,7 +1392,6 @@
                     "training_programs"
                 ],
                 "description": "Create training_program",
-
                 "parameters": [{
                     "name": "training_program",
                     "in": "body",
@@ -1402,36 +1401,49 @@
                         "required": [
                             "name",
                             "acronym",
-                            "sets",
-                            "reps",
-                            "temp",
-                            "rest"
+                            "items"
                         ],
                         "properties": {
                             "name": {
                                 "type": "string",
-                                "example": "traing_program 1"
+                                "example": "trainng_program 1"
                             },
                             "acronym": {
                                 "type": "string",
                                 "example": "acronym 1"
                             },
-                            "sets": {
-                                "type": "integer",
-                                "example": "10"
-                            },
-                            "reps": {
-                                "type": "string",
-                                "example": "10-12"
-                            },
-                            "temp": {
-                                "type": "string",
-                                "example": "40X0"
-                            },
-                            "rest": {
-                                "type": "string",
-                                "example": "10s"
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": [
+                                        "sets",
+                                        "reps",
+                                        "temp",
+                                        "rest"
+                                    ],
+                                    "properties": {
+                                        "sets": {
+                                            "type": "integer",
+                                            "example": "10"
+                                        },
+                                        "reps": {
+                                            "type": "string",
+                                            "example": "10-12"
+                                        },
+                                        "temp": {
+                                            "type": "string",
+                                            "example": "40X0"
+                                        },
+                                        "rest": {
+                                            "type": "string",
+                                            "example": "10s"
+                                        }
+                                    }
+                                }
+
                             }
+
                         }
                     }
                 }],
@@ -1449,7 +1461,7 @@
                         "description": "UnAuthentication"
                     },
                     "460": {
-                        "description": ""
+                        "description": "traning program is existed"
                     }
                 }
             }
