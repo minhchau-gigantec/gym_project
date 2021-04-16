@@ -43,6 +43,10 @@
         {
             "name": "training_programs",
             "description": "API for training_program in the system"
+        },
+        {
+            "name": "training_matrixs",
+            "description": "API for training_matrixs in the system"
         }
     ],
     "schemes": [
@@ -1419,7 +1423,7 @@
                                     "required": [
                                         "sets",
                                         "reps",
-                                        "temp",
+                                        "tempo",
                                         "rest"
                                     ],
                                     "properties": {
@@ -1431,7 +1435,7 @@
                                             "type": "string",
                                             "example": "10-12"
                                         },
-                                        "temp": {
+                                        "tempo": {
                                             "type": "string",
                                             "example": "40X0"
                                         },
@@ -1482,6 +1486,149 @@
                     },
                     "461": {
                         "description": ""
+                    }
+                }
+            }
+        },
+        "/training_programs/{id} ": {
+            "get": {
+                "summary": "List training_program by id",
+                "tags": [
+                    "training_programs"
+                ],
+                "description": "List training_program by id",
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of training-program",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "461": {
+                        "description": "tranining program not found"
+                    }
+                }
+            }
+        },
+        "/training_programs/{id}": {
+            "delete": {
+                "summary": "Delete training_program with id",
+                "tags": [
+                    "training_programs"
+                ],
+                "description": "Delete training_program with id",
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of training-program",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "463": {
+                        "description": "tranining program not found"
+                    }
+                }
+            }
+        },
+
+
+        "/training_matrixs": {
+            "post": {
+                "summary": "Create training_matrix",
+                "tags": [
+                    "training_matrixs"
+                ],
+                "description": "Create training_matrixs",
+
+                "parameters": [{
+                    "name": "training_matrix",
+                    "in": "body",
+                    "description": "training_matrix info",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "program",
+                            "items"
+                        ],
+                        "properties": {
+                            "program": {
+                                "type": "string",
+                                "example": "program 1"
+                            },
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": [
+                                        "day",
+                                        "training_program"
+                                    ],
+                                    "properties": {
+                                        "day": {
+                                            "type": "string",
+                                            "example": "1"
+                                        },
+                                        "training_program": {
+                                            "type": "string",
+                                            "example": "training_program 1"
+                                        }
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "445": {
+                        "description": "training_matrix is existed"
+                    }
+                }
+            }
+        },
+        "/training_matrixs/{id} ": {
+            "delete": {
+                "summary": "Delete training_matrix by id",
+                "tags": [
+                    "training_matrixs"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of training_matrix",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "452": {
+                        "description": "training_matrix not found"
                     }
                 }
             }

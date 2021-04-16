@@ -19,6 +19,7 @@ const user_program_router = require('./domains/user_program/router')
 const user_router = require('./domains/users/router')
 
 const training_program_router = require('./domains/training_program/router')
+const training_matrix_router = require('./domains/traning_matrix/router')
 
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json')
@@ -50,7 +51,7 @@ const start = async function() {
     app.use('/users', user_router)
 
     app.use('/training_programs', training_program_router)
-
+    app.use('/training_matrixs', training_matrix_router)
 
 
     const { PORT, HOST } = env.config

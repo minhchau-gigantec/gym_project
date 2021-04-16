@@ -12,10 +12,10 @@ const create = {
                 properties: {
                     sets: { type: 'integer', minimum: 0 },
                     reps: { type: 'string', minLength: 1 },
-                    temp: { type: 'string', minLength: 1 },
+                    tempo: { type: 'string', minLength: 1 },
                     rest: { type: 'string', minLength: 1 },
                 },
-                required: ['sets', 'reps', 'temp', 'rest']
+                required: ['sets', 'reps', 'tempo', 'rest']
             }
         }
     },
@@ -36,7 +36,7 @@ const update = {
                 properties: {
                     sets: { type: 'integer', minimum: 0 },
                     reps: { type: 'string', minLength: 1 },
-                    temp: { type: 'string', minLength: 1 },
+                    tempo: { type: 'string', minLength: 1 },
                     rest: { type: 'string', minLength: 1 },
                 }
             }
