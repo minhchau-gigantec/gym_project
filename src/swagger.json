@@ -50,6 +50,9 @@
     "produces": [
         "application/json"
     ],
+    "security": [{
+        "Bearer": []
+    }],
     "paths": {
         "/answers": {
             "post": {
@@ -584,20 +587,23 @@
 
         "/programs": {
             "post": {
-                "summary": "Create or update program",
+                "summary": "Create program",
                 "tags": [
                     "programs"
                 ],
-                "description": "Create or update program",
+                "description": "Create program",
 
                 "parameters": [{
                     "name": "program",
                     "in": "body",
-                    "description": "Program that we want to create or update",
+                    "description": "Program that we want to create ",
                     "schema": {
                         "type": "object",
                         "required": [
                             "name",
+                            "target",
+                            "duration",
+                            "goals",
                             "min_points",
                             "max_points"
                         ],
@@ -605,6 +611,18 @@
                             "name": {
                                 "type": "string",
                                 "example": "Program 1"
+                            },
+                            "target": {
+                                "type": "string",
+                                "example": "target 1"
+                            },
+                            "duration": {
+                                "type": "string",
+                                "example": "1 sessions"
+                            },
+                            "goals": {
+                                "type": "string",
+                                "example": "goals 1"
                             },
                             "min_points": {
                                 "type": "integer",
@@ -691,6 +709,70 @@
                     },
                     "423": {
                         "description": "program not found"
+                    }
+                }
+            }
+        },
+        "/programs/{id} ": {
+            "put": {
+                "summary": "Update program",
+                "tags": [
+                    "programs"
+                ],
+                "description": "Update program",
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4",
+                        "description": "ID of program"
+                    },
+                    {
+                        "name": "program",
+                        "in": "body",
+                        "description": "Program info ",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "example": "Program 1"
+                                },
+                                "target": {
+                                    "type": "string",
+                                    "example": "target 1"
+                                },
+                                "duration": {
+                                    "type": "string",
+                                    "example": "1 sessions"
+                                },
+                                "goals": {
+                                    "type": "string",
+                                    "example": "goals 1"
+                                },
+                                "min_points": {
+                                    "type": "integer",
+                                    "example": "10"
+                                },
+                                "max_points": {
+                                    "type": "integer",
+                                    "example": "100"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "455": {
+                        "description": "program is not existed"
                     }
                 }
             }
