@@ -45,8 +45,8 @@
             "description": "API for training_program in the system"
         },
         {
-            "name": "training_matrixs",
-            "description": "API for training_matrixs in the system"
+            "name": "training_matrix",
+            "description": "API for training_matrix in the system"
         },
         {
             "name": "user_trainings",
@@ -121,6 +121,53 @@
                     },
                     "409": {
                         "description": "question is not exist/ answer is existed"
+                    }
+                }
+            }
+        },
+        "/answers/submit": {
+            "post": {
+                "summary": "Submit answer",
+                "tags": [
+                    "answers"
+                ],
+                "description": "Submit answer",
+                "parameters": [{
+                    "name": "answer_ids",
+                    "in": "body",
+                    "description": "list answer id",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "answer_ids"
+                        ],
+                        "properties": {
+                            "answer_ids": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "example": "id answer 1"
+                                }
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "473": {
+                        "description": ""
                     }
                 }
             }
@@ -525,12 +572,19 @@
                 }
             }
         },
-        "/bookings/user": {
+        "/bookings/user/{user_id}": {
             "get": {
                 "summary": "Get list bookings by user_id",
                 "tags": [
                     "bookings"
                 ],
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "user_id",
+                    "type": "string",
+                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
+                }],
                 "responses": {
                     "200": {
                         "description": "handler success"
@@ -589,7 +643,6 @@
                         "description": "booking info that we want to update",
                         "schema": {
                             "type": "object",
-
                             "properties": {
                                 "note": {
                                     "type": "string"
@@ -678,8 +731,11 @@
                                 "example": "1 sessions"
                             },
                             "goals": {
-                                "type": "string",
-                                "example": "goals 1"
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "example": "goal 1"
+                                }
                             }
                         }
                     }
@@ -850,8 +906,7 @@
                     "schema": {
                         "type": "object",
                         "required": [
-                            "time",
-                            "note"
+                            "time"
                         ],
                         "properties": {
                             "time": {
@@ -904,12 +959,19 @@
                 }
             }
         },
-        "/schedules/user": {
+        "/schedules/user/{user_id}": {
             "get": {
                 "summary": "Get list schedules by user_id",
                 "tags": [
                     "schedules"
                 ],
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "user_id",
+                    "type": "string",
+                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
+                }],
                 "responses": {
                     "200": {
                         "description": "handler success"
@@ -976,33 +1038,39 @@
         },
         "/schedules/{id}": {
             "put": {
-                "summary": "Update schedules by id",
+                "summary": "Update schedule",
                 "tags": [
                     "schedules"
                 ],
+                "description": "Update schedule",
+
                 "parameters": [{
                         "name": "id",
                         "in": "path",
-                        "description": "ID of schedule",
-                        "type": "string",
-                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                        "example": "8d960b70-bb50-4102-9a89-48c99a4db7b0",
+                        "description": "ID of schedule you want to delete"
                     },
                     {
                         "name": "schedule",
                         "in": "body",
-                        "description": "schedule info that we want to update",
+                        "description": "schedule info",
                         "schema": {
                             "type": "object",
                             "properties": {
                                 "time": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "10"
                                 },
                                 "note": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "note of schedule"
                                 }
                             }
                         }
                     }
+                ],
+                "produces": [
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -1014,7 +1082,7 @@
                     "400": {
                         "description": "validation error"
                     },
-                    "442": {
+                    "458": {
                         "description": ""
                     }
                 }
@@ -1093,12 +1161,19 @@
                 }
             }
         },
-        "/trackers/user": {
+        "/trackers/user/{user_id}": {
             "get": {
                 "summary": "Get list trackers by user_id",
                 "tags": [
                     "trackers"
                 ],
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "user_id",
+                    "type": "string",
+                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
+                }],
                 "responses": {
                     "200": {
                         "description": "handler success"
@@ -1133,15 +1208,8 @@
                             "type": "object",
                             "properties": {
                                 "time": {
-                                    "type": "string"
-                                },
-                                "step": {
-                                    "type": "integer"
-                                },
-                                "weight": {
                                     "type": "integer"
                                 }
-
                             }
                         }
                     }
@@ -1336,85 +1404,8 @@
         },
 
 
-        "/users": {
-            "post": {
-                "summary": "Create user",
-                "tags": [
-                    "users"
-                ],
-                "description": "Create user",
 
-                "parameters": [{
-                    "name": "user",
-                    "in": "body",
-                    "description": "user info",
-                    "schema": {
-                        "type": "object",
-                        "required": [
-                            "user_id",
-                            "first_name",
-                            "last_name",
-                            "phone",
-                            "address",
-                            "avatar",
-                            "birthday",
-                            "gender"
-                        ],
-                        "properties": {
-                            "user_id": {
-                                "type": "string",
-                                "example": "user_id for auth"
-                            },
-                            "first_name": {
-                                "type": "string",
-                                "example": "firstname1"
-                            },
-                            "last_name": {
-                                "type": "string",
-                                "example": "lastname1"
-                            },
-                            "phone": {
-                                "type": "string",
-                                "example": "0905111111"
-                            },
-                            "address": {
-                                "type": "string",
-                                "example": "TP.HCM"
-                            },
-                            "avatar": {
-                                "type": "string"
-                            },
-                            "birthday": {
-                                "type": "date",
-                                "example": "2021/15/04"
-                            },
-                            "gender": {
-                                "type": "string",
-                                "example": "male"
-                            }
-                        }
-                    }
-                }],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "451": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/users/{id}": {
+        "/users/info": {
             "put": {
                 "summary": "Update user by id",
                 "tags": [
@@ -1485,7 +1476,7 @@
                 }
             }
         },
-        "/users/{id} ": {
+        "/users/info ": {
             "get": {
                 "summary": "Get user by id",
                 "tags": [
@@ -1669,13 +1660,13 @@
         },
 
 
-        "/training_matrixs": {
+        "/training_matrix": {
             "post": {
                 "summary": "Create training_matrix",
                 "tags": [
-                    "training_matrixs"
+                    "training_matrix"
                 ],
-                "description": "Create training_matrixs",
+                "description": "Create training_matrix",
 
                 "parameters": [{
                     "name": "training_matrix",
@@ -1734,11 +1725,11 @@
                 }
             }
         },
-        "/training_matrixs/{id} ": {
+        "/training_matrix/{id} ": {
             "delete": {
                 "summary": "Delete training_matrix by id",
                 "tags": [
-                    "training_matrixs"
+                    "training_matrix"
                 ],
                 "parameters": [{
                     "name": "id",
@@ -1760,11 +1751,11 @@
                 }
             }
         },
-        "/training_matrixs/program/{program_id}": {
+        "/training_matrix/program/{program_id}": {
             "get": {
                 "summary": "Get training_matrix by program_ID or program_Name",
                 "tags": [
-                    "training_matrixs"
+                    "training_matrix"
                 ],
                 "parameters": [{
                     "name": "program_id",

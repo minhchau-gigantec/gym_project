@@ -3,10 +3,9 @@ const create = {
     type: 'object',
     properties: {
         time: { type: 'string' },
-        program_id: { type: 'string' },
         note: { type: 'string' }
     },
-    required: ['time', 'program_id']
+    required: ['time']
 }
 
 const update = {

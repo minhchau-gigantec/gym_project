@@ -54,7 +54,7 @@ const start = async() => {
 
     app.use('/training_matrix', training_matrix_router)
     app.use('/training_programs', training_program_router)
-    app.use('/training_matrixs', training_matrix_router)
+    app.use('/training_matrix', training_matrix_router)
     app.use('/user_trainings', user_training_router)
 
 
