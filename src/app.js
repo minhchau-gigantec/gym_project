@@ -18,6 +18,8 @@ const tracker_router = require('./domains/trackers/router')
 const user_program_router = require('./domains/user_program/router')
 const user_router = require('./domains/users/router')
 
+const training_program_router = require('./domains/training_program/router')
+
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json')
 
@@ -45,6 +47,8 @@ const start = async function() {
     app.use('/trackers', tracker_router)
     app.use('/user_programs', user_program_router)
     app.use('/users', user_router)
+
+    app.use('/training_programs', training_program_router)
 
 
     app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
