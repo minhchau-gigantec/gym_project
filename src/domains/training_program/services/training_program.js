@@ -93,7 +93,68 @@ const get_list = () => new Promise(async (resolve, reject) => {
 })
 
 
+const get_one = (id) => new Promise(async (resolve, reject) => {
+    try{
+        const collection = mongo.db.collection('training_programs')
+
+        const result = await collection.aggregate([
+            {$match: {_id: id}},
+            {$unwind: '$items'},
+            {
+                $lookup: {
+                    from: 'traning_program_details',
+                    localField: 'items',
+                    foreignField: '_id',
+                    as: 'itemObjects'
+                }
+            },
+            {$unwind: '$itemObjects'},
+            {
+                $group: {
+                    _id:  '$_id',
+                    name: {$first: '$name'},
+                    acronym:{$first: '$acronym'},
+                    // items: { $push: '$items'},
+                    items: {$push: '$itemObjects'},
+                    created_at: {$first: '$created_at'},
+                    updated_at: {$first: '$updated_at'}
+
+                }
+            }
+        ]).toArray()
+
+        return resolve(result)
+
+    }catch(error){
+        console.log(error)
+        return reject(error)
+    }
+})
+
+const delete_one = (id) => new Promise((resolve, reject) => {
+    try{
+
+        const collection = mongo.db.collection('training_programs')
+        const existed_item = await collection.findOne({_id: id})
+
+        if (!existed_item) {
+            return reject('tranining program not found')
+        }
+
+        await traning_program_detail.delete_many(existed_item.items)
+
+        await collection.deleteOne({_id: id})
+        return resolve("delete traning program success")
+
+    }catch(error){
+        console.log(error)
+        return reject(error)
+    }
+})
+
+
 module.exports = {
     create_one,
-    get_list
+    get_list,
+    delete_one
 }
