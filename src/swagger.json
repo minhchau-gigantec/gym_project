@@ -39,6 +39,18 @@
         {
             "name": "users",
             "description": "API for users in the system"
+        },
+        {
+            "name": "training_programs",
+            "description": "API for training_program in the system"
+        },
+        {
+            "name": "training_matrixs",
+            "description": "API for training_matrixs in the system"
+        },
+        {
+            "name": "user_trainings",
+            "description": "API for user_trainings in the system"
         }
     ],
     "schemes": [
@@ -50,6 +62,9 @@
     "produces": [
         "application/json"
     ],
+    "security": [{
+        "Bearer": []
+    }],
     "paths": {
         "/answers": {
             "post": {
@@ -98,11 +113,14 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
                     "409": {
-                        "description": "answer is existed"
+                        "description": "question is not exist/ answer is existed"
                     }
                 }
             }
@@ -117,6 +135,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "422": {
                         "description": ""
@@ -141,6 +162,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "405": {
                         "description": "answer not found"
                     }
@@ -164,6 +188,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "421": {
                         "description": ""
                     }
@@ -186,8 +213,67 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "406": {
                         "description": "answers not found"
+                    }
+                }
+            }
+        },
+        "/answers/{id} ": {
+            "put": {
+                "summary": "Update answer by id",
+                "tags": [
+                    "answers"
+                ],
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of answer",
+                        "type": "string",
+                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                    },
+                    {
+                        "name": "answer",
+                        "in": "body",
+                        "description": "Answer that we want to create",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "question_id": {
+                                    "type": "string",
+                                    "example": "ba8f8d01-d500-4f45-ae26-a1b238fadf4c"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "example": "answer 1"
+                                },
+                                "content": {
+                                    "type": "string",
+                                    "example": "Content answer 1"
+                                },
+                                "points": {
+                                    "type": "integer",
+                                    "example": "10"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "453": {
+                        "description": ""
                     }
                 }
             }
@@ -231,6 +317,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -251,13 +340,16 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "412": {
                         "description": ""
                     }
                 }
             }
         },
-        "/questions/{id}": {
+        "/questions/{id} ": {
             "get": {
                 "summary": "List questions with id",
                 "tags": [
@@ -273,6 +365,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "413": {
                         "description": "Question not found"
@@ -296,8 +391,57 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "411": {
                         "description": "Question not found"
+                    }
+                }
+            }
+        },
+        "/questions/{id}": {
+            "put": {
+                "summary": "Update question by id",
+                "tags": [
+                    "questions"
+                ],
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of question",
+                        "type": "string",
+                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                    },
+                    {
+                        "name": "question",
+                        "in": "body",
+                        "description": "question info that we want to update",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "412": {
+                        "description": ""
                     }
                 }
             }
@@ -346,6 +490,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -365,6 +512,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "431": {
                         "description": ""
@@ -389,6 +539,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "428": {
                         "description": ""
                     }
@@ -411,6 +564,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "430": {
                         "description": "booking not found"
@@ -453,6 +609,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -478,6 +637,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "432": {
                         "description": "booking not found"
                     }
@@ -488,20 +650,23 @@
 
         "/programs": {
             "post": {
-                "summary": "Create or update program",
+                "summary": "Create program",
                 "tags": [
                     "programs"
                 ],
-                "description": "Create or update program",
+                "description": "Create program",
 
                 "parameters": [{
                     "name": "program",
                     "in": "body",
-                    "description": "Program that we want to create or update",
+                    "description": "Program that we want to create ",
                     "schema": {
                         "type": "object",
                         "required": [
                             "name",
+                            "target",
+                            "duration",
+                            "goals",
                             "min_points",
                             "max_points"
                         ],
@@ -509,6 +674,18 @@
                             "name": {
                                 "type": "string",
                                 "example": "Program 1"
+                            },
+                            "target": {
+                                "type": "string",
+                                "example": "target 1"
+                            },
+                            "duration": {
+                                "type": "string",
+                                "example": "1 sessions"
+                            },
+                            "goals": {
+                                "type": "string",
+                                "example": "goals 1"
                             },
                             "min_points": {
                                 "type": "integer",
@@ -531,7 +708,10 @@
                     "400": {
                         "description": "validation error"
                     },
-                    "422": {
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "466": {
                         "description": "program is existed"
                     }
                 }
@@ -548,6 +728,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "424": {
                         "description": ""
                     }
@@ -556,7 +739,7 @@
         },
         "/programs/{id}": {
             "get": {
-                "summary": "List programs with id",
+                "summary": "Get programs with id",
                 "tags": [
                     "programs"
                 ],
@@ -571,7 +754,10 @@
                     "200": {
                         "description": "handler success"
                     },
-                    "425": {
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "422": {
                         "description": "program not found"
                     }
                 }
@@ -587,14 +773,84 @@
                     "name": "id",
                     "in": "path",
                     "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4",
-                    "description": "ID of program you want to delete"
+                    "description": "ID of program"
                 }],
                 "responses": {
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "423": {
                         "description": "program not found"
+                    }
+                }
+            }
+        },
+        "/programs/{id} ": {
+            "put": {
+                "summary": "Update program",
+                "tags": [
+                    "programs"
+                ],
+                "description": "Update program",
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4",
+                        "description": "ID of program"
+                    },
+                    {
+                        "name": "program",
+                        "in": "body",
+                        "description": "Program info ",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "example": "name update"
+                                },
+                                "target": {
+                                    "type": "string",
+                                    "example": "target update"
+                                },
+                                "duration": {
+                                    "type": "string",
+                                    "example": "1 sessions"
+                                },
+                                "goals": {
+                                    "type": "string",
+                                    "example": "goals 1"
+                                },
+                                "min_points": {
+                                    "type": "integer",
+                                    "example": "10"
+                                },
+                                "max_points": {
+                                    "type": "integer",
+                                    "example": "100"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "455": {
+                        "description": "program is not existed"
                     }
                 }
             }
@@ -648,6 +904,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -667,6 +926,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "437": {
                         "description": ""
@@ -691,6 +953,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "435": {
                         "description": ""
                     }
@@ -714,6 +979,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "438": {
                         "description": "booking not found"
                     }
@@ -735,6 +1003,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "436": {
                         "description": "schedule not found"
@@ -788,6 +1059,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -807,6 +1081,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "441": {
                         "description": ""
@@ -830,6 +1107,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "440": {
                         "description": ""
@@ -871,6 +1151,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -895,6 +1178,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "439": {
                         "description": "tracker not found"
@@ -940,6 +1226,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -959,6 +1248,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "448": {
                         "description": ""
@@ -983,6 +1275,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "447": {
                         "description": ""
                     }
@@ -1006,6 +1301,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "449": {
                         "description": "user program not found"
                     }
@@ -1027,6 +1325,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "446": {
                         "description": "user program not found"
@@ -1102,6 +1403,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -1170,6 +1474,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -1196,8 +1503,470 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "452": {
                         "description": ""
+                    }
+                }
+            }
+        },
+
+
+        "/training_programs ": {
+            "post": {
+                "summary": "Create training_program",
+                "tags": [
+                    "training_programs"
+                ],
+                "description": "Create training_program",
+                "parameters": [{
+                    "name": "training_program",
+                    "in": "body",
+                    "description": "training_program info",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "name",
+                            "acronym",
+                            "items"
+                        ],
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "example": "trainng_program 1"
+                            },
+                            "acronym": {
+                                "type": "string",
+                                "example": "acronym 1"
+                            },
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": [
+                                        "sets",
+                                        "reps",
+                                        "tempo",
+                                        "rest"
+                                    ],
+                                    "properties": {
+                                        "sets": {
+                                            "type": "integer",
+                                            "example": "10"
+                                        },
+                                        "reps": {
+                                            "type": "string",
+                                            "example": "10-12"
+                                        },
+                                        "tempo": {
+                                            "type": "string",
+                                            "example": "40X0"
+                                        },
+                                        "rest": {
+                                            "type": "string",
+                                            "example": "10s"
+                                        }
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "460": {
+                        "description": "traning program is existed"
+                    }
+                }
+            }
+        },
+        "/training_programs": {
+            "get": {
+                "summary": "List all training_programs",
+                "tags": [
+                    "training_programs"
+                ],
+                "description": "List all training_programs in database",
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "461": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/training_programs/{id} ": {
+            "get": {
+                "summary": "List training_program by Id or Name",
+                "tags": [
+                    "training_programs"
+                ],
+                "description": "List training_program by Id or Name",
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID or NAME of training-program",
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "461": {
+                        "description": "tranining program not found"
+                    }
+                }
+            }
+        },
+        "/training_programs/{id}": {
+            "delete": {
+                "summary": "Delete training_program with id",
+                "tags": [
+                    "training_programs"
+                ],
+                "description": "Delete training_program with id",
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of training-program",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "463": {
+                        "description": "tranining program not found"
+                    }
+                }
+            }
+        },
+
+
+        "/training_matrixs": {
+            "post": {
+                "summary": "Create training_matrix",
+                "tags": [
+                    "training_matrixs"
+                ],
+                "description": "Create training_matrixs",
+
+                "parameters": [{
+                    "name": "training_matrix",
+                    "in": "body",
+                    "description": "training_matrix info",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "program",
+                            "items"
+                        ],
+                        "properties": {
+                            "program": {
+                                "type": "string",
+                                "example": "program 1"
+                            },
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": [
+                                        "day",
+                                        "training_program"
+                                    ],
+                                    "properties": {
+                                        "day": {
+                                            "type": "string",
+                                            "example": "1"
+                                        },
+                                        "training_program": {
+                                            "type": "string",
+                                            "example": "training_program 1"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "462": {
+                        "description": "training_matrix is existed/ program not found"
+                    }
+                }
+            }
+        },
+        "/training_matrixs/{id} ": {
+            "delete": {
+                "summary": "Delete training_matrix by id",
+                "tags": [
+                    "training_matrixs"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of training_matrix",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "464": {
+                        "description": "training matrix not found"
+                    }
+                }
+            }
+        },
+        "/training_matrixs/program/{program_id}": {
+            "get": {
+                "summary": "Get training_matrix by program_ID or program_Name",
+                "tags": [
+                    "training_matrixs"
+                ],
+                "parameters": [{
+                    "name": "program_id",
+                    "in": "path",
+                    "description": "ID or NAME of program",
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "462": {
+                        "description": "training matrix not found"
+                    }
+                }
+            }
+        },
+
+        "/user_trainings": {
+            "post": {
+                "summary": "Create user_training_program_detail",
+                "tags": [
+                    "user_trainings"
+                ],
+                "description": "Create user_training_program_detail",
+
+                "parameters": [{
+                    "name": "user_training",
+                    "in": "body",
+                    "description": "user_training_program_detail info",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "training_detail_id",
+                            "weight"
+                        ],
+                        "properties": {
+                            "training_detail_id": {
+                                "type": "string",
+                                "example": "user_training 1"
+                            },
+                            "weight": {
+                                "type": "integer",
+                                "example": "50"
+                            },
+                            "note": {
+                                "type": "string",
+                                "example": "note 1"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "466": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user_trainings ": {
+            "get": {
+                "summary": "List list training by user",
+                "tags": [
+                    "user_trainings"
+                ],
+                "description": "List user_trainings",
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "469": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user_trainings/{training_detail_id} ": {
+            "get": {
+                "summary": "Get user_training by training_detail_id",
+                "tags": [
+                    "user_trainings"
+                ],
+                "description": "Get user_training by training_detail_id",
+                "parameters": [{
+                    "name": "training_detail_id",
+                    "in": "path",
+                    "description": "ID of training_detail_id",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "470": {
+                        "description": "user training not found"
+                    }
+                }
+            }
+        },
+        "/user_trainings/{id}": {
+            "delete": {
+                "summary": "Delete user_training by id",
+                "tags": [
+                    "user_trainings"
+                ],
+                "description": "Delete user_training by id",
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of user_training",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "467": {
+                        "description": "user training not found"
+                    }
+                }
+            }
+        },
+        "/user_trainings/{id} ": {
+            "put": {
+                "summary": "Update user_training_program_detail by id",
+                "tags": [
+                    "user_trainings"
+                ],
+                "description": "Update user_training_program_detail by id",
+
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of user_training",
+                        "type": "string",
+                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                    },
+                    {
+                        "name": "user_training",
+                        "in": "body",
+                        "description": "user_training_program_detail info",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "training_detail_id": {
+                                    "type": "string",
+                                    "example": "user_training update"
+                                },
+                                "weight": {
+                                    "type": "integer",
+                                    "example": "50"
+                                },
+                                "note": {
+                                    "type": "string",
+                                    "example": "note update"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "471": {
+                        "description": "user traning not found"
                     }
                 }
             }

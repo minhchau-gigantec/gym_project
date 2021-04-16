@@ -6,7 +6,7 @@ const create = {
         program_id: { type: 'string' },
         note: { type: 'string' }
     },
-    required: ['time', 'program_id', 'note']
+    required: ['time', 'program_id']
 }
 
 const update = {

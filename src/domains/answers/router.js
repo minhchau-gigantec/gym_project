@@ -14,7 +14,7 @@ const validate = require('../../middleware/check_validate')
 const dataExample = require('./models/validate')
 
 
-router.post('/', create_one)
+router.post('/', validate(dataExample.create), create_one)
 
 router.post('/submit', submit_answer)
 
@@ -26,7 +26,7 @@ router.get('/question/:question_id', get_list_by_question)
 
 router.get('/:id', get_one)
 
-router.put('/:id', update_one)
+router.put('/:id', validate(dataExample.update), update_one)
 
 
 module.exports = router

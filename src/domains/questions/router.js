@@ -18,7 +18,7 @@ router.delete('/:id', delete_one)
 
 router.get('/:id', get_one)
 
-router.put('/:id', update_one)
+router.put('/:id', validate(dataExample.update), update_one)
 
 
 module.exports = router

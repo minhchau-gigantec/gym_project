@@ -8,8 +8,10 @@ const get_list_by_user = require('./controllers/get_list_by_user')
 const get_one_by_user = require('./controllers/get_one_by_user')
 const update_one = require('./controllers/update_one')
 
+const validate = require('../../middleware/check_validate')
+const dataExample = require('./models/validate')
 
-router.post('/', create_one)
+router.post('/', validate(dataExample.create), create_one)
 
 router.get('/', get_list_by_user)
 
@@ -17,6 +19,6 @@ router.get('/:training_detail_id', get_one_by_user)
 
 router.delete('/:id', delete_one)
 
-router.put('/:id', update_one)
+router.put('/:id', validate(dataExample.update), update_one)
 
 module.exports = router

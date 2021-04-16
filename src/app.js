@@ -22,10 +22,11 @@ const training_matrix_router = require('./domains/traning_matrix/router')
 const training_program_router = require('./domains/training_program/router')
 const user_training_router = require('./domains/user_training_program_detail/router')
 
+
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json')
 
-const start = async () => {
+const start = async() => {
     //config
     setConfig()
     console.log(`ENVIRONMENT: ${env.config.NODE_ENV}`)
@@ -37,6 +38,7 @@ const start = async () => {
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: true }))
 
+    app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
     app.use(check_auth)
 
 
@@ -52,10 +54,9 @@ const start = async () => {
 
     app.use('/training_matrix', training_matrix_router)
     app.use('/training_programs', training_program_router)
-    app.use('/user_training', user_training_router)
+    app.use('/training_matrixs', training_matrix_router)
+    app.use('/user_trainings', user_training_router)
 
-
-    app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
     const { PORT, HOST } = env.config
     app.listen(PORT, () => {
