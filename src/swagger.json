@@ -634,16 +634,16 @@
 
         "/programs": {
             "post": {
-                "summary": "Create or update program",
+                "summary": "Create program",
                 "tags": [
                     "programs"
                 ],
-                "description": "Create or update program",
+                "description": "Create program",
 
                 "parameters": [{
                     "name": "program",
                     "in": "body",
-                    "description": "Program that we want to create or update",
+                    "description": "Program info",
                     "schema": {
                         "type": "object",
                         "required": [
@@ -677,6 +677,9 @@
                     "400": {
                         "description": "validation error"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "422": {
                         "description": "program is existed"
                     }
@@ -694,6 +697,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "424": {
                         "description": ""
                     }
@@ -702,20 +708,23 @@
         },
         "/programs/{id}": {
             "get": {
-                "summary": "List programs with id",
+                "summary": "List program with id",
                 "tags": [
                     "programs"
                 ],
                 "parameters": [{
                     "name": "id",
                     "in": "path",
-                    "description": "ID of programs you want to get",
+                    "description": "ID of program",
                     "type": "string",
-                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                    "example": "668084c3-c97d-4d2f-9621-26230940c5a7"
                 }],
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "425": {
                         "description": "program not found"
@@ -739,7 +748,66 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "423": {
+                        "description": "program not found"
+                    }
+                }
+            }
+        },
+        "/programs/{id} ": {
+            "put": {
+                "summary": "Update program",
+                "tags": [
+                    "programs"
+                ],
+                "description": "Update program",
+
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4",
+                        "description": "ID of program"
+                    },
+                    {
+                        "name": "program",
+                        "in": "body",
+                        "description": "Program info",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "example": "Program 1"
+                                },
+                                "min_points": {
+                                    "type": "integer",
+                                    "example": "10"
+                                },
+                                "max_points": {
+                                    "type": "integer",
+                                    "example": "100"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "455": {
                         "description": "program not found"
                     }
                 }
@@ -1124,17 +1192,12 @@
                     "schema": {
                         "type": "object",
                         "required": [
-                            "user_id",
                             "program_id"
                         ],
                         "properties": {
-                            "user_id": {
-                                "type": "string",
-                                "example": "user_id of user"
-                            },
                             "program_id": {
                                 "type": "string",
-                                "example": "program_id of user"
+                                "example": "c1e51943-4446-4b34-a13b-2c31bfc76f98"
                             }
                         }
                     }
@@ -1149,8 +1212,11 @@
                     "400": {
                         "description": "validation error"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "445": {
-                        "description": "user_program is existed"
+                        "description": "program is not exist/ user_program is existed"
                     }
                 }
             }
@@ -1165,6 +1231,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "448": {
                         "description": ""
@@ -1189,8 +1258,11 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "449": {
-                        "description": "user program not found"
+                        "description": "user-program not found"
                     }
                 }
             }
@@ -1211,12 +1283,16 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "446": {
                         "description": "user program not found"
                     }
                 }
             }
         },
+
 
         "/users ": {
             "get": {

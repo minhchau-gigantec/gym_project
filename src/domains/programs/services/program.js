@@ -44,7 +44,8 @@ const update_one = (id, item) => new Promise(async(resolve, reject) => {
             returnNewDocument: true
         }
         const collection = mongo.db.collection('programs')
-        await collection.updateOne({_id: id}, {
+
+        await collection.updateOne({ _id: id }, {
             $set: item
         }, options)
 
@@ -79,9 +80,9 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
     try {
 
         const collection = mongo.db.collection('programs')
-        const program = await collection.findOne({_id: id})
+        const program = await collection.findOne({ _id: id })
 
-        if(!program){
+        if (!program) {
             return reject('program not found')
         }
         return resolve(program)

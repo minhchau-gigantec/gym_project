@@ -3,6 +3,15 @@ const { v4: uuid } = require('uuid')
 
 const create_one = (user_id, item) => new Promise(async(resolve, reject) => {
     try {
+        //check program exist
+        const program = mongo.db.collection('programs')
+        const check_program = await program.findOne({ _id: item.program_id })
+            // console.log(item.program_id)
+            // console.log({ check_program })
+        if (check_program === null) {
+            return reject('program is not exist')
+        }
+
         const collection = mongo.db.collection('user_programs')
 
         const query = {
@@ -122,10 +131,15 @@ const get_list = () => new Promise(async(resolve, reject) => {
 })
 
 
-const get_one = (user_id) => new Promise(async(resolve, reject) => {
+const get_one = (id) => new Promise(async(resolve, reject) => {
     try {
 
         const collection = mongo.db.collection('user_programs')
+        const check_exist = collection.findOne({ _id: id })
+        if (check_exist === null) {
+            return reject('user-program not found')
+        }
+
         const result = await collection.aggregate([
             { $match: { user_id } },
             {

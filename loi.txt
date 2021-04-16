@@ -1,9 +1,9 @@
 -Them ma loi unauthentication vao swagger
 -update_user có đc thay đổi user_id và email k?
 -note trong 1 số bảng có cần require k?
+- user_program: chưa check program exist
 
-
-Còn program và user_program
+    
 
 
 
@@ -21,6 +21,8 @@ Còn program và user_program
     create: sai -> có cần lưu time k?
     delete: chạy sai
      update: chạy sai + chưa check exist ->(có cần truyền id qua param k)
+- proogram:
+    thêm swagger update
            
 
 

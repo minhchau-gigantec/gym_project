@@ -1,19 +1,20 @@
 const user_program = require('../services/user_program')
 
 
-module.exports = async (req, res) => {
-    try{
-        const {user} = req
-        const user_id = user._id
-        const result = await user_program.get_one(user_id)
+module.exports = async(req, res) => {
+    try {
+        // const {user} = req
+        // const user_id = user._id
+        const id = req.params
+        const result = await user_program.get_one(id)
 
         return res.json({
             code: 200,
             message: "handler success",
             data: result
         })
-    }catch(error){
+    } catch (error) {
         console.log(error)
-        return res.status(449).send({message: error})
+        return res.status(449).send({ message: error })
     }
 }
