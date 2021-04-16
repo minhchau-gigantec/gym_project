@@ -113,6 +113,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -132,6 +135,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "422": {
                         "description": ""
@@ -156,6 +162,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "405": {
                         "description": "answer not found"
                     }
@@ -179,6 +188,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "421": {
                         "description": ""
                     }
@@ -200,6 +212,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "406": {
                         "description": "answers not found"
@@ -251,6 +266,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -299,6 +317,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -318,6 +339,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "412": {
                         "description": ""
@@ -342,6 +366,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "413": {
                         "description": "Question not found"
                     }
@@ -363,6 +390,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "411": {
                         "description": "Question not found"
@@ -403,6 +433,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "400": {
                         "description": "validation error"
@@ -457,6 +490,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -476,6 +512,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "431": {
                         "description": ""
@@ -500,6 +539,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "428": {
                         "description": ""
                     }
@@ -522,6 +564,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "430": {
                         "description": "booking not found"
@@ -564,6 +609,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -588,6 +636,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "432": {
                         "description": "booking not found"
@@ -657,7 +708,10 @@
                     "400": {
                         "description": "validation error"
                     },
-                    "422": {
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "466": {
                         "description": "program is existed"
                     }
                 }
@@ -674,6 +728,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "424": {
                         "description": ""
                     }
@@ -682,7 +739,7 @@
         },
         "/programs/{id}": {
             "get": {
-                "summary": "List programs with id",
+                "summary": "Get programs with id",
                 "tags": [
                     "programs"
                 ],
@@ -697,7 +754,10 @@
                     "200": {
                         "description": "handler success"
                     },
-                    "425": {
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "422": {
                         "description": "program not found"
                     }
                 }
@@ -713,11 +773,14 @@
                     "name": "id",
                     "in": "path",
                     "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4",
-                    "description": "ID of program you want to delete"
+                    "description": "ID of program"
                 }],
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "423": {
                         "description": "program not found"
@@ -747,11 +810,11 @@
                             "properties": {
                                 "name": {
                                     "type": "string",
-                                    "example": "Program 1"
+                                    "example": "name update"
                                 },
                                 "target": {
                                     "type": "string",
-                                    "example": "target 1"
+                                    "example": "target update"
                                 },
                                 "duration": {
                                     "type": "string",
@@ -782,6 +845,9 @@
                     },
                     "400": {
                         "description": "validation error"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "455": {
                         "description": "program is not existed"
@@ -838,6 +904,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -857,6 +926,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "437": {
                         "description": ""
@@ -881,6 +953,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "435": {
                         "description": ""
                     }
@@ -904,6 +979,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "438": {
                         "description": "booking not found"
                     }
@@ -925,6 +1003,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "436": {
                         "description": "schedule not found"
@@ -978,6 +1059,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -997,6 +1081,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "441": {
                         "description": ""
@@ -1020,6 +1107,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "440": {
                         "description": ""
@@ -1061,6 +1151,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -1085,6 +1178,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "439": {
                         "description": "tracker not found"
@@ -1130,6 +1226,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -1149,6 +1248,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "448": {
                         "description": ""
@@ -1173,6 +1275,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "447": {
                         "description": ""
                     }
@@ -1196,6 +1301,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "449": {
                         "description": "user program not found"
                     }
@@ -1217,6 +1325,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "446": {
                         "description": "user program not found"
@@ -1292,6 +1403,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -1360,6 +1474,9 @@
                     "200": {
                         "description": "handler success"
                     },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
                     "400": {
                         "description": "validation error"
                     },
@@ -1385,6 +1502,9 @@
                 "responses": {
                     "200": {
                         "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
                     },
                     "452": {
                         "description": ""
@@ -1497,11 +1617,11 @@
         },
         "/training_programs/{id} ": {
             "get": {
-                "summary": "List training_program by id",
+                "summary": "List training_program by Id or Name",
                 "tags": [
                     "training_programs"
                 ],
-                "description": "List training_program by id",
+                "description": "List training_program by Id or Name",
                 "parameters": [{
                     "name": "id",
                     "in": "path",
@@ -1592,9 +1712,7 @@
                                         }
                                     }
                                 }
-
                             }
-
                         }
                     }
                 }],
@@ -1608,8 +1726,11 @@
                     "400": {
                         "description": "validation error"
                     },
-                    "445": {
-                        "description": "training_matrix is existed"
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "462": {
+                        "description": "training_matrix is existed/ program not found"
                     }
                 }
             }
@@ -1631,26 +1752,53 @@
                     "200": {
                         "description": "handler success"
                     },
-                    "452": {
-                        "description": "training_matrix not found"
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "464": {
+                        "description": "training matrix not found"
+                    }
+                }
+            }
+        },
+        "/training_matrixs/program/{program_id}": {
+            "get": {
+                "summary": "Get training_matrix by program_ID or program_Name",
+                "tags": [
+                    "training_matrixs"
+                ],
+                "parameters": [{
+                    "name": "program_id",
+                    "in": "path",
+                    "description": "ID or NAME of program",
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "462": {
+                        "description": "training matrix not found"
                     }
                 }
             }
         },
 
-
         "/user_trainings": {
             "post": {
-                "summary": "Create user_training",
+                "summary": "Create user_training_program_detail",
                 "tags": [
                     "user_trainings"
                 ],
-                "description": "Create user_training",
+                "description": "Create user_training_program_detail",
 
                 "parameters": [{
                     "name": "user_training",
                     "in": "body",
-                    "description": "user_training info",
+                    "description": "user_training_program_detail info",
                     "schema": {
                         "type": "object",
                         "required": [
@@ -1687,14 +1835,14 @@
                         "description": "UnAuthentication"
                     },
                     "466": {
-                        "description": "user_training is existed"
+                        "description": ""
                     }
                 }
             }
         },
         "/user_trainings ": {
             "get": {
-                "summary": "List user_trainings",
+                "summary": "List list training by user",
                 "tags": [
                     "user_trainings"
                 ],
@@ -1712,17 +1860,17 @@
                 }
             }
         },
-        "/user_trainings/{id} ": {
+        "/user_trainings/{training_detail_id} ": {
             "get": {
-                "summary": "Get user_training by id",
+                "summary": "Get user_training by training_detail_id",
                 "tags": [
                     "user_trainings"
                 ],
-                "description": "Get user_training by id",
+                "description": "Get user_training by training_detail_id",
                 "parameters": [{
-                    "name": "id",
+                    "name": "training_detail_id",
                     "in": "path",
-                    "description": "ID of user_training",
+                    "description": "ID of training_detail_id",
                     "type": "string",
                     "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
                 }],
@@ -1766,13 +1914,14 @@
                 }
             }
         },
-        "/user_trainings/{id}  ": {
+        "/user_trainings/{id} ": {
             "put": {
-                "summary": "Update user_training by id",
+                "summary": "Update user_training_program_detail by id",
                 "tags": [
                     "user_trainings"
                 ],
-                "description": "Update user_training by id",
+                "description": "Update user_training_program_detail by id",
+
                 "parameters": [{
                         "name": "id",
                         "in": "path",
@@ -1783,7 +1932,7 @@
                     {
                         "name": "user_training",
                         "in": "body",
-                        "description": "user_training info",
+                        "description": "user_training_program_detail info",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -1803,18 +1952,21 @@
                         }
                     }
                 ],
+                "produces": [
+                    "application/json"
+                ],
                 "responses": {
                     "200": {
                         "description": "handler success"
                     },
                     "400": {
-                        "description": "Validation error"
+                        "description": "validation error"
                     },
                     "401": {
                         "description": "UnAuthentication"
                     },
                     "471": {
-                        "description": "user training not found"
+                        "description": "user traning not found"
                     }
                 }
             }

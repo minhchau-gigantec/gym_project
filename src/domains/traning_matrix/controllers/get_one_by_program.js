@@ -1,6 +1,6 @@
 const training_matrix = require('../services/training_matrix')
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
     try{
         const {program_id} = req.params
         const result = await training_matrix.get_one_by_program(program_id)

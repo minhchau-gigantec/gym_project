@@ -4,8 +4,9 @@ module.exports = async(req, res) => {
     try {
         const { user } = req
         const user_id = user._id
-        const { id } = req.params
-        const result = await user_training.get_one_by_user(user_id, id)
+        const { training_detail_id } = req.params
+        const result = await user_training.get_one_by_user(user_id, training_detail_id)
+
         return res.json({
             code: 200,
             message: 'handler success',

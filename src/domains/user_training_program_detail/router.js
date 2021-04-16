@@ -15,7 +15,7 @@ router.post('/', validate(dataExample.create), create_one)
 
 router.get('/', get_list_by_user)
 
-router.get('/:id', get_one_by_user)
+router.get('/:training_detail_id', get_one_by_user)
 
 router.delete('/:id', delete_one)
 
