@@ -47,6 +47,10 @@
         {
             "name": "training_matrixs",
             "description": "API for training_matrixs in the system"
+        },
+        {
+            "name": "user_trainings",
+            "description": "API for user_trainings in the system"
         }
     ],
     "schemes": [
@@ -1389,6 +1393,7 @@
             }
         },
 
+
         "/training_programs ": {
             "post": {
                 "summary": "Create training_program",
@@ -1500,9 +1505,8 @@
                 "parameters": [{
                     "name": "id",
                     "in": "path",
-                    "description": "ID of training-program",
-                    "type": "string",
-                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                    "description": "ID or NAME of training-program",
+                    "type": "string"
                 }],
                 "responses": {
                     "200": {
@@ -1629,6 +1633,188 @@
                     },
                     "452": {
                         "description": "training_matrix not found"
+                    }
+                }
+            }
+        },
+
+
+        "/user_trainings": {
+            "post": {
+                "summary": "Create user_training",
+                "tags": [
+                    "user_trainings"
+                ],
+                "description": "Create user_training",
+
+                "parameters": [{
+                    "name": "user_training",
+                    "in": "body",
+                    "description": "user_training info",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "training_detail_id",
+                            "weight"
+                        ],
+                        "properties": {
+                            "training_detail_id": {
+                                "type": "string",
+                                "example": "user_training 1"
+                            },
+                            "weight": {
+                                "type": "integer",
+                                "example": "50"
+                            },
+                            "note": {
+                                "type": "string",
+                                "example": "note 1"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "466": {
+                        "description": "user_training is existed"
+                    }
+                }
+            }
+        },
+        "/user_trainings ": {
+            "get": {
+                "summary": "List user_trainings",
+                "tags": [
+                    "user_trainings"
+                ],
+                "description": "List user_trainings",
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "469": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user_trainings/{id} ": {
+            "get": {
+                "summary": "Get user_training by id",
+                "tags": [
+                    "user_trainings"
+                ],
+                "description": "Get user_training by id",
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of user_training",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "470": {
+                        "description": "user training not found"
+                    }
+                }
+            }
+        },
+        "/user_trainings/{id}": {
+            "delete": {
+                "summary": "Delete user_training by id",
+                "tags": [
+                    "user_trainings"
+                ],
+                "description": "Delete user_training by id",
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of user_training",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "467": {
+                        "description": "user training not found"
+                    }
+                }
+            }
+        },
+        "/user_trainings/{id}  ": {
+            "put": {
+                "summary": "Update user_training by id",
+                "tags": [
+                    "user_trainings"
+                ],
+                "description": "Update user_training by id",
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of user_training",
+                        "type": "string",
+                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                    },
+                    {
+                        "name": "user_training",
+                        "in": "body",
+                        "description": "user_training info",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "training_detail_id": {
+                                    "type": "string",
+                                    "example": "user_training update"
+                                },
+                                "weight": {
+                                    "type": "integer",
+                                    "example": "50"
+                                },
+                                "note": {
+                                    "type": "string",
+                                    "example": "note update"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "471": {
+                        "description": "user training not found"
                     }
                 }
             }

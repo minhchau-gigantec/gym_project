@@ -16,6 +16,7 @@ router.get('/', get_list)
 
 router.delete('/:id', delete_one)
 
+//id: name or id of training program
 router.get('/:id', get_one)
 
 

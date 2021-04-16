@@ -1,7 +1,7 @@
 const mongo = require('../../../core/mongo')
 
-const create_one = (user_id, item_model) => new Promise(async (resolve, reject) => {
-    try{
+const create_one = (user_id, item_model) => new Promise(async(resolve, reject) => {
+    try {
         const detail = {
             user_id,
             training_detail_id: item_model.training_detail_id,
@@ -13,47 +13,131 @@ const create_one = (user_id, item_model) => new Promise(async (resolve, reject) 
 
         const collection = mongo.db.collection('user_training')
         await collection.insertOne(detail)
+
         return resolve(detail)
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
-const delete_one = (user_id, id) => new Promise((resolve, reject) => {
-    try{
+const update_one = (user_id, id, item_model) => new Promise(async(resolve, reject) => {
+    try {
+        const collection = mongo.db.collection('user_training')
+        await collection.updateOne({ _id: id, user_id }, {
+            $set: item_model
+        })
+
+        const result = await collection.findOne({ _id: id, user_id })
+
+        if (!result) {
+            return reject('user traning not found')
+        }
+        return resolve(result)
+
+    } catch (error) {
+        console.log(error)
+        return reject(error)
+    }
+})
+
+const delete_one = (user_id, id) => new Promise(async(resolve, reject) => {
+    try {
         const collection = mongo.db.collection('user_training')
 
-        const existed_item = await collection.findOne({_id: id, user_id})
+        const existed_item = await collection.findOne({ _id: id, user_id })
 
         if (!existed_item) {
             return reject('user training not found')
         }
 
-        await collection.deleteOne({_id: id, user_id})
-        return resolve('delete user training success')
+        await collection.deleteOne({ _id: id, user_id })
+        return resolve('Handle success')
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
 
-const get_list_by_user = (user_id) => new Promise((resolve, reject) => {
-    try{
+const get_one_by_user = (user_id, id) => new Promise(async(resolve, reject) => {
+    try {
         const collection = mongo.db.collection('user_training')
 
-        const existed_item = await collection.aggregate([
-            {$match: {_id: id}},
-            {$lookup: {
-                from: "user_profiles",
-                
-            }}
-        ])
+        const result = await collection.aggregate([
+            { $match: { user_id, _id: id } },
+            {
+                $lookup: {
+                    from: "user_profiles",
+                    localField: 'user_id',
+                    foreignField: '_id',
+                    as: 'user'
+                }
+            },
+            { $unwind: '$user' },
+            {
+                $lookup: {
+                    from: 'training_program_details',
+                    localField: 'training_detail_id',
+                    foreignField: '_id',
+                    as: 'training_program_detail'
+                }
+            },
+            { $unwind: '$training_program_detail' }
+        ]).toArray()
 
-    }catch(error){
+        if (result.length == 0) {
+            return reject('user training not found')
+        }
+
+        return resolve(result[0])
+
+    } catch (error) {
         console.log(error)
         return reject(error)
     }
 })
+
+
+const get_list_by_user = (user_id) => new Promise(async(resolve, reject) => {
+    try {
+        const collection = mongo.db.collection('user_training')
+
+        const result = await collection.aggregate([
+            { $match: { user_id } },
+            {
+                $lookup: {
+                    from: "user_profiles",
+                    localField: 'user_id',
+                    foreignField: '_id',
+                    as: 'user'
+                }
+            },
+            { $unwind: '$user' },
+            {
+                $lookup: {
+                    from: 'training_program_details',
+                    localField: 'training_detail_id',
+                    foreignField: '_id',
+                    as: 'training_program_detail'
+                }
+            },
+            { $unwind: '$training_program_detail' }
+        ]).toArray()
+
+        return resolve(result)
+
+    } catch (error) {
+        console.log(error)
+        return reject(error)
+    }
+})
+
+module.exports = {
+    create_one,
+    delete_one,
+    get_list_by_user,
+    get_one_by_user,
+    update_one
+}
