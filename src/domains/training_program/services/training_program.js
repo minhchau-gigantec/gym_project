@@ -92,13 +92,17 @@ const get_list = () => new Promise(async (resolve, reject) => {
     }
 })
 
-
+//get by id or name or acronym
 const get_one = (id) => new Promise(async (resolve, reject) => {
     try{
         const collection = mongo.db.collection('training_programs')
 
         const result = await collection.aggregate([
-            {$match: {_id: id}},
+            {$match: {$or: [
+                {_id: id},
+                {name: id},
+                {acronym: id}
+            ]}},
             {$unwind: '$items'},
             {
                 $lookup: {
@@ -123,7 +127,10 @@ const get_one = (id) => new Promise(async (resolve, reject) => {
             }
         ]).toArray()
 
-        return resolve(result)
+        if(result.length == 0){
+            return reject("training program not found")
+        }
+        return resolve(result[0])
 
     }catch(error){
         console.log(error)
@@ -156,5 +163,6 @@ const delete_one = (id) => new Promise(async (resolve, reject) => {
 module.exports = {
     create_one,
     get_list,
-    delete_one
+    delete_one,
+    get_one
 }
