@@ -8,15 +8,19 @@ const get_one = require('./controllers/get_one')
 const get_list = require('./controllers/get_list')
 const get_list_by_question = require('./controllers/get_list_by_question')
 
+const submit_answer = require('./controllers/submit_answer')
+
 const validate = require('../../middleware/check_validate')
 const dataExample = require('./models/validate')
 
 
 router.post('/', validate(dataExample.create), create_one)
 
+router.post('/submit', submit_answer)
+
 router.delete('/:id', delete_one)
 
-router.get('/', get_list)
+router.get('/list', get_list)
 
 router.get('/question/:question_id', get_list_by_question)
 
