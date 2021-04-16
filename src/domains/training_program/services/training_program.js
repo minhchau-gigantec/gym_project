@@ -1,11 +1,11 @@
 const mongo = require('../../../core/mongo')
-const traning_program_detail = require('../../training_program_detail/services/training_program_detail')
+const training_program_detail = require('../../training_program_detail/services/training_program_detail')
 const {v4: uuid} = require('uuid')
 
-const create_one = (traning_model) => new Promise(async (resolve, reject) => {
+const create_one = (training_model) => new Promise(async (resolve, reject) => {
     try{
         const query = {
-            name: traning_model.name
+            name: training_model.name
         }
 
         const collection = mongo.db.collection('training_programs')
@@ -16,7 +16,7 @@ const create_one = (traning_model) => new Promise(async (resolve, reject) => {
         }
 
         let id_detail_items = []
-        const detail_items = traning_model.items.map(row => {
+        const detail_items = training_model.items.map(row => {
             const id = uuid()
             id_detail_items.push(id)
             const detail = {
@@ -32,13 +32,13 @@ const create_one = (traning_model) => new Promise(async (resolve, reject) => {
             return detail
         })
         // create training_program detail.
-        await traning_program_detail.create_many(detail_items)
+        await training_program_detail.create_many(detail_items)
 
         const training_id = uuid()
         const create_traning = {
             _id: training_id,
-            acronym: traning_model.acronym,
-            name: traning_model.name,
+            acronym: training_model.acronym,
+            name: training_model.name,
             items: id_detail_items,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
@@ -63,7 +63,7 @@ const get_list = () => new Promise(async (resolve, reject) => {
             {$unwind: '$items'},
             {
                 $lookup: {
-                    from: 'traning_program_details',
+                    from: 'training_program_details',
                     localField: 'items',
                     foreignField: '_id',
                     as: 'itemObjects'
@@ -102,7 +102,7 @@ const get_one = (id) => new Promise(async (resolve, reject) => {
             {$unwind: '$items'},
             {
                 $lookup: {
-                    from: 'traning_program_details',
+                    from: 'training_program_details',
                     localField: 'items',
                     foreignField: '_id',
                     as: 'itemObjects'
@@ -131,7 +131,7 @@ const get_one = (id) => new Promise(async (resolve, reject) => {
     }
 })
 
-const delete_one = (id) => new Promise((resolve, reject) => {
+const delete_one = (id) => new Promise(async (resolve, reject) => {
     try{
 
         const collection = mongo.db.collection('training_programs')
@@ -141,7 +141,7 @@ const delete_one = (id) => new Promise((resolve, reject) => {
             return reject('tranining program not found')
         }
 
-        await traning_program_detail.delete_many(existed_item.items)
+        await training_program_detail.delete_many(existed_item.items)
 
         await collection.deleteOne({_id: id})
         return resolve("delete traning program success")
