@@ -666,9 +666,7 @@
                             "name",
                             "target",
                             "duration",
-                            "goals",
-                            "min_points",
-                            "max_points"
+                            "goals"
                         ],
                         "properties": {
                             "name": {
@@ -686,14 +684,6 @@
                             "goals": {
                                 "type": "string",
                                 "example": "goals 1"
-                            },
-                            "min_points": {
-                                "type": "integer",
-                                "example": "10"
-                            },
-                            "max_points": {
-                                "type": "integer",
-                                "example": "100"
                             }
                         }
                     }
@@ -823,14 +813,6 @@
                                 "goals": {
                                     "type": "string",
                                     "example": "goals 1"
-                                },
-                                "min_points": {
-                                    "type": "integer",
-                                    "example": "10"
-                                },
-                                "max_points": {
-                                    "type": "integer",
-                                    "example": "100"
                                 }
                             }
                         }

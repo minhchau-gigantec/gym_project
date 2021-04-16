@@ -5,11 +5,9 @@ const create = {
         name: { type: 'string', minLength: 1 },
         target: { type: 'string', minLength: 1 },
         duration: { type: 'string', minLength: 1 },
-        goals: { type: 'string', minLength: 1 },
-        min_points: { type: 'integer', minimum: 0 },
-        max_points: { type: 'integer', minimum: 0 }
+        goals: { type: 'string', minLength: 1 }
     },
-    required: ['name', 'target', 'duration', 'goals', 'min_points', 'max_points']
+    required: ['name', 'target', 'duration', 'goals']
 }
 
 const update = {
@@ -19,9 +17,7 @@ const update = {
         name: { type: 'string', minLength: 1 },
         target: { type: 'string', minLength: 1 },
         duration: { type: 'string', minLength: 1 },
-        goals: { type: 'string', minLength: 1 },
-        min_points: { type: 'integer', minimum: 0 },
-        max_points: { type: 'integer', minimum: 0 }
+        goals: { type: 'string', minLength: 1 }
     }
 }
 
