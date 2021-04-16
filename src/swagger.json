@@ -138,7 +138,7 @@
                     "type": "array",
                     "items": {
                         "type": "string",
-                        "example": "id_answer1"
+                        "example": "id answer 1"
                     }
                 }],
                 "produces": [
