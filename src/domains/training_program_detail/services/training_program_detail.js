@@ -1,8 +1,8 @@
 const mongo = require('../../../core/mongo')
 
-const create_many = (items) => new Promise((resolve, reject) => {
+const create_many = (items) => new Promise(async (resolve, reject) => {
     try{
-        const collection = mongo.db.collection('traning_program_detail')
+        const collection = mongo.db.collection('traning_program_details')
 
         await collection.insertMany(items)
         return resolve(items)
@@ -12,9 +12,6 @@ const create_many = (items) => new Promise((resolve, reject) => {
         return reject(error)
     }
 })
-
-
-
 
 
 module.exports = {
