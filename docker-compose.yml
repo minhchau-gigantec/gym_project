@@ -17,6 +17,18 @@ services:
     volumes: 
       - mongodb_data_container:/data/db
 
+  gym.node:
+    container_name: gym.node
+    ports:
+      - 8006:8006
+    build:
+      context: .
+    restart: always
+    networks:
+      default_gym:
+        aliases:
+          - db
+
 
 networks:
   default_gym:
