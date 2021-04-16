@@ -136,10 +136,11 @@ const get_list_by_question = (question_id) => new Promise(async(resolve, reject)
 })
 
 
-const get_list = () => new Promise(async(resolve, reject) => {
+const get_list = (answer_ids) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('answers')
         const result = await collection.aggregate([
+            {$match: {_id: {$in: answer_ids}}},
             {
                 $lookup: {
                     from: 'questions',

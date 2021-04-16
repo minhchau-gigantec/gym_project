@@ -26,7 +26,8 @@ module.exports = async (req, res, next) => {
             await collection.insertOne({
                 _id: id,
                 email: user_auth.email,
-                auth_id: user_auth.sub
+                auth_id: user_auth.sub,
+                is_answered: false
             })
 
             user_profile = await collection.findOne({auth_id: user_auth.sub})
