@@ -12,15 +12,15 @@ const validate = require('../../middleware/check_validate')
 const dataExample = require('./models/validate')
 
 
-router.post('/', create_one)
+router.post('/', validate(dataExample.create), create_one)
 
 router.get('/', get_list)
 
-router.get('/user/:user_id', get_list_by_user)
+router.get('/user', get_list_by_user)
 
 router.get('/:id', get_one)
 
-router.put('/:id', update_one)
+router.put('/:id', validate(dataExample.update), update_one)
 
 router.delete('/:id', delete_one)
 

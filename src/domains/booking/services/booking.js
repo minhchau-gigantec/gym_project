@@ -3,6 +3,19 @@ const mongo = require('../../../core/mongo')
 
 const create_one = (user_id, booking_model) => new Promise(async(resolve, reject) => {
     try {
+
+        const query = {
+            user_id,
+            time: booking_model.time,
+        }
+        const collection = mongo.db.collection('booking')
+
+        const existed_item = await collection.findOne(query)
+
+        if(existed_item){
+            return reject('booking is existed')
+        }
+
         const id = uuid()
 
         const create_booking = {
@@ -14,7 +27,6 @@ const create_one = (user_id, booking_model) => new Promise(async(resolve, reject
             updated_at: new Date().toISOString()
         }
 
-        const collection = mongo.db.collection('booking')
         await collection.insertOne(create_booking)
 
         const result = await collection.findOne({ _id: id })
@@ -39,9 +51,11 @@ const update_one = (user_id, id, booking_model) => new Promise(async(resolve, re
             returnNewDocument: true
         }
 
-        const result = await collection.updateOne({ _id: id, user_id}, {
+        await collection.updateOne({ _id: id, user_id}, {
             $set: update
-        }, options)
+        })
+
+        const result = await collection.findOne({_id: id, user_id})
 
         return resolve(result)
     } catch (error) {
