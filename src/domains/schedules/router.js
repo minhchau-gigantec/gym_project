@@ -15,7 +15,7 @@ router.post('/', create_one)
 
 router.get('/', get_list)
 
-router.get('/user/:user_id', get_list_by_user)
+router.get('/user', get_list_by_user)
 
 router.get('/:id', get_one)
 

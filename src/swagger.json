@@ -530,19 +530,12 @@
                 }
             }
         },
-        "/bookings/user/{user_id}": {
+        "/bookings/user": {
             "get": {
                 "summary": "Get list bookings by user_id",
                 "tags": [
                     "bookings"
                 ],
-                "parameters": [{
-                    "name": "user_id",
-                    "in": "path",
-                    "description": "user_id",
-                    "type": "string",
-                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
-                }],
                 "responses": {
                     "200": {
                         "description": "handler success"
@@ -926,19 +919,12 @@
                 }
             }
         },
-        "/schedules/user/{user_id}": {
+        "/schedules/user": {
             "get": {
                 "summary": "Get list schedules by user_id",
                 "tags": [
                     "schedules"
                 ],
-                "parameters": [{
-                    "name": "user_id",
-                    "in": "path",
-                    "description": "user_id",
-                    "type": "string",
-                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
-                }],
                 "responses": {
                     "200": {
                         "description": "handler success"
@@ -1081,19 +1067,12 @@
                 }
             }
         },
-        "/trackers/user/{user_id}": {
+        "/trackers/user": {
             "get": {
                 "summary": "Get list trackers by user_id",
                 "tags": [
                     "trackers"
                 ],
-                "parameters": [{
-                    "name": "user_id",
-                    "in": "path",
-                    "description": "user_id",
-                    "type": "string",
-                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
-                }],
                 "responses": {
                     "200": {
                         "description": "handler success"
