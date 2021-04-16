@@ -12,11 +12,12 @@ const submit_answer = require('./controllers/submit_answer')
 
 const validate = require('../../middleware/check_validate')
 const dataExample = require('./models/validate')
+const { validateFunctionCode } = require('ajv/dist/compile/validate')
 
 
 router.post('/', validate(dataExample.create), create_one)
 
-router.post('/submit', submit_answer)
+router.post('/submit', validate(dataExample.submit), submit_answer)
 
 router.delete('/:id', delete_one)
 

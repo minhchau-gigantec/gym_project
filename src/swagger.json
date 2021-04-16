@@ -125,6 +125,42 @@
                 }
             }
         },
+        "/answers/submit": {
+            "post": {
+                "summary": "Submit answer",
+                "tags": [
+                    "answers"
+                ],
+                "description": "Submit answer",
+                "parameters": [{
+                    "name": "answer_ids",
+                    "in": "body",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": "id_answer1"
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "473": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/answers ": {
             "get": {
                 "summary": "List all answers",
@@ -472,17 +508,12 @@
                         "type": "object",
                         "required": [
                             "time",
-                            "program_id",
                             "note"
                         ],
                         "properties": {
                             "time": {
                                 "type": "string",
                                 "example": "10"
-                            },
-                            "program_id": {
-                                "type": "string",
-                                "example": "program-id of program"
                             },
                             "note": {
                                 "type": "string",
@@ -601,7 +632,6 @@
                         "description": "booking info that we want to update",
                         "schema": {
                             "type": "object",
-
                             "properties": {
                                 "note": {
                                     "type": "string"
@@ -862,16 +892,10 @@
                     "schema": {
                         "type": "object",
                         "required": [
-                            "user_id",
                             "time",
-                            "note",
-                            "program_id"
+                            "note"
                         ],
                         "properties": {
-                            "user_id": {
-                                "type": "string",
-                                "example": "ba8f8d01-d500-4f45-ae26-a1b238fadf4c"
-                            },
                             "time": {
                                 "type": "string",
                                 "example": "10"
@@ -879,10 +903,6 @@
                             "note": {
                                 "type": "string",
                                 "example": "note of schedule"
-                            },
-                            "program_id": {
-                                "type": "string",
-                                "example": "program_id of schedule"
                             }
                         }
                     }
@@ -1020,16 +1040,11 @@
                     "schema": {
                         "type": "object",
                         "required": [
-                            "user_id",
                             "time",
                             "step",
                             "weight"
                         ],
                         "properties": {
-                            "user_id": {
-                                "type": "string",
-                                "example": "ba8f8d01-d500-4f45-ae26-a1b238fadf4c"
-                            },
                             "time": {
                                 "type": "string"
                             },
@@ -1127,9 +1142,6 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "user_id": {
-                                    "type": "string"
-                                },
                                 "time": {
                                     "type": "integer"
                                 }

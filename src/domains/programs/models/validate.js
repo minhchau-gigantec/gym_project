@@ -5,7 +5,13 @@ const create = {
         name: { type: 'string', minLength: 1 },
         target: { type: 'string', minLength: 1 },
         duration: { type: 'string', minLength: 1 },
-        goals: { type: 'string', minLength: 1 }
+        goals: {
+            type: 'array',
+            items: {
+                type: 'string',
+                minLength: 1
+            }
+        }
     },
     required: ['name', 'target', 'duration', 'goals']
 }
@@ -17,7 +23,13 @@ const update = {
         name: { type: 'string', minLength: 1 },
         target: { type: 'string', minLength: 1 },
         duration: { type: 'string', minLength: 1 },
-        goals: { type: 'string', minLength: 1 }
+        goals: {
+            type: 'array',
+            items: {
+                type: 'string',
+                minLength: 1
+            }
+        }
     }
 }
 

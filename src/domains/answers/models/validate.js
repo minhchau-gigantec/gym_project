@@ -18,11 +18,26 @@ const update = {
         name: { type: 'string', minLength: 1 },
         content: { type: 'string', minLength: 1 },
         points: { type: 'integer', minimum: 10 },
+    }
+}
+
+const submit = {
+    additionalProperties: false,
+    type: 'object',
+    properties: {
+        answer_ids: {
+            type: 'array',
+            items: {
+                type: 'string',
+                minLength: 1
+            }
+        }
     },
-    required: ['question_id', 'name']
+    required: ['answer_ids']
 }
 
 module.exports = {
     create,
-    update
+    update,
+    submit
 }

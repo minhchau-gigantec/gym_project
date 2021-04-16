@@ -2,22 +2,18 @@ const create = {
     additionalProperties: false,
     type: 'object',
     properties: {
-        user_id: { type: 'string' },
         time: { type: 'string' },
-        note: { type: 'string' },
-        program_id: { type: 'string' }
+        note: { type: 'string' }
     },
-    required: ['user_id', 'time', 'program_id']
+    required: ['time']
 }
 
 const update = {
     additionalProperties: false,
     type: 'object',
     properties: {
-        user_id: { type: 'string' },
         time: { type: 'string' },
-        note: { type: 'string' },
-        program_id: { type: 'string' }
+        note: { type: 'string' }
     }
 }
 
