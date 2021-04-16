@@ -1,8 +1,9 @@
-const traning_program  = require('../services/training_program')
+const traning_program = require('../services/training_program')
 
-module.exports = async (req, res) => {
-    try{
+module.exports = async(req, res) => {
+    try {
         const item_model = req.body
+        console.log({ item_model })
         const result = await traning_program.create_one(item_model)
 
         return res.json({
@@ -10,8 +11,8 @@ module.exports = async (req, res) => {
             message: 'handler success',
             data: result
         })
-    }catch(error){
+    } catch (error) {
         console.log(error)
-        return res.status(460).send({message: error})
+        return res.status(460).send({ message: error })
     }
 }

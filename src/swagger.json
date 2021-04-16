@@ -39,6 +39,10 @@
         {
             "name": "users",
             "description": "API for users in the system"
+        },
+        {
+            "name": "training_programs",
+            "description": "API for training_program in the system"
         }
     ],
     "schemes": [
@@ -1375,6 +1379,96 @@
                         "description": "handler success"
                     },
                     "452": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+
+        "/training_programs ": {
+            "post": {
+                "summary": "Create training_program",
+                "tags": [
+                    "training_programs"
+                ],
+                "description": "Create training_program",
+
+                "parameters": [{
+                    "name": "training_program",
+                    "in": "body",
+                    "description": "training_program info",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "name",
+                            "acronym",
+                            "sets",
+                            "reps",
+                            "temp",
+                            "rest"
+                        ],
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "example": "traing_program 1"
+                            },
+                            "acronym": {
+                                "type": "string",
+                                "example": "acronym 1"
+                            },
+                            "sets": {
+                                "type": "integer",
+                                "example": "10"
+                            },
+                            "reps": {
+                                "type": "string",
+                                "example": "10-12"
+                            },
+                            "temp": {
+                                "type": "string",
+                                "example": "40X0"
+                            },
+                            "rest": {
+                                "type": "string",
+                                "example": "10s"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "460": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/training_programs": {
+            "get": {
+                "summary": "List all training_programs",
+                "tags": [
+                    "training_programs"
+                ],
+                "description": "List all training_programs in database",
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "461": {
                         "description": ""
                     }
                 }
