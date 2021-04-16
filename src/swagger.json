@@ -296,7 +296,8 @@
                         "type": "object",
                         "required": [
                             "name",
-                            "content"
+                            "content",
+                            "type"
                         ],
                         "properties": {
                             "name": {
@@ -306,6 +307,10 @@
                             "content": {
                                 "type": "string",
                                 "example": "Content question 1"
+                            },
+                            "type": {
+                                "type": "string",
+                                "example": "type 1"
                             }
                         }
                     }
@@ -424,6 +429,9 @@
                                     "type": "string"
                                 },
                                 "content": {
+                                    "type": "string"
+                                },
+                                "type": {
                                     "type": "string"
                                 }
                             }
@@ -1599,15 +1607,15 @@
         },
         "/training_programs/{id} ": {
             "get": {
-                "summary": "List training_program by Id or Name",
+                "summary": "List training_program by Id or Name or Acronym",
                 "tags": [
                     "training_programs"
                 ],
-                "description": "List training_program by Id or Name",
+                "description": "List training_program by Id or Name or Acronym",
                 "parameters": [{
                     "name": "id",
                     "in": "path",
-                    "description": "ID or NAME of training-program",
+                    "description": "ID or NAME or ACRONYM of training-program",
                     "type": "string"
                 }],
                 "responses": {
