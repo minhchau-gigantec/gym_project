@@ -20,13 +20,14 @@ const create_one = (user_id, tracker_model) => new Promise(async(resolve, reject
             _id: id,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
+            time: tracker_model.time,
             user_id,
             step: tracker_model.step,
             weight: tracker_model.weight
         }
 
         await collection.insertOne(item)
-        const result = await collection.fineOne({ _id: id })
+        const result = await collection.findOne({ _id: id })
         return resolve(result)
 
     } catch (error) {
@@ -35,20 +36,18 @@ const create_one = (user_id, tracker_model) => new Promise(async(resolve, reject
     }
 })
 
-const update_one = (user_id, tracker_model) => new Promise(async(resolve, reject) => {
+const update_one = (user_id, id, tracker_model) => new Promise(async(resolve, reject) => {
     try {
         const query = {
             user_id,
-            time: tracker_model.time
-        }
-        const options = {
-            returnNewDocument: true
+            _id: id
         }
 
         const collection = mongo.db.collection('trackers')
-        const result = await collection.updateOne(query, {
+        await collection.updateOne(query, {
             $set: {...tracker_model, updated_at: new Date().toISOString() }
-        }, options)
+        })
+        const result = await collection.findOne(query)
 
         return resolve(result)
 
@@ -142,7 +141,7 @@ const delete_one = (user_id, id) => new Promise(async(resolve, reject) => {
             return reject("tracker not found")
         }
 
-        await collection.delete_one({ _id: id })
+        await collection.deleteOne({ _id: id, user_id})
         return resolve("delete tracker success")
     } catch (error) {
         console.log(error)

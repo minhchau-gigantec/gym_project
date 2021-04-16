@@ -2,7 +2,6 @@ const answer = require('../services/answer')
 
 module.exports = async (req, res) => {
     try{
-
         const {id} = req.params
         const result = await answer.get_one(id)
         return res.json({
