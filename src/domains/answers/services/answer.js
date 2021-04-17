@@ -150,17 +150,13 @@ const get_list_by_question = (question_id) => new Promise(async(resolve, reject)
 
 
 const get_list = (answer_ids) => new Promise(async(resolve, reject) => {
-    console.log(answer_ids)
-    console.log(typeof(answer_ids))
+
     try {
         var answer_list = answer_ids || []
 
         if (typeof(answer_ids) === 'string') {
             answer_list = answer_ids.split(',')
         }
-
-        console.log({ answer_list })
-        console.log(typeof(answer_list))
 
         const collection = mongo.db.collection('answers')
         const result = await collection.aggregate([
@@ -177,6 +173,7 @@ const get_list = (answer_ids) => new Promise(async(resolve, reject) => {
             { $unwind: '$question' }
         ]).toArray()
 
+        console.log("sucess")
         return resolve(result)
     } catch (error) {
         console.log(error)

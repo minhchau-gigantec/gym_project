@@ -21,39 +21,42 @@ const update = {
     }
 }
 
-const ids = {
+const submit = {
     additionalProperties: false,
     type: 'object',
     properties: {
-        // answer_ids: {
-        //     type: ['array', 'string'],
-        //     items: {
-        //         type: 'string',
-        //         minLength: 1
-        //     },
-        //     minItems: 1,
-        // }
         answer_ids: {
             type: ['array', 'string'],
-        },
+            items: {
+                type: 'string',
+                minLength: 1
+            },
+            minItems: 1,
+        }
     },
     required: ['answer_ids']
 }
 
-const answer_ids = {
-    type: "array",
-    items: {
-        type: "string",
-        minLength: 1
+const get_list = {
+    additionalProperties: false,
+    type: 'object',
+    properties: {
+        answer_ids: {
+            type: ['array', 'string'],
+            minLength: 1,
+            items: {
+                type: 'string',
+                minLength: 1
+            },
+            minItems: 1,
+        }
     },
-    // minItems:
-    // additionalItems: false
-
+    required: ['answer_ids']
 }
 
 module.exports = {
     create,
     update,
-    ids,
-    answer_ids
+    submit,
+    get_list
 }

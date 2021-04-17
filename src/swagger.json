@@ -60,16 +60,16 @@
     "paths": {
         "/questions": {
             "post": {
-                "summary": "Create or update question",
+                "summary": "Create question",
                 "tags": [
                     "questions"
                 ],
-                "description": "Create or update question",
+                "description": "Create question",
 
                 "parameters": [{
                     "name": "question",
                     "in": "body",
-                    "description": "Question that we want to create or update",
+                    "description": "Question that we want to creates",
                     "schema": {
                         "type": "object",
                         "required": [
@@ -134,7 +134,7 @@
         },
         "/questions/{id} ": {
             "get": {
-                "summary": "List questions with id",
+                "summary": "Get questions with id",
                 "tags": [
                     "questions"
                 ],
@@ -1352,7 +1352,7 @@
                             },
                             "note": {
                                 "type": "string",
-                                "example": "note of program"
+                                "example": "note of booking"
                             }
                         }
                     }
@@ -1402,13 +1402,6 @@
                 "tags": [
                     "bookings"
                 ],
-                "parameters": [{
-                    "name": "user_id",
-                    "in": "path",
-                    "description": "user_id",
-                    "type": "string",
-                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
-                }],
                 "responses": {
                     "200": {
                         "description": "handler success"
@@ -1620,17 +1613,10 @@
         },
         "/trackers/user": {
             "get": {
-                "summary": "Get list trackers by user_id",
+                "summary": "Get list trackers by user",
                 "tags": [
                     "trackers"
                 ],
-                "parameters": [{
-                    "name": "user_id",
-                    "in": "path",
-                    "description": "user_id",
-                    "type": "string",
-                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
-                }],
                 "responses": {
                     "200": {
                         "description": "handler success"

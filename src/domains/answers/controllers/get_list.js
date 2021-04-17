@@ -2,6 +2,7 @@ const answer = require('../services/answer')
 
 module.exports = async(req, res) => {
     try {
+        console.log(req.query)
         const { answer_ids } = req.query
         const result = await answer.get_list(answer_ids)
         return res.json({
