@@ -15,7 +15,7 @@ const create_one = (user_model) => new Promise(async(resolve, reject) => {
             phone: user_model.phone,
             address: user_model.address,
             avatar: user_model.avatar,
-            birthday: user_model.avatar,
+            birthday: user_model.birthday,
             gender: user_model.gender,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
@@ -54,7 +54,7 @@ const update_one = (id, item) => new Promise(async(resolve, reject) => {
         await collection.updateOne({ _id: id }, {
             $set: item
         })
-        const result = await collection.findOne({_id: id})
+        const result = await collection.findOne({ _id: id })
         return resolve(result)
     } catch (error) {
         console.log(error)

@@ -25,20 +25,35 @@ const ids = {
     additionalProperties: false,
     type: 'object',
     properties: {
+        // answer_ids: {
+        //     type: ['array', 'string'],
+        //     items: {
+        //         type: 'string',
+        //         minLength: 1
+        //     },
+        //     minItems: 1,
+        // }
         answer_ids: {
-            type: 'array',
-            items: {
-                type: 'string',
-                minLength: 1
-            },
-            minItems: 1,
-        }
+            type: ['array', 'string'],
+        },
     },
     required: ['answer_ids']
+}
+
+const answer_ids = {
+    type: "array",
+    items: {
+        type: "string",
+        minLength: 1
+    },
+    // minItems:
+    // additionalItems: false
+
 }
 
 module.exports = {
     create,
     update,
-    ids
+    ids,
+    answer_ids
 }

@@ -1,8 +1,8 @@
 const answer = require('../services/answer')
 
-module.exports = async (req, res) => {
-    try{
-        const {answer_ids} = req.query
+module.exports = async(req, res) => {
+    try {
+        const { answer_ids } = req.query
         const result = await answer.get_list(answer_ids)
         return res.json({
             code: 200,
@@ -10,8 +10,8 @@ module.exports = async (req, res) => {
             data: result
         })
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
-        return res.status(422).send({message: error})
+        return res.status(422).send({ message: error })
     }
 }

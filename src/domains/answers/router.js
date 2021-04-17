@@ -21,7 +21,8 @@ router.post('/submit', validate(dataExample.ids), submit_answer)
 
 router.delete('/:id', delete_one)
 
-router.get('/list', validate(dataExample.ids, 'query'), get_list)
+//Nhớ bỏ validate vào lại
+router.get('/list', get_list)
 
 router.get('/question/:question_id', get_list_by_question)
 
