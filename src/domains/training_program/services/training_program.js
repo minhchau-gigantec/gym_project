@@ -21,6 +21,8 @@ const create_one = (training_model) => new Promise(async(resolve, reject) => {
                 id_detail_items.push(id)
                 const detail = {
                     _id: id,
+                    training_program_name: training_model.name,
+                    name: row.name,
                     sets: row.sets,
                     reps: row.reps,
                     tempo: row.tempo,

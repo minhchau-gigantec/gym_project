@@ -1,18 +1,26 @@
 const mongo = require('../../../core/mongo')
+const training_program_detail = require('../../training_program_detail/services/training_program_detail')
 
-const create_one = (user_id, item_model) => new Promise(async(resolve, reject) => {
+const create_one = (use, item_model) => new Promise(async(resolve, reject) => {
+
     try {
+        const {training_detail_id} = item_model
+        const training_detail = await training_program_detail.get_one(training_detail_id)
+
+        const user_id = user._id
         const detail = {
             user_id,
-            training_detail_id: item_model.training_detail_id,
+            training_detail_id,
             weight: item_model.weight,
             note: item_model.note,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         }
 
+
         const collection = mongo.db.collection('user_training')
         await collection.insertOne(detail)
+
 
         return resolve(detail)
 
@@ -134,6 +142,7 @@ const get_list_by_user = (user_id) => new Promise(async(resolve, reject) => {
         return reject(error)
     }
 })
+
 
 module.exports = {
     create_one,

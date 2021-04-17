@@ -26,8 +26,28 @@ const delete_many = (id_items) => new Promise(async (resolve, reject) => {
     }
 }) 
 
+const get_one = (id) => new Promise(async (resolve, reject) => {
+
+    try{
+        const collection = mongo.db.collection('training_program_details')
+
+        const result = await collection.findOne({_id: id})
+
+        if (!result){
+            return reject('traning program detail not found')
+        }
+
+        return resolve(result)
+
+    }catch(error){
+        console.log(error)
+        return reject(error)
+    }
+})
+
 
 module.exports = {
     create_many,
-    delete_many
+    delete_many,
+    get_one
 }

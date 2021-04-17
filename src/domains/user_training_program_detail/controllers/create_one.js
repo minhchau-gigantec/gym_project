@@ -4,8 +4,7 @@ module.exports = async (req, res) => {
     try{
         const item = req.body
         const {user} = req
-        const user_id = user._id
-        const result  = await user_traning.create_one(user_id, item)
+        const result  = await user_traning.create_one(user, item)
 
         return res.json({
             code: 200,
