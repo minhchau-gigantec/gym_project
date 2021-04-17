@@ -1,9 +1,11 @@
 const { v4: uuid } = require('uuid')
 const mongo = require('../../../core/mongo')
+const booking_air = require('./booking_airtable')
 
-const create_one = (user_id, booking_model) => new Promise(async(resolve, reject) => {
+const create_one = (user, booking_model) => new Promise(async(resolve, reject) => {
     try {
 
+        const user_id = user._id
         const query = {
             user_id,
             time: booking_model.time,
@@ -23,10 +25,16 @@ const create_one = (user_id, booking_model) => new Promise(async(resolve, reject
             user_id,
             time: booking_model.time,
             note: booking_model.note,
+            complete: false,
+            checked_at: null,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         }
 
+
+        const air_result = await booking_air.create_booking(user, create_booking)
+
+        create_booking.airtable_id = air_result.id
         await collection.insertOne(create_booking)
 
         const result = await collection.findOne({ _id: id })
@@ -41,15 +49,22 @@ const update_one = (user_id, id, booking_model) => new Promise(async(resolve, re
     try {
 
         const collection = mongo.db.collection('booking')
+
+        const existed_item = await collection.findOne({_id: id, user_id})
+
+        if (!existed_item) {
+            return reject('booking not found')
+        }else if (existed_item.complete){
+            return reject("can't not update booking is complete")
+        }
+
+        await booking_air.update_booking(existed_item.airtable_id, booking_model)
         const update = {
             note: booking_model.note,
             time: booking_model.time,
             updated_at: new Date().toISOString()
         }
 
-        const options = {
-            returnNewDocument: true
-        }
 
         await collection.updateOne({ _id: id, user_id}, {
             $set: update
@@ -142,10 +157,15 @@ const delete_one = (user_id, id) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection("booking")
 
-        const existed_booking = await collection.findOne({ _id: id, user_id })
-        if (!existed_booking) {
+        const existed_item = await collection.findOne({_id: id, user_id})
+
+        if (!existed_item) {
             return reject('booking not found')
+        }else if (existed_item.complete){
+            return reject("can't not update booking is complete")
         }
+
+       
         await collection.deleteOne({ _id: id })
         return resolve('delete booking success')
 
