@@ -13,7 +13,8 @@ const create = {
                     training_program: { type: 'string', minLength: 1 }
                 },
                 required: ['day', 'training_program']
-            }
+            },
+            minItems: 1
         }
     },
     required: ['program', 'items']

@@ -123,7 +123,6 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
                     _id: '$_id',
                     name: { $first: '$name' },
                     acronym: { $first: '$acronym' },
-                    // items: { $push: '$items'},
                     items: { $push: '$itemObjects' },
                     created_at: { $first: '$created_at' },
                     updated_at: { $first: '$updated_at' }

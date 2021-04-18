@@ -21,12 +21,29 @@ const update = {
     }
 }
 
-const ids = {
+const submit = {
     additionalProperties: false,
     type: 'object',
     properties: {
         answer_ids: {
-            type: 'array',
+            type: ['array', 'string'],
+            items: {
+                type: 'string',
+                minLength: 1
+            },
+            minItems: 1,
+        }
+    },
+    required: ['answer_ids']
+}
+
+const get_list = {
+    additionalProperties: false,
+    type: 'object',
+    properties: {
+        answer_ids: {
+            type: ['array', 'string'],
+            minLength: 1,
             items: {
                 type: 'string',
                 minLength: 1
@@ -40,5 +57,6 @@ const ids = {
 module.exports = {
     create,
     update,
-    ids
+    submit,
+    get_list
 }
