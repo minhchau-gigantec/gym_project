@@ -54,8 +54,8 @@ const delete_one = (id) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('training_matrix')
 
-        const existed_item = collection.findOne({ _id: id })
-        if (!existed_item) {
+        const existed_item = await collection.findOne({ _id: id })
+        if (existed_item === null) {
             return reject('training matrix not found')
         }
 

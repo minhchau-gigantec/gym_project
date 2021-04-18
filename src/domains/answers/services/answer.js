@@ -51,6 +51,13 @@ const update_one = (id, item) => new Promise(async(resolve, reject) => {
     try {
 
         const collection = mongo.db.collection('answers')
+        const exist_answers = await collection.findOne({ _id: id })
+
+        if (!exist_answers) {
+            return reject('answers not found')
+        }
+
+
         await collection.updateOne({ _id: id }, {
             $set: item
         })

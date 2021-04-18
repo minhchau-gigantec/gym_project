@@ -10,7 +10,8 @@ const create = {
             items: {
                 type: 'string',
                 minLength: 1
-            }
+            },
+            minItems: 1
         }
     },
     required: ['name', 'target', 'duration', 'goals']

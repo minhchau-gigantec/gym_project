@@ -29,12 +29,12 @@
             "description": "API for training_program in the system"
         },
         {
-            "name": "user_trainings",
-            "description": "API for user_trainings in the system"
-        },
-        {
             "name": "training_matrix",
             "description": "API for training_matrix in the system"
+        },
+        {
+            "name": "user_trainings",
+            "description": "API for user_trainings in the system"
         },
         {
             "name": "bookings",
@@ -58,6 +58,86 @@
         "Bearer": []
     }],
     "paths": {
+        "/users/info": {
+            "put": {
+                "summary": "Update user info",
+                "tags": [
+                    "users"
+                ],
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "user info",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "first_name": {
+                                "type": "string",
+                                "example": "Nguyen"
+                            },
+                            "last_name": {
+                                "type": "string",
+                                "example": "Phong"
+                            },
+                            "phone": {
+                                "type": "string",
+                                "example": "0905111111"
+                            },
+                            "address": {
+                                "type": "string",
+                                "example": "TP.HCM"
+                            },
+                            "avatar": {
+                                "type": "avatar url"
+                            },
+                            "birthday": {
+                                "type": "string",
+                                "example": "1998-01-01"
+                            },
+                            "gender": {
+                                "type": "string",
+                                "example": "male"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "450": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/info ": {
+            "get": {
+                "summary": "Get user info",
+                "tags": [
+                    "users"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "452": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+
+
         "/questions": {
             "post": {
                 "summary": "Create question",
@@ -84,7 +164,7 @@
                             },
                             "content": {
                                 "type": "string",
-                                "example": "Content question 1"
+                                "example": "What's your weight?"
                             },
                             "type": {
                                 "type": "string",
@@ -466,25 +546,25 @@
                     {
                         "name": "answer",
                         "in": "body",
-                        "description": "Answer that we want to create",
+                        "description": "Update info",
                         "schema": {
                             "type": "object",
                             "properties": {
                                 "question_id": {
                                     "type": "string",
-                                    "example": "ba8f8d01-d500-4f45-ae26-a1b238fadf4c"
+                                    "example": "question_id update"
                                 },
                                 "name": {
                                     "type": "string",
-                                    "example": "answer 1"
+                                    "example": "name update"
                                 },
                                 "content": {
                                     "type": "string",
-                                    "example": "Content answer 1"
+                                    "example": "Content update"
                                 },
                                 "points": {
                                     "type": "integer",
-                                    "example": "10"
+                                    "example": "points update"
                                 }
                             }
                         }
@@ -501,88 +581,7 @@
                         "description": "validation error"
                     },
                     "453": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-
-
-        "/users/info": {
-            "put": {
-                "summary": "Update user info",
-                "tags": [
-                    "users"
-                ],
-                "parameters": [{
-                    "name": "user",
-                    "in": "body",
-                    "description": "user info",
-                    "schema": {
-                        "type": "object",
-                        "properties": {
-                            "first_name": {
-                                "type": "string",
-                                "example": "firstname1"
-                            },
-                            "last_name": {
-                                "type": "string",
-                                "example": "lastname1"
-                            },
-                            "phone": {
-                                "type": "string",
-                                "example": "0905111111"
-                            },
-                            "address": {
-                                "type": "string",
-                                "example": "TP.HCM"
-                            },
-                            "avatar": {
-                                "type": "string"
-                            },
-                            "birthday": {
-                                "type": "string",
-                                "example": "1998-01-01"
-                            },
-                            "gender": {
-                                "type": "string",
-                                "description": "Choose male or female",
-                                "example": "male"
-                            }
-                        }
-                    }
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "450": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/users/info ": {
-            "get": {
-                "summary": "Get user info",
-                "tags": [
-                    "users"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "452": {
-                        "description": ""
+                        "description": "answer not found"
                     }
                 }
             }
@@ -612,21 +611,21 @@
                         "properties": {
                             "name": {
                                 "type": "string",
-                                "example": "Program 1"
+                                "example": "Basics"
                             },
                             "target": {
                                 "type": "string",
-                                "example": "target 1"
+                                "example": "Beginners"
                             },
                             "duration": {
                                 "type": "string",
-                                "example": "1 sessions"
+                                "example": "8 sessions"
                             },
                             "goals": {
                                 "type": "array",
                                 "items": {
                                     "type": "string",
-                                    "example": "goal 1"
+                                    "example": "1- Belly breathing & ứng dụng vào các bài tập squat, deadlift, overhead press"
                                 }
                             }
                         }
@@ -752,11 +751,14 @@
                                 },
                                 "duration": {
                                     "type": "string",
-                                    "example": "1 sessions"
+                                    "example": "duration update"
                                 },
                                 "goals": {
-                                    "type": "string",
-                                    "example": "goals 1"
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "example": "Goals update"
+                                    }
                                 }
                             }
                         }
@@ -804,7 +806,7 @@
                         "properties": {
                             "name": {
                                 "type": "string",
-                                "example": "trainng_program 1"
+                                "example": "Scapula Movements"
                             },
                             "acronym": {
                                 "type": "string",
@@ -823,7 +825,7 @@
                                     "properties": {
                                         "sets": {
                                             "type": "integer",
-                                            "example": "10"
+                                            "example": "4"
                                         },
                                         "reps": {
                                             "type": "string",
@@ -831,11 +833,11 @@
                                         },
                                         "tempo": {
                                             "type": "string",
-                                            "example": "40X0"
+                                            "example": "4010"
                                         },
                                         "rest": {
                                             "type": "string",
-                                            "example": "10s"
+                                            "example": "60s"
                                         }
                                     }
                                 }
@@ -937,90 +939,6 @@
                 }
             }
         },
-        "/training_programs/{id}": {
-            "put": {
-                "summary": "Update training_program",
-                "tags": [
-                    "training_programs"
-                ],
-                "description": "Update training_program",
-                "parameters": [{
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of training-program",
-                        "type": "string",
-                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
-                    },
-                    {
-                        "name": "training_program",
-                        "in": "body",
-                        "description": "training_program info",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "example": "training_program update"
-                                },
-                                "acronym": {
-                                    "type": "string",
-                                    "example": "acronym update"
-                                },
-                                "items": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "object",
-                                        "required": [
-                                            "sets",
-                                            "reps",
-                                            "tempo",
-                                            "rest"
-                                        ],
-                                        "properties": {
-                                            "sets": {
-                                                "type": "integer",
-                                                "example": "10"
-                                            },
-                                            "reps": {
-                                                "type": "string",
-                                                "example": "10-12"
-                                            },
-                                            "tempo": {
-                                                "type": "string",
-                                                "example": "40X0"
-                                            },
-                                            "rest": {
-                                                "type": "string",
-                                                "example": "10s"
-                                            }
-                                        }
-                                    }
-
-                                }
-
-                            }
-                        }
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "460": {
-                        "description": "traning program is existed"
-                    }
-                }
-            }
-        },
 
 
         "/training_matrix": {
@@ -1044,7 +962,7 @@
                         "properties": {
                             "program": {
                                 "type": "string",
-                                "example": "program 1"
+                                "example": "Basics"
                             },
                             "items": {
                                 "type": "array",
@@ -1057,11 +975,11 @@
                                     "properties": {
                                         "day": {
                                             "type": "string",
-                                            "example": "1"
+                                            "example": "Day 1"
                                         },
                                         "training_program": {
                                             "type": "string",
-                                            "example": "training_program 1"
+                                            "example": "SMs"
                                         }
                                     }
                                 }
@@ -1189,7 +1107,7 @@
                         "description": "UnAuthentication"
                     },
                     "466": {
-                        "description": ""
+                        "description": "User training is existed"
                     }
                 }
             }
@@ -1347,12 +1265,10 @@
                         ],
                         "properties": {
                             "time": {
-                                "type": "string",
-                                "example": "10"
+                                "type": "string"
                             },
                             "note": {
-                                "type": "string",
-                                "example": "note of booking"
+                                "type": "string"
                             }
                         }
                     }
@@ -1371,7 +1287,7 @@
                         "description": "validation error"
                     },
                     "426": {
-                        "description": ""
+                        "description": "booking is existed"
                     }
                 }
             }
@@ -1443,7 +1359,7 @@
         },
         "/bookings/{id}": {
             "put": {
-                "summary": "Update bookings by id",
+                "summary": "Update booking by id",
                 "tags": [
                     "bookings"
                 ],
@@ -1461,11 +1377,13 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "note": {
-                                    "type": "string"
-                                },
                                 "time": {
-                                    "type": "integer"
+                                    "type": "integer",
+                                    "example": "time update"
+                                },
+                                "note": {
+                                    "type": "string",
+                                    "example": "note update"
                                 }
                             }
                         }
@@ -1651,13 +1569,16 @@
                             "type": "object",
                             "properties": {
                                 "time": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "time update"
                                 },
                                 "step": {
-                                    "type": "integer"
+                                    "type": "integer",
+                                    "example": "step update"
                                 },
                                 "weight": {
-                                    "type": "integer"
+                                    "type": "integer",
+                                    "example": "weight update"
                                 }
                             }
                         }
