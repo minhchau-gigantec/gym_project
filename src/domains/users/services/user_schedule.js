@@ -24,7 +24,7 @@ const update_session = () => new Promise(async (resolve, reject) => {
             // s
             return user_profile.update_one(user_email, {
                 session,
-                updated_at: updated_at ||  new Date().toISOString(),
+                checked_at: updated_at ||  new Date().toISOString(),
             })
         })
 

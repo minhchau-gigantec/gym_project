@@ -5,6 +5,7 @@ const cors = require('cors')
 const { env, setConfig } = require('./configs/config.service')
 const mongo = require('./core/mongo')
 const user_chedule = require('./domains/users/services/user_schedule')
+const booking_schedule = require('./domains/booking/services/booking_schedule')
 const check_auth = require('./middleware/check_auth')
 
 
@@ -55,6 +56,7 @@ const start = async() => {
 
 
     user_chedule.update_session_schedule()
+    booking_schedule.update_booking()
 
     const { PORT, HOST } = env.config
     app.listen(PORT, () => {

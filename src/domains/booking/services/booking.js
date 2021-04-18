@@ -176,11 +176,35 @@ const delete_one = (user_id, id) => new Promise(async(resolve, reject) => {
 })
 
 
+const update_schedule = (id, booking_model) => new Promise(async(resolve, reject) => {
+    try {
+
+        const collection = mongo.db.collection('booking')
+
+        const existed_item = await collection.findOne({_id: id})
+
+        if (!existed_item) {
+            return reject('booking not found')
+        }
+
+        await collection.updateOne({ _id: id}, {
+            $set: booking_model
+        })
+
+        return resolve("update schedule success")
+    } catch (error) {
+        console.log(error)
+        return reject(error)
+    }
+})
+
+
 module.exports = {
     create_one,
     update_one,
     get_list,
     get_one,
     get_list_by_user,
-    delete_one
+    delete_one,
+    update_schedule
 }
