@@ -55,7 +55,7 @@ const update_one = (user_id, id, booking_model) => new Promise(async(resolve, re
         if (!existed_item) {
             return reject('booking not found')
         }else if (existed_item.complete){
-            return reject("can't not update booking is complete")
+            return reject("can't not update booking is completed")
         }
 
         await booking_air.update_booking(existed_item.airtable_id, booking_model)

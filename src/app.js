@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const { env, setConfig } = require('./configs/config.service')
 const mongo = require('./core/mongo')
-
+const user_chedule = require('./domains/users/services/user_schedule')
 const check_auth = require('./middleware/check_auth')
 
 
@@ -53,6 +53,8 @@ const start = async() => {
     app.use('/training_matrix', training_matrix_router)
     app.use('/user_trainings', user_training_router)
 
+
+    user_chedule.update_session_schedule()
 
     const { PORT, HOST } = env.config
     app.listen(PORT, () => {
