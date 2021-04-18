@@ -21,7 +21,7 @@ const update_session = () => new Promise(async (resolve, reject) => {
         const session_list = response.data.records
         update_sessions = session_list.map(async (item) => {
             const {user_email, session, updated_at} = item.fields
-            // console.log({user_email})
+            // s
             return user_profile.update_one(user_email, {
                 session,
                 updated_at: updated_at ||  new Date().toISOString(),

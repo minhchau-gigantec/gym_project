@@ -23,7 +23,7 @@ const create_one = (item) => new Promise(async (resolve, reject) => {
 
         const result = response.data.records
 
-        console.log({result})
+        // console.log({result})
 
         if(result.length == 0 ){
             return reject('create user training failure')

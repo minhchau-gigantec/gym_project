@@ -10,7 +10,7 @@ const create_one = (user, item_model) => new Promise(async(resolve, reject) => {
         const {training_detail_id} = item_model
         const training_detail = await training_program_detail.get_one(training_detail_id)
 
-        console.log({training_detail})
+        // console.log({training_detail})
 
         const user_id = user._id
         const id = uuid()
