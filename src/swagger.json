@@ -9,36 +9,20 @@
     "host": "54.254.242.25:8006",
     "basePath": "/",
     "tags": [{
-            "name": "answers",
-            "description": "API for answer in the system"
+            "name": "users",
+            "description": "API for users in the system"
         },
         {
             "name": "questions",
             "description": "API for questions in the system"
         },
         {
-            "name": "bookings",
-            "description": "API for bookings in the system"
+            "name": "answers",
+            "description": "API for answer in the system"
         },
         {
             "name": "programs",
             "description": "API for programs in the system"
-        },
-        {
-            "name": "schedules",
-            "description": "API for schedules in the system"
-        },
-        {
-            "name": "trackers",
-            "description": "API for trackers in the system"
-        },
-        {
-            "name": "user_programs",
-            "description": "API for user_programs in the system"
-        },
-        {
-            "name": "users",
-            "description": "API for users in the system"
         },
         {
             "name": "training_programs",
@@ -51,6 +35,14 @@
         {
             "name": "user_trainings",
             "description": "API for user_trainings in the system"
+        },
+        {
+            "name": "bookings",
+            "description": "API for bookings in the system"
+        },
+        {
+            "name": "trackers",
+            "description": "API for trackers in the system"
         }
     ],
     "schemes": [
@@ -66,6 +58,265 @@
         "Bearer": []
     }],
     "paths": {
+        "/users/info": {
+            "put": {
+                "summary": "Update user info",
+                "tags": [
+                    "users"
+                ],
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "user info",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "first_name": {
+                                "type": "string",
+                                "example": "Nguyen"
+                            },
+                            "last_name": {
+                                "type": "string",
+                                "example": "Phong"
+                            },
+                            "phone": {
+                                "type": "string",
+                                "example": "0905111111"
+                            },
+                            "address": {
+                                "type": "string",
+                                "example": "TP.HCM"
+                            },
+                            "avatar": {
+                                "type": "avatar url"
+                            },
+                            "birthday": {
+                                "type": "string",
+                                "example": "1998-01-01"
+                            },
+                            "gender": {
+                                "type": "string",
+                                "example": "male"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "450": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/info ": {
+            "get": {
+                "summary": "Get user info",
+                "tags": [
+                    "users"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "452": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+
+
+        "/questions": {
+            "post": {
+                "summary": "Create question",
+                "tags": [
+                    "questions"
+                ],
+                "description": "Create question",
+
+                "parameters": [{
+                    "name": "question",
+                    "in": "body",
+                    "description": "Question that we want to creates",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "name",
+                            "content",
+                            "type"
+                        ],
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "example": "Question 1"
+                            },
+                            "content": {
+                                "type": "string",
+                                "example": "What's your weight?"
+                            },
+                            "type": {
+                                "type": "string",
+                                "example": "type 1"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "410": {
+                        "description": "question is existed"
+                    }
+                }
+            }
+        },
+        "/questions ": {
+            "get": {
+                "summary": "List all questions",
+                "tags": [
+                    "questions"
+                ],
+                "description": "List all questions in database",
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "412": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/questions/{id} ": {
+            "get": {
+                "summary": "Get questions with id",
+                "tags": [
+                    "questions"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of questions you want to get",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "413": {
+                        "description": "Question not found"
+                    }
+                }
+            }
+        },
+        "/questions/{id}  ": {
+            "delete": {
+                "summary": "Delete question with id",
+                "tags": [
+                    "questions"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4",
+                    "description": "ID of question you want to delete"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "411": {
+                        "description": "Question not found"
+                    }
+                }
+            }
+        },
+        "/questions/{id}": {
+            "put": {
+                "summary": "Update question by id",
+                "tags": [
+                    "questions"
+                ],
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of question",
+                        "type": "string",
+                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                    },
+                    {
+                        "name": "question",
+                        "in": "body",
+                        "description": "question info that we want to update",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "example": "name update"
+                                },
+                                "content": {
+                                    "type": "string",
+                                    "example": "content update"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "example": "type update"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "412": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+
+
         "/answers": {
             "post": {
                 "summary": "Create answer",
@@ -172,13 +423,23 @@
                 }
             }
         },
-        "/answers ": {
+        "/answers/list": {
             "get": {
-                "summary": "List all answers",
+                "summary": "List answers",
                 "tags": [
                     "answers"
                 ],
-                "description": "List all answers in database",
+                "description": "List answers",
+                "parameters": [{
+                    "name": "answer_ids",
+                    "in": "query",
+                    "description": "list answer id",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": "id answer 1"
+                    }
+                }],
                 "responses": {
                     "200": {
                         "description": "handler success"
@@ -285,25 +546,25 @@
                     {
                         "name": "answer",
                         "in": "body",
-                        "description": "Answer that we want to create",
+                        "description": "Update info",
                         "schema": {
                             "type": "object",
                             "properties": {
                                 "question_id": {
                                     "type": "string",
-                                    "example": "ba8f8d01-d500-4f45-ae26-a1b238fadf4c"
+                                    "example": "question_id update"
                                 },
                                 "name": {
                                     "type": "string",
-                                    "example": "answer 1"
+                                    "example": "name update"
                                 },
                                 "content": {
                                     "type": "string",
-                                    "example": "Content answer 1"
+                                    "example": "Content update"
                                 },
                                 "points": {
                                     "type": "integer",
-                                    "example": "10"
+                                    "example": "points update"
                                 }
                             }
                         }
@@ -320,380 +581,7 @@
                         "description": "validation error"
                     },
                     "453": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-
-
-        "/questions": {
-            "post": {
-                "summary": "Create or update question",
-                "tags": [
-                    "questions"
-                ],
-                "description": "Create or update question",
-
-                "parameters": [{
-                    "name": "question",
-                    "in": "body",
-                    "description": "Question that we want to create or update",
-                    "schema": {
-                        "type": "object",
-                        "required": [
-                            "name",
-                            "content",
-                            "type"
-                        ],
-                        "properties": {
-                            "name": {
-                                "type": "string",
-                                "example": "Question 1"
-                            },
-                            "content": {
-                                "type": "string",
-                                "example": "Content question 1"
-                            },
-                            "type": {
-                                "type": "string",
-                                "example": "type 1"
-                            }
-                        }
-                    }
-                }],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "410": {
-                        "description": "question is existed"
-                    }
-                }
-            }
-        },
-        "/questions ": {
-            "get": {
-                "summary": "List all questions",
-                "tags": [
-                    "questions"
-                ],
-                "description": "List all questions in database",
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "412": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/questions/{id} ": {
-            "get": {
-                "summary": "List questions with id",
-                "tags": [
-                    "questions"
-                ],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "ID of questions you want to get",
-                    "type": "string",
-                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "413": {
-                        "description": "Question not found"
-                    }
-                }
-            }
-        },
-        "/questions/{id}  ": {
-            "delete": {
-                "summary": "Delete question with id",
-                "tags": [
-                    "questions"
-                ],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4",
-                    "description": "ID of question you want to delete"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "411": {
-                        "description": "Question not found"
-                    }
-                }
-            }
-        },
-        "/questions/{id}": {
-            "put": {
-                "summary": "Update question by id",
-                "tags": [
-                    "questions"
-                ],
-                "parameters": [{
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of question",
-                        "type": "string",
-                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
-                    },
-                    {
-                        "name": "question",
-                        "in": "body",
-                        "description": "question info that we want to update",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "example": "name update"
-                                },
-                                "content": {
-                                    "type": "string",
-                                    "example": "content update"
-                                },
-                                "type": {
-                                    "type": "string",
-                                    "example": "type update"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "412": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-
-
-        "/bookings": {
-            "post": {
-                "summary": "Create booking",
-                "tags": [
-                    "bookings"
-                ],
-                "description": "Create booking",
-
-                "parameters": [{
-                    "name": "booking",
-                    "in": "body",
-                    "description": "booking that we want to create",
-                    "schema": {
-                        "type": "object",
-                        "required": [
-                            "time",
-                            "note"
-                        ],
-                        "properties": {
-                            "time": {
-                                "type": "string",
-                                "example": "10"
-                            },
-                            "note": {
-                                "type": "string",
-                                "example": "note of program"
-                            }
-                        }
-                    }
-                }],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "426": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/bookings ": {
-            "get": {
-                "summary": "List all bookings",
-                "tags": [
-                    "bookings"
-                ],
-                "description": "List all bookings in database",
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "431": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/bookings/user": {
-            "get": {
-                "summary": "Get list bookings by user_id",
-                "tags": [
-                    "bookings"
-                ],
-                "parameters": [{
-                    "name": "user_id",
-                    "in": "path",
-                    "description": "user_id",
-                    "type": "string",
-                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "428": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/bookings/{id} ": {
-            "get": {
-                "summary": "Get bookings by id",
-                "tags": [
-                    "bookings"
-                ],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "ID of booking",
-                    "type": "string",
-                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "430": {
-                        "description": "booking not found"
-                    }
-                }
-            }
-        },
-        "/bookings/{id}": {
-            "put": {
-                "summary": "Update bookings by id",
-                "tags": [
-                    "bookings"
-                ],
-                "parameters": [{
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of booking",
-                        "type": "string",
-                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
-                    },
-                    {
-                        "name": "booking",
-                        "in": "body",
-                        "description": "booking info that we want to update",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "note": {
-                                    "type": "string"
-                                },
-                                "time": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "427": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/bookings/{id}  ": {
-            "delete": {
-                "summary": "Delete booking with id",
-                "tags": [
-                    "bookings"
-                ],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "example": "8d960b70-bb50-4102-9a89-48c99a4db7b0",
-                    "description": "ID of booking you want to delete"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "432": {
-                        "description": "booking not found"
+                        "description": "answer not found"
                     }
                 }
             }
@@ -723,24 +611,24 @@
                         "properties": {
                             "name": {
                                 "type": "string",
-                                "example": "Program 1"
+                                "example": "Basics"
                             },
                             "target": {
                                 "type": "string",
-                                "example": "target 1"
+                                "example": "Beginners"
                             },
                             "duration": {
                                 "type": "string",
-                                "example": "1 sessions"
+                                "example": "8 sessions"
                             },
                             "goals": {
                                 "type": "array",
                                 "items": {
                                     "type": "string",
-                                    "example": "goal 1"
+                                    "example": "1- Belly breathing & ứng dụng vào các bài tập squat, deadlift, overhead press"
                                 }
                             },
-                            "phots": {
+                            "photos": {
                                 "type": "array",
                                 "items": {
                                     "type": "string",
@@ -870,11 +758,21 @@
                                 },
                                 "duration": {
                                     "type": "string",
-                                    "example": "1 sessions"
+                                    "example": "duration update"
                                 },
                                 "goals": {
-                                    "type": "string",
-                                    "example": "goals 1"
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "example": "Goals update"
+                                    }
+                                },
+                                "photos": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "example": "https://abc.jpg"
+                                    }
                                 }
                             }
                         }
@@ -895,625 +793,6 @@
                     },
                     "455": {
                         "description": "program is not existed"
-                    }
-                }
-            }
-        },
-
-
-        "/schedules": {
-            "post": {
-                "summary": "Create schedule",
-                "tags": [
-                    "schedules"
-                ],
-                "description": "Create schedule",
-
-                "parameters": [{
-                    "name": "schedule",
-                    "in": "body",
-                    "description": "schedule info",
-                    "schema": {
-                        "type": "object",
-                        "required": [
-                            "time"
-                        ],
-                        "properties": {
-                            "time": {
-                                "type": "string",
-                                "example": "10"
-                            },
-                            "note": {
-                                "type": "string",
-                                "example": "note of schedule"
-                            }
-                        }
-                    }
-                }],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "434": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/schedules ": {
-            "get": {
-                "summary": "List all schedules",
-                "tags": [
-                    "schedules"
-                ],
-                "description": "List all schedules in database",
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "437": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/schedules/user": {
-            "get": {
-                "summary": "Get list schedules by user_id",
-                "tags": [
-                    "schedules"
-                ],
-                "parameters": [{
-                    "name": "user_id",
-                    "in": "path",
-                    "description": "user_id",
-                    "type": "string",
-                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "435": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/schedules/{id} ": {
-            "get": {
-                "summary": "Get schedule by id",
-                "tags": [
-                    "schedules"
-                ],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "ID of schedule",
-                    "type": "string",
-                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "438": {
-                        "description": "booking not found"
-                    }
-                }
-            }
-        },
-        "/schedules/{id}  ": {
-            "delete": {
-                "summary": "Delete schedule with id",
-                "tags": [
-                    "schedules"
-                ],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "example": "8d960b70-bb50-4102-9a89-48c99a4db7b0",
-                    "description": "ID of schedule you want to delete"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "436": {
-                        "description": "schedule not found"
-                    }
-                }
-            }
-        },
-        "/schedules/{id}": {
-            "put": {
-                "summary": "Update schedule",
-                "tags": [
-                    "schedules"
-                ],
-                "description": "Update schedule",
-
-                "parameters": [{
-                        "name": "id",
-                        "in": "path",
-                        "example": "8d960b70-bb50-4102-9a89-48c99a4db7b0",
-                        "description": "ID of schedule you want to delete"
-                    },
-                    {
-                        "name": "schedule",
-                        "in": "body",
-                        "description": "schedule info",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "time": {
-                                    "type": "string",
-                                    "example": "10"
-                                },
-                                "note": {
-                                    "type": "string",
-                                    "example": "note of schedule"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "458": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-
-
-        "/trackers": {
-            "post": {
-                "summary": "Create tracker",
-                "tags": [
-                    "trackers"
-                ],
-                "description": "Create tracker",
-
-                "parameters": [{
-                    "name": "tracker",
-                    "in": "body",
-                    "description": "tracker info",
-                    "schema": {
-                        "type": "object",
-                        "required": [
-                            "time",
-                            "step",
-                            "weight"
-                        ],
-                        "properties": {
-                            "time": {
-                                "type": "string"
-                            },
-                            "step": {
-                                "type": "integer"
-                            },
-                            "weight": {
-                                "type": "integer"
-                            }
-                        }
-                    }
-                }],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "437": {
-                        "description": "tracker is existed"
-                    }
-                }
-            }
-        },
-        "/trackers ": {
-            "get": {
-                "summary": "List all trackers",
-                "tags": [
-                    "trackers"
-                ],
-                "description": "List all trackers in database",
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "441": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/trackers/user": {
-            "get": {
-                "summary": "Get list trackers by user_id",
-                "tags": [
-                    "trackers"
-                ],
-                "parameters": [{
-                    "name": "user_id",
-                    "in": "path",
-                    "description": "user_id",
-                    "type": "string",
-                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "440": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/trackers/{id} ": {
-            "put": {
-                "summary": "Update tracker by id",
-                "tags": [
-                    "trackers"
-                ],
-                "parameters": [{
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of tracker",
-                        "type": "string",
-                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
-                    },
-                    {
-                        "name": "tracker",
-                        "in": "body",
-                        "description": "tracker info that we want to update",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "time": {
-                                    "type": "string"
-                                },
-                                "step": {
-                                    "type": "integer"
-                                },
-                                "weight": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "442": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/trackers/{id}  ": {
-            "delete": {
-                "summary": "Delete tracker with id",
-                "tags": [
-                    "trackers"
-                ],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "example": "8d960b70-bb50-4102-9a89-48c99a4db7b0",
-                    "description": "ID of tracker you want to delete"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "439": {
-                        "description": "tracker not found"
-                    }
-                }
-            }
-        },
-
-        "/user_programs": {
-            "post": {
-                "summary": "Create user_programs",
-                "tags": [
-                    "user_programs"
-                ],
-                "description": "Create user_programs",
-
-                "parameters": [{
-                    "name": "user_program",
-                    "in": "body",
-                    "description": "user_program info",
-                    "schema": {
-                        "type": "object",
-                        "required": [
-                            "user_id",
-                            "program_id"
-                        ],
-                        "properties": {
-                            "user_id": {
-                                "type": "string",
-                                "example": "user_id of user"
-                            },
-                            "program_id": {
-                                "type": "string",
-                                "example": "program_id of user"
-                            }
-                        }
-                    }
-                }],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "445": {
-                        "description": "user_program is existed"
-                    }
-                }
-            }
-        },
-        "/user_programs ": {
-            "get": {
-                "summary": "List all user_program",
-                "tags": [
-                    "user_programs"
-                ],
-                "description": "List all user_program in database",
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "448": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/user_programs/user": {
-            "get": {
-                "summary": "Get list trackers by user_id",
-                "tags": [
-                    "user_programs"
-                ],
-                "parameters": [{
-                    "name": "user_id",
-                    "in": "path",
-                    "description": "user_id",
-                    "type": "string",
-                    "example": "994cb53f-6ef8-40bc-9d78-58ec9ce53ec4"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "447": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/user_programs/{id} ": {
-            "get": {
-                "summary": "Get user_program by id",
-                "tags": [
-                    "user_programs"
-                ],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "ID of user_program",
-                    "type": "string",
-                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "449": {
-                        "description": "user program not found"
-                    }
-                }
-            }
-        },
-        "/user_programs/{id}  ": {
-            "delete": {
-                "summary": "Delete user_program with id",
-                "tags": [
-                    "user_programs"
-                ],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "example": "8d960b70-bb50-4102-9a89-48c99a4db7b0",
-                    "description": "ID of user_program you want to delete"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "446": {
-                        "description": "user program not found"
-                    }
-                }
-            }
-        },
-
-
-
-        "/users/info": {
-            "put": {
-                "summary": "Update user by id",
-                "tags": [
-                    "users"
-                ],
-                "parameters": [{
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of user",
-                        "type": "string",
-                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
-                    },
-                    {
-                        "name": "user",
-                        "in": "body",
-                        "description": "user info",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "user_id": {
-                                    "type": "string",
-                                    "example": "user_id for auth"
-                                },
-                                "first_name": {
-                                    "type": "string",
-                                    "example": "firstname1"
-                                },
-                                "last_name": {
-                                    "type": "string",
-                                    "example": "lastname1"
-                                },
-                                "phone": {
-                                    "type": "string",
-                                    "example": "0905111111"
-                                },
-                                "address": {
-                                    "type": "string",
-                                    "example": "TP.HCM"
-                                },
-                                "avatar": {
-                                    "type": "string"
-                                },
-                                "birthday": {
-                                    "type": "string",
-                                    "example": "2021/15/04"
-                                },
-                                "gender": {
-                                    "type": "string",
-                                    "example": "male"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "450": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/users/info ": {
-            "get": {
-                "summary": "Get user by id",
-                "tags": [
-                    "users"
-                ],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "ID of user",
-                    "type": "string",
-                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "452": {
-                        "description": ""
                     }
                 }
             }
@@ -1541,7 +820,7 @@
                         "properties": {
                             "name": {
                                 "type": "string",
-                                "example": "trainng_program 1"
+                                "example": "Scapula Movements"
                             },
                             "acronym": {
                                 "type": "string",
@@ -1560,7 +839,7 @@
                                     "properties": {
                                         "sets": {
                                             "type": "integer",
-                                            "example": "10"
+                                            "example": "4"
                                         },
                                         "reps": {
                                             "type": "string",
@@ -1568,11 +847,11 @@
                                         },
                                         "tempo": {
                                             "type": "string",
-                                            "example": "40X0"
+                                            "example": "4010"
                                         },
                                         "rest": {
                                             "type": "string",
-                                            "example": "10s"
+                                            "example": "60s"
                                         }
                                     }
                                 }
@@ -1674,90 +953,6 @@
                 }
             }
         },
-        "/training_programs/{id}": {
-            "put": {
-                "summary": "Update training_program",
-                "tags": [
-                    "training_programs"
-                ],
-                "description": "Update training_program",
-                "parameters": [{
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of training-program",
-                        "type": "string",
-                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
-                    },
-                    {
-                        "name": "training_program",
-                        "in": "body",
-                        "description": "training_program info",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "example": "training_program update"
-                                },
-                                "acronym": {
-                                    "type": "string",
-                                    "example": "acronym update"
-                                },
-                                "items": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "object",
-                                        "required": [
-                                            "sets",
-                                            "reps",
-                                            "tempo",
-                                            "rest"
-                                        ],
-                                        "properties": {
-                                            "sets": {
-                                                "type": "integer",
-                                                "example": "10"
-                                            },
-                                            "reps": {
-                                                "type": "string",
-                                                "example": "10-12"
-                                            },
-                                            "tempo": {
-                                                "type": "string",
-                                                "example": "40X0"
-                                            },
-                                            "rest": {
-                                                "type": "string",
-                                                "example": "10s"
-                                            }
-                                        }
-                                    }
-
-                                }
-
-                            }
-                        }
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "handler success"
-                    },
-                    "400": {
-                        "description": "validation error"
-                    },
-                    "401": {
-                        "description": "UnAuthentication"
-                    },
-                    "460": {
-                        "description": "traning program is existed"
-                    }
-                }
-            }
-        },
 
 
         "/training_matrix": {
@@ -1781,7 +976,7 @@
                         "properties": {
                             "program": {
                                 "type": "string",
-                                "example": "program 1"
+                                "example": "Basics"
                             },
                             "items": {
                                 "type": "array",
@@ -1794,11 +989,11 @@
                                     "properties": {
                                         "day": {
                                             "type": "string",
-                                            "example": "1"
+                                            "example": "Day 1"
                                         },
                                         "training_program": {
                                             "type": "string",
-                                            "example": "training_program 1"
+                                            "example": "SMs"
                                         }
                                     }
                                 }
@@ -1877,6 +1072,7 @@
             }
         },
 
+
         "/user_trainings": {
             "post": {
                 "summary": "Create user_training_program_detail",
@@ -1925,7 +1121,7 @@
                         "description": "UnAuthentication"
                     },
                     "466": {
-                        "description": ""
+                        "description": "User training is existed"
                     }
                 }
             }
@@ -2057,6 +1253,388 @@
                     },
                     "471": {
                         "description": "user traning not found"
+                    }
+                }
+            }
+        },
+
+
+        "/bookings": {
+            "post": {
+                "summary": "Create booking",
+                "tags": [
+                    "bookings"
+                ],
+                "description": "Create booking",
+
+                "parameters": [{
+                    "name": "booking",
+                    "in": "body",
+                    "description": "booking that we want to create",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "time",
+                            "note"
+                        ],
+                        "properties": {
+                            "time": {
+                                "type": "string"
+                            },
+                            "note": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "426": {
+                        "description": "booking is existed"
+                    }
+                }
+            }
+        },
+        "/bookings ": {
+            "get": {
+                "summary": "List all bookings",
+                "tags": [
+                    "bookings"
+                ],
+                "description": "List all bookings in database",
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "431": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/bookings/user": {
+            "get": {
+                "summary": "Get list bookings by user_id",
+                "tags": [
+                    "bookings"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "428": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/bookings/{id} ": {
+            "get": {
+                "summary": "Get bookings by id",
+                "tags": [
+                    "bookings"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of booking",
+                    "type": "string",
+                    "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "430": {
+                        "description": "booking not found"
+                    }
+                }
+            }
+        },
+        "/bookings/{id}": {
+            "put": {
+                "summary": "Update booking by id",
+                "tags": [
+                    "bookings"
+                ],
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of booking",
+                        "type": "string",
+                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                    },
+                    {
+                        "name": "booking",
+                        "in": "body",
+                        "description": "booking info that we want to update",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "time": {
+                                    "type": "integer",
+                                    "example": "time update"
+                                },
+                                "note": {
+                                    "type": "string",
+                                    "example": "note update"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "427": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/bookings/{id}  ": {
+            "delete": {
+                "summary": "Delete booking with id",
+                "tags": [
+                    "bookings"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "example": "8d960b70-bb50-4102-9a89-48c99a4db7b0",
+                    "description": "ID of booking you want to delete"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "432": {
+                        "description": "booking not found"
+                    }
+                }
+            }
+        },
+
+
+
+        "/trackers": {
+            "post": {
+                "summary": "Create tracker",
+                "tags": [
+                    "trackers"
+                ],
+                "description": "Create tracker",
+
+                "parameters": [{
+                    "name": "tracker",
+                    "in": "body",
+                    "description": "tracker info",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "time",
+                            "step",
+                            "weight"
+                        ],
+                        "properties": {
+                            "time": {
+                                "type": "string"
+                            },
+                            "step": {
+                                "type": "integer"
+                            },
+                            "weight": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "437": {
+                        "description": "tracker is existed"
+                    }
+                }
+            }
+        },
+        "/trackers/{id}": {
+            "get": {
+                "summary": "Get tracker with id",
+                "tags": [
+                    "trackers"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "example": "8d960b70-bb50-4102-9a89-48c99a4db7b0",
+                    "description": "ID of tracker"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "459": {
+                        "description": "tracker not found"
+                    }
+                }
+            }
+        },
+        "/trackers ": {
+            "get": {
+                "summary": "List all trackers",
+                "tags": [
+                    "trackers"
+                ],
+                "description": "List all trackers in database",
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "441": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/trackers/user": {
+            "get": {
+                "summary": "Get list trackers by user",
+                "tags": [
+                    "trackers"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "440": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/trackers/{id} ": {
+            "put": {
+                "summary": "Update tracker by id",
+                "tags": [
+                    "trackers"
+                ],
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of tracker",
+                        "type": "string",
+                        "example": "e66ae777-0c56-4925-9151-0f1e28b9b4f4"
+                    },
+                    {
+                        "name": "tracker",
+                        "in": "body",
+                        "description": "tracker info that we want to update",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "time": {
+                                    "type": "string",
+                                    "example": "time update"
+                                },
+                                "step": {
+                                    "type": "integer",
+                                    "example": "step update"
+                                },
+                                "weight": {
+                                    "type": "integer",
+                                    "example": "weight update"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "400": {
+                        "description": "validation error"
+                    },
+                    "442": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/trackers/{id}  ": {
+            "delete": {
+                "summary": "Delete tracker with id",
+                "tags": [
+                    "trackers"
+                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "example": "8d960b70-bb50-4102-9a89-48c99a4db7b0",
+                    "description": "ID of tracker you want to delete"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "handler success"
+                    },
+                    "401": {
+                        "description": "UnAuthentication"
+                    },
+                    "439": {
+                        "description": "tracker not found"
                     }
                 }
             }

@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
         const url = env.config.AUTH_DOMAIN + '/userinfo'
         const token = req.headers.authorization
 
-        console.log({token})
+        // console.log({token})
         const response = await axios.get(url,  { headers: { Authorization: token}})
         
         if(response.status !== 200) {
@@ -32,7 +32,7 @@ module.exports = async (req, res, next) => {
 
             user_profile = await collection.findOne({auth_id: user_auth.sub})
         }
-        console.log({user_profile})
+        // console.log({user_profile})
 
         req.user = user_profile
         return next()

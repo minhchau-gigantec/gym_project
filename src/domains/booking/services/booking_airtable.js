@@ -12,7 +12,7 @@ const create_booking = (user, item) => new Promise(async (resolve, reject) => {
                         user_id: user._id,
                         user_email: user.email,
                         time: item.time,
-                        note: item.note
+                        note: item.note || ''
                     }
                 }
             ]
@@ -27,8 +27,6 @@ const create_booking = (user, item) => new Promise(async (resolve, reject) => {
         }
 
         const result = response.data.records
-
-        console.log({result})
 
         if(result.length == 0 ){
             return reject('create booking failure')

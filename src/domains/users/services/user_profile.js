@@ -15,6 +15,7 @@ const create_one = (user_model) => new Promise(async(resolve, reject) => {
             phone: user_model.phone,
             address: user_model.address,
             avatar: user_model.avatar,
+            session: 0,
             birthday: user_model.avatar,
             gender: user_model.gender,
             created_at: new Date().toISOString(),
@@ -51,10 +52,10 @@ const update_one = (id, item) => new Promise(async(resolve, reject) => {
 
         const collection = mongo.db.collection('user_profiles')
 
-        await collection.updateOne({ _id: id }, {
+        await collection.updateOne({ $or: [{_id: id}, {email: id}] }, {
             $set: item
         })
-        const result = await collection.findOne({_id: id})
+        const result = await collection.findOne({ _id: id })
         return resolve(result)
     } catch (error) {
         console.log(error)

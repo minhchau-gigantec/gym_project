@@ -16,7 +16,8 @@ const create = {
                     rest: { type: 'string', minLength: 1 },
                 },
                 required: ['sets', 'reps', 'tempo', 'rest']
-            }
+            },
+            minItems: 1
         }
     },
     required: ['name', 'acronym', 'items']

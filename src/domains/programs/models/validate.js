@@ -35,6 +35,12 @@ const update = {
                 type: 'string',
                 minLength: 1
             }
+        },
+        photos: {
+            type: 'array',
+            items: {
+                type: 'string',
+            }
         }
     }
 }

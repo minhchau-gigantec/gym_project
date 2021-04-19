@@ -51,6 +51,13 @@ const update_one = (id, item) => new Promise(async(resolve, reject) => {
     try {
 
         const collection = mongo.db.collection('answers')
+        const exist_answers = await collection.findOne({ _id: id })
+
+        if (!exist_answers) {
+            return reject('answers not found')
+        }
+
+
         await collection.updateOne({ _id: id }, {
             $set: item
         })
@@ -150,10 +157,17 @@ const get_list_by_question = (question_id) => new Promise(async(resolve, reject)
 
 
 const get_list = (answer_ids) => new Promise(async(resolve, reject) => {
+
     try {
+        var answer_list = answer_ids || []
+
+        if (typeof(answer_ids) === 'string') {
+            answer_list = answer_ids.split(',')
+        }
+
         const collection = mongo.db.collection('answers')
         const result = await collection.aggregate([
-            { $match: { _id: { $in: answer_ids } } },
+            { $match: { _id: { $in: answer_list } } },
             {
                 $lookup: {
                     from: 'questions',
@@ -166,6 +180,7 @@ const get_list = (answer_ids) => new Promise(async(resolve, reject) => {
             { $unwind: '$question' }
         ]).toArray()
 
+        console.log("sucess")
         return resolve(result)
     } catch (error) {
         console.log(error)
@@ -183,3 +198,15 @@ module.exports = {
     get_list,
     get_list_by_question
 }
+
+// "type": "object",
+// "required": [
+//     "answer_ids"
+// ],
+// "properties": {
+//     "type": "array",
+//     "items": {
+//         "type": "string",
+//         "example": "id answer 1"
+//     }
+// }
