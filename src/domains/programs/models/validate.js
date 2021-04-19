@@ -11,6 +11,12 @@ const create = {
                 type: 'string',
                 minLength: 1
             }
+        },
+        photos: {
+            type: 'array',
+            items: {
+                type: 'string',
+            }
         }
     },
     required: ['name', 'target', 'duration', 'goals']

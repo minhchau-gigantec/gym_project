@@ -739,6 +739,13 @@
                                     "type": "string",
                                     "example": "goal 1"
                                 }
+                            },
+                            "phots": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "example": "http://abc.jpg"
+                                }
                             }
                         }
                     }
