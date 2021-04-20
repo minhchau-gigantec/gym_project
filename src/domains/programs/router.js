@@ -10,14 +10,17 @@ const get_one = require('./controllers/get_one')
 const validate = require('../../middleware/check_validate')
 const dataExample = require('./models/validate')
 
-router.post('/', validate(dataExample.create), create_one)
+const {ADMIN_ROLE} = require('../../constants/constants')
+const check_permission = require('../../middleware/check_permission')
+
+router.post('/', validate(dataExample.create), check_permission([ADMIN_ROLE]), create_one)
 
 router.get('/', get_list)
 
-router.delete('/:id', delete_one)
+router.delete('/:id', check_permission([ADMIN_ROLE]), delete_one)
 
 router.get('/:id', get_one)
 
-router.put('/:id', validate(dataExample.update), update_one)
+router.put('/:id', validate(dataExample.update), check_permission([ADMIN_ROLE]), update_one)
 
 module.exports = router

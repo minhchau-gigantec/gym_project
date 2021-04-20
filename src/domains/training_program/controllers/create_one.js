@@ -3,7 +3,7 @@ const traning_program = require('../services/training_program')
 module.exports = async(req, res) => {
     try {
         const item_model = req.body
-        console.log({ item_model })
+        // console.log({ item_model })
         const result = await traning_program.create_one(item_model)
 
         return res.json({

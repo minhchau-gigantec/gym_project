@@ -6,7 +6,6 @@ const mongo = {
     connect: null,
 }
 
-
 mongo.connect = async() => {
     try {
         const { DB_URL, DB_DATABASE } = env.config

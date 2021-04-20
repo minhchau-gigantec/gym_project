@@ -8,6 +8,7 @@ const validate = require('../../middleware/check_validate')
 const dataExample = require('./models/validate')
 
 
+
 router.get('/info', get_one)
 
 router.put('/info', validate(dataExample.update), update_one)

@@ -2,6 +2,7 @@ const {env} = require('../configs/config.service')
 const axios  = require('axios')
 const mongo = require('../core/mongo')
 const {v4: uuid} = require('uuid')
+const auth0 = require('../domains/users/services/auth0')
 
 
 module.exports = async (req, res, next) => {
@@ -34,6 +35,9 @@ module.exports = async (req, res, next) => {
         }
         // console.log({user_profile})
 
+        const roles = await auth0.get_role(user_auth.sub)
+
+        user_profile.roles = roles
         req.user = user_profile
         return next()
     }catch(error){

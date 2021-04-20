@@ -23,7 +23,7 @@ const update_one = () => new Promise(async (resolve, reject) => {
         update_sessions = session_list.map(async (item) => {
             const {_id, complete, checked_at, note} = item.fields
 
-            console.log({_id, complete, checked_at})
+            // console.log({_id, complete, checked_at})
             return booking.update_schedule(_id, {
                 complete: complete || false,
                 checked_at: checked_at ||  new Date().toISOString(),

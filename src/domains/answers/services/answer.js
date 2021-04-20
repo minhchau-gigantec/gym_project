@@ -107,13 +107,13 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
             { $unwind: '$question' }
         ]).toArray()
 
-        console.log({ result })
+        // console.log({ result })
 
         if (result.length == 0) {
             return reject('answer not found')
         }
 
-        console.log({ result })
+        // console.log({ result })
         return resolve(result[0])
 
     } catch (error) {

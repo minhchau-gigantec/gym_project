@@ -10,11 +10,14 @@ const get_one = require('./controllers/get_one')
 const validate = require('../../middleware/check_validate')
 const dataExample = require('./models/validate')
 
-router.post('/', validate(dataExample.create), create_one)
+const check_permission = require('../../middleware/check_permission')
+const {ADMIN_ROLE} = require('../../constants/constants')
+
+router.post('/', validate(dataExample.create), check_permission([ADMIN_ROLE]), create_one)
 
 router.get('/', get_list)
 
-router.delete('/:id', delete_one)
+router.delete('/:id', check_permission([ADMIN_ROLE]), delete_one)
 
 //id: name or id of training program
 router.get('/:id', get_one)
