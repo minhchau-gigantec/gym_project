@@ -180,7 +180,6 @@ const get_list = (answer_ids) => new Promise(async(resolve, reject) => {
             { $unwind: '$question' }
         ]).toArray()
 
-        console.log("sucess")
         return resolve(result)
     } catch (error) {
         console.log(error)

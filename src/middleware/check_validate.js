@@ -5,6 +5,8 @@ module.exports = (schema, type = 'body') => async(req, res, next) => {
     try {
         // validate req.body || req.query || req.params
         const ajv = new Ajv({
+            strict: false,
+            allowUnionTypes: true,
             removeAdditional: true,
             userDefaults: true,
             coerceTypes: true,

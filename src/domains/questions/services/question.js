@@ -20,7 +20,7 @@ const create_one = (question_model) => new Promise(async(resolve, reject) => {
             _id: id,
             name: question_model.name,
             content: question_model.content,
-            type: question_model.type,
+            types: question_model.types,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         }
