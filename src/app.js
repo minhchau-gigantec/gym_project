@@ -21,6 +21,7 @@ const training_matrix_router = require('./domains/traning_matrix/router')
 const training_program_router = require('./domains/training_program/router')
 const user_training_router = require('./domains/user_training_program_detail/router')
 
+const airtable_router = require('./domains/airtable/router')
 
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json')
@@ -37,22 +38,26 @@ const start = async() => {
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: true }))
 
+    app.use('/airtable', airtable_router)
+
     app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-    app.use(check_auth)
 
 
-    app.use('/questions', question_router)
-    app.use('/answers', answer_router)
-    app.use('/bookings', booking_router)
+
+    app.use('/questions', check_auth, question_router)
+    app.use('/answers',check_auth,  answer_router)
+    app.use('/bookings',check_auth,  booking_router)
     
-    app.use('/programs', program_router)
-    app.use('/trackers', tracker_router)
-    app.use('/users', user_router)
+    app.use('/programs',check_auth,  program_router)
+    app.use('/trackers',check_auth,  tracker_router)
+    app.use('/users',check_auth,  user_router)
 
-    app.use('/training_matrix', training_matrix_router)
-    app.use('/training_programs', training_program_router)
-    app.use('/training_matrix', training_matrix_router)
-    app.use('/user_trainings', user_training_router)
+    app.use('/training_matrix',check_auth,  training_matrix_router)
+    app.use('/training_programs',check_auth,  training_program_router)
+    app.use('/training_matrix',check_auth,  training_matrix_router)
+    app.use('/user_trainings',check_auth,  user_training_router)
+
+
 
 
     user_chedule.update_session_schedule()
