@@ -29,7 +29,9 @@ module.exports = (answer_ids) => new Promise(async(resolve, reject) => {
 
         for (var i = 0; i < format_programs.length; i++) {
             for (var j = 0; j < format_answers.length; j++) {
-                if (format_answers[j].types.includes(format_programs[i].name) === true) {
+                const type_list = format_answers[j].types
+                const type = format_programs[i].name
+                if (type_list.includes(type)) {
                     format_programs[i].points += format_answers[j].points
                 }
             }
