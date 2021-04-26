@@ -1,7 +1,7 @@
 const mongo = require('../../../core/mongo')
 const { v4: uuid } = require('uuid')
 
-const create_one = (question_model) => new Promise(async (resolve, reject) => {
+const create_one = (question_model) => new Promise(async(resolve, reject) => {
     try {
         const id = uuid()
         const query = {
@@ -20,7 +20,7 @@ const create_one = (question_model) => new Promise(async (resolve, reject) => {
             _id: id,
             name: question_model.name,
             content: question_model.content,
-            type: question_model.type,
+            types: question_model.types,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         }
@@ -35,7 +35,7 @@ const create_one = (question_model) => new Promise(async (resolve, reject) => {
     }
 })
 
-const update_one = (id, item) => new Promise(async (resolve, reject) => {
+const update_one = (id, item) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('questions')
 
@@ -56,7 +56,7 @@ const update_one = (id, item) => new Promise(async (resolve, reject) => {
     }
 })
 
-const get_one = (id) => new Promise(async (resolve, reject) => {
+const get_one = (id) => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('questions')
         const result = await collection.aggregate([
@@ -83,19 +83,17 @@ const get_one = (id) => new Promise(async (resolve, reject) => {
 })
 
 
-const get_list = () => new Promise(async (resolve, reject) => {
+const get_list = () => new Promise(async(resolve, reject) => {
     try {
         const collection = mongo.db.collection('questions')
-        const result = await collection.aggregate([
-            {
-                $lookup: {
-                    from: 'answers',
-                    localField: "_id",
-                    foreignField: 'question_id',
-                    as: 'answers'
-                }
-            },
-        ]).toArray()
+        const result = await collection.aggregate([{
+            $lookup: {
+                from: 'answers',
+                localField: "_id",
+                foreignField: 'question_id',
+                as: 'answers'
+            }
+        }, ]).toArray()
         return resolve(result)
 
     } catch (error) {
@@ -104,7 +102,7 @@ const get_list = () => new Promise(async (resolve, reject) => {
     }
 })
 
-const delete_one = (id) => new Promise(async (resolve, reject) => {
+const delete_one = (id) => new Promise(async(resolve, reject) => {
     try {
 
         const collection = mongo.db.collection('questions')

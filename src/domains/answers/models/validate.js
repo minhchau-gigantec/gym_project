@@ -17,7 +17,7 @@ const update = {
         question_id: { type: 'string', minLength: 1 },
         name: { type: 'string', minLength: 1 },
         content: { type: 'string', minLength: 1 },
-        points: { type: 'integer', minimum: 10 },
+        points: { type: 'integer', minimum: 0 },
     }
 }
 
