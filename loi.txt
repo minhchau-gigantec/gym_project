@@ -1,7 +1,0 @@
-- submit answer: ket qua  tra ve
-- update answer theo id: chưa check trường hợp answer not exist(đã fix)
-- delete training_matrix: auto trả về success(đã fix)
-- user_Training_program_detail:
-    create: chưa check exist
-    get_list_by_user: chạy sai
-    .get('/:training_detail_id': chạy sai

@@ -10,6 +10,7 @@ const create = {
             items: {
                 type: 'object',
                 properties: {
+                    name: { type: 'string', minLength: 1 },
                     sets: { type: 'integer', minimum: 0 },
                     reps: { type: 'string', minLength: 1 },
                     tempo: { type: 'string', minLength: 1 },
@@ -35,6 +36,7 @@ const update = {
                 additionalProperties: false,
                 type: 'object',
                 properties: {
+                    name: { type: 'string', minLength: 1 },
                     sets: { type: 'integer', minimum: 0 },
                     reps: { type: 'string', minLength: 1 },
                     tempo: { type: 'string', minLength: 1 },

@@ -71,7 +71,7 @@ const get_one = (id) => new Promise(async(resolve, reject) => {
             },
         ]).toArray()
 
-        if (!result) {
+        if (result.length === 0) {
             return reject("question not found")
         }
         return resolve(result)
