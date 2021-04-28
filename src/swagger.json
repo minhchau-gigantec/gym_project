@@ -6,11 +6,15 @@
         "description": "Steel API"
 
     },
-    "host": "localhost:8006",
+    "host": "54.254.242.25:8006",
     "basePath": "/",
     "tags": [{
             "name": "users",
             "description": "API for users in the system"
+        },
+        {
+            "name": "programs",
+            "description": "API for programs in the system"
         },
         {
             "name": "questions",
@@ -19,10 +23,6 @@
         {
             "name": "answers",
             "description": "API for answer in the system"
-        },
-        {
-            "name": "programs",
-            "description": "API for programs in the system"
         },
         {
             "name": "training_programs",
@@ -189,6 +189,9 @@
                     "400": {
                         "description": "validation error"
                     },
+                    "403": {
+                        "description": "Unauthorization"
+                    },
                     "410": {
                         "description": "question is existed"
                     }
@@ -260,6 +263,9 @@
                     "401": {
                         "description": "UnAuthentication"
                     },
+                    "403": {
+                        "description": "Unauthorization"
+                    },
                     "411": {
                         "description": "Question not found"
                     }
@@ -314,6 +320,9 @@
                     },
                     "400": {
                         "description": "validation error"
+                    },
+                    "403": {
+                        "description": "Unauthorization"
                     },
                     "412": {
                         "description": ""
@@ -375,6 +384,9 @@
                     },
                     "400": {
                         "description": "validation error"
+                    },
+                    "403": {
+                        "description": "Unauthorization"
                     },
                     "409": {
                         "description": "question is not exist/ answer is existed"
@@ -461,7 +473,7 @@
         },
         "/answers/{id}": {
             "get": {
-                "summary": "List answer with id",
+                "summary": "Get answer with id",
                 "tags": [
                     "answers"
                 ],
@@ -530,6 +542,9 @@
                     "401": {
                         "description": "UnAuthentication"
                     },
+                    "403": {
+                        "description": "Unauthorization"
+                    },
                     "406": {
                         "description": "answers not found"
                     }
@@ -585,6 +600,9 @@
                     },
                     "400": {
                         "description": "validation error"
+                    },
+                    "403": {
+                        "description": "Unauthorization"
                     },
                     "453": {
                         "description": "answer not found"
@@ -657,6 +675,9 @@
                     "401": {
                         "description": "UnAuthentication"
                     },
+                    "403": {
+                        "description": "Unauthorization"
+                    },
                     "466": {
                         "description": "program is existed"
                     }
@@ -728,6 +749,9 @@
                     "401": {
                         "description": "UnAuthentication"
                     },
+                    "403": {
+                        "description": "Unauthorization"
+                    },
                     "423": {
                         "description": "program not found"
                     }
@@ -797,6 +821,9 @@
                     "401": {
                         "description": "UnAuthentication"
                     },
+                    "403": {
+                        "description": "Unauthorization"
+                    },
                     "455": {
                         "description": "program is not existed"
                     }
@@ -837,12 +864,17 @@
                                 "items": {
                                     "type": "object",
                                     "required": [
+                                        "name",
                                         "sets",
                                         "reps",
                                         "tempo",
                                         "rest"
                                     ],
                                     "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "A1. Press - Flat - DB - Neutral"
+                                        },
                                         "sets": {
                                             "type": "integer",
                                             "example": "4"
@@ -879,6 +911,9 @@
                     },
                     "401": {
                         "description": "UnAuthentication"
+                    },
+                    "403": {
+                        "description": "Unauthorization"
                     },
                     "460": {
                         "description": "traning program is existed"
@@ -953,6 +988,9 @@
                     "401": {
                         "description": "UnAuthentication"
                     },
+                    "403": {
+                        "description": "Unauthorization"
+                    },
                     "463": {
                         "description": "tranining program not found"
                     }
@@ -1020,6 +1058,9 @@
                     "401": {
                         "description": "UnAuthentication"
                     },
+                    "403": {
+                        "description": "Unauthorization"
+                    },
                     "462": {
                         "description": "training_matrix is existed/ program not found"
                     }
@@ -1045,6 +1086,9 @@
                     },
                     "401": {
                         "description": "UnAuthentication"
+                    },
+                    "403": {
+                        "description": "Unauthorization"
                     },
                     "464": {
                         "description": "training matrix not found"
@@ -1100,7 +1144,7 @@
                         "properties": {
                             "training_detail_id": {
                                 "type": "string",
-                                "example": "user_training 1"
+                                "example": "Training_program_detail id"
                             },
                             "weight": {
                                 "type": "integer",
@@ -1229,8 +1273,7 @@
                             "type": "object",
                             "properties": {
                                 "training_detail_id": {
-                                    "type": "string",
-                                    "example": "user_training update"
+                                    "type": "string"
                                 },
                                 "weight": {
                                     "type": "integer",
@@ -1285,7 +1328,8 @@
                         ],
                         "properties": {
                             "time": {
-                                "type": "string"
+                                "type": "string",
+                                "example": "2021-01-01"
                             },
                             "note": {
                                 "type": "string"
@@ -1398,8 +1442,8 @@
                             "type": "object",
                             "properties": {
                                 "time": {
-                                    "type": "integer",
-                                    "example": "time update"
+                                    "type": "string",
+                                    "example": "2021-01-01"
                                 },
                                 "note": {
                                     "type": "string",
@@ -1474,7 +1518,8 @@
                         ],
                         "properties": {
                             "time": {
-                                "type": "string"
+                                "type": "string",
+                                "example": "2021-01-01"
                             },
                             "step": {
                                 "type": "integer"
@@ -1590,15 +1635,13 @@
                             "properties": {
                                 "time": {
                                     "type": "string",
-                                    "example": "time update"
+                                    "example": "2021-01-01"
                                 },
                                 "step": {
-                                    "type": "integer",
-                                    "example": "step update"
+                                    "type": "integer"
                                 },
                                 "weight": {
-                                    "type": "integer",
-                                    "example": "weight update"
+                                    "type": "integer"
                                 }
                             }
                         }
