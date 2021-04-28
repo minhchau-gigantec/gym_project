@@ -2,7 +2,7 @@ const axios = require('axios')
 const {env} = require('../../../configs/config.service')
 const {v4: uuid} = require('uuid')
 
-const create_user_info = (info) => new Promise(async (resolve, reject) => {
+const create_user_info = info => new Promise(async (resolve, reject) => {
     try{
         const {AIR_TABLE_USER_INFO, AIR_TOKEN} = env.config
         const {email, phone, name} = info

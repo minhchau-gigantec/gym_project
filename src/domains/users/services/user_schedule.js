@@ -32,7 +32,7 @@ const update_session = () => new Promise(async(resolve, reject) => {
 
     } catch (error) {
         console.log(error)
-        return resolve("udpate session failure")
+        return resolve("update session failure")
     }
 })
 

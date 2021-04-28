@@ -23,6 +23,8 @@ services:
       - 8006:8006
     build:
       context: .
+    environment:
+      NODE_ENV: development
     restart: always
     networks:
       default_gym:
