@@ -9,7 +9,7 @@ on:
 jobs:
   gym_project:
     name: gym_project
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
     steps:
       - name: deploy gym project to server
         uses: appleboy/ssh-action@master
