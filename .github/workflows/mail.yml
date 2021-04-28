@@ -1,0 +1,25 @@
+name: NODE.js CI
+
+on: 
+  push: 
+    branchs: master
+  pull_request:
+    branchs: master
+
+jobs:
+  gym_project:
+    name: gym_project
+    runs-on: ubuntu-lastest
+    steps:
+      - name: deploy gym project to server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{secrets.IP_EC2}}
+        username: ubuntu
+        key: ${{secrets.PRIVATE_KEY}}
+        port: 22
+        scripts: |
+          cd gym_project
+          git pull origin master
+          sudo docker-compose build
+          sudo docker-compose up -d
