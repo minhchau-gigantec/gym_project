@@ -11,7 +11,7 @@ const validate = require('../../middleware/check_validate')
 const dataExample = require('./models/validate')
 
 const check_permission = require('../../middleware/check_permission')
-const {ADMIN_ROLE} = require('../../constants/constants')
+const { ADMIN_ROLE } = require('../../constants/constants')
 
 router.post('/', validate(dataExample.create), check_permission([ADMIN_ROLE]), create_one)
 

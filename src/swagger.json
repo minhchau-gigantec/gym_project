@@ -6,7 +6,7 @@
         "description": "Steel API"
 
     },
-    "host": "54.254.242.25:8006",
+    "host": "localhost:8006",
     "basePath": "/",
     "tags": [{
             "name": "users",
@@ -166,9 +166,12 @@
                                 "type": "string",
                                 "example": "What's your weight?"
                             },
-                            "type": {
-                                "type": "string",
-                                "example": "type 1"
+                            "types": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "example": "basic"
+                                }
                             }
                         }
                     }
@@ -291,9 +294,12 @@
                                     "type": "string",
                                     "example": "content update"
                                 },
-                                "type": {
-                                    "type": "string",
-                                    "example": "type update"
+                                "types": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "example": "type update"
+                                    }
                                 }
                             }
                         }
