@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
 
-const create_information = require('./controllers/create_infomation')
-const create_user_info = require('./controllers/create_user_info')
+const member_benefit = require('./controllers/member_benefit')
+const pricing = require('./controllers/pricing')
 
 
-router.post('/user_info', create_user_info)
+router.post('/pricing', pricing)
 
-router.post('/information', create_information)
+router.post('/members-benefits', member_benefit)
 
 module.exports = router

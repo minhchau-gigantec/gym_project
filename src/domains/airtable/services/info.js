@@ -4,7 +4,7 @@ const {v4: uuid} = require('uuid')
 
 const create_user_info = info => new Promise(async (resolve, reject) => {
     try{
-        const {AIR_TABLE_USER_INFO, AIR_TOKEN} = env.config
+        const {AIR_TABLE_PRICING, AIR_TOKEN} = env.config
         const {email, phone, name} = info
 
         const user_info = {
@@ -21,7 +21,7 @@ const create_user_info = info => new Promise(async (resolve, reject) => {
             ]
         }
     
-        const response = await axios.post(AIR_TABLE_USER_INFO, user_info, {
+        const response = await axios.post(AIR_TABLE_PRICING, user_info, {
             headers: {Authorization: 'Bearer ' + AIR_TOKEN}
         })
 
@@ -40,7 +40,7 @@ const create_user_info = info => new Promise(async (resolve, reject) => {
 
 const create_information = (info) => new Promise(async (resolve, reject) => {
     try{
-        const {AIR_TABLE_INFORMATION, AIR_TOKEN} = env.config
+        const {AIR_TABLE_MEMBER_BENEFIT, AIR_TOKEN} = env.config
         const {email, phone, name, my_thoughts} = info
 
         const user_info = {
@@ -59,7 +59,7 @@ const create_information = (info) => new Promise(async (resolve, reject) => {
         }
     
 
-        const response = await axios.post(AIR_TABLE_INFORMATION, user_info, {
+        const response = await axios.post(AIR_TABLE_MEMBER_BENEFIT, user_info, {
             headers: {Authorization: 'Bearer ' + AIR_TOKEN}
         })
 
