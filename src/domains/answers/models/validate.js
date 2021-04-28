@@ -50,8 +50,7 @@ const get_list = {
             },
             minItems: 1,
         }
-    },
-    required: ['answer_ids']
+    }
 }
 
 module.exports = {
