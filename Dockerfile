@@ -10,4 +10,4 @@ COPY . .
 COPY src ./
 
 EXPOSE 8006
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start"]

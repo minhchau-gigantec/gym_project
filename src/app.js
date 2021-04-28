@@ -8,7 +8,6 @@ const user_chedule = require('./domains/users/services/user_schedule')
 const booking_schedule = require('./domains/booking/services/booking_schedule')
 const check_auth = require('./middleware/check_auth')
 
-
 const question_router = require('./domains/questions/router')
 const answer_router = require('./domains/answers/router')
 const booking_router = require('./domains/booking/router')
@@ -39,7 +38,6 @@ const start = async() => {
     app.use(bodyParser.urlencoded({ extended: true }))
 
     app.use('/airtable', airtable_router)
-
     app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 
@@ -58,14 +56,13 @@ const start = async() => {
     app.use('/user_trainings',check_auth,  user_training_router)
 
 
-
-
     user_chedule.update_session_schedule()
     booking_schedule.update_booking()
 
     const { PORT, HOST } = env.config
     app.listen(PORT, () => {
         console.log(`SERVER: listen on ${HOST}:${PORT}`)
+        console.log(`enviroment: ${process.env.ENVIRONMENT12}`)
     })
 }
 
