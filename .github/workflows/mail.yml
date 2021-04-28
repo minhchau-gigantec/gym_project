@@ -18,7 +18,7 @@ jobs:
           username: ubuntu
           key: ${{secrets.PRIVATE_KEY}}
           port: 22
-          scripts: |
+          script: |
             cd gym_project
             git pull origin master
             sudo docker-compose build
