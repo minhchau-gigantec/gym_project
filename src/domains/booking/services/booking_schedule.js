@@ -29,7 +29,6 @@ const update_one = () => new Promise(async(resolve, reject) => {
                 checked_at: checked_at || new Date().toISOString(),
                 note,
                 time
-
             })
         })
 
@@ -43,9 +42,9 @@ const update_one = () => new Promise(async(resolve, reject) => {
 })
 
 update_booking = async() => {
-    // const job = schedule.scheduleJob('1 * * * * *', async () => {
-    await update_one()
-        // })
+    const job = schedule.scheduleJob('1 * * * * *', async() => {
+        await update_one()
+    })
 }
 
 module.exports = {

@@ -37,10 +37,10 @@ const update_session = () => new Promise(async(resolve, reject) => {
 })
 
 update_session_schedule = async() => {
-    // const job = schedule.scheduleJob('1 * * * * *', async() => {
-    console.log("user schedule")
-    await update_session()
-        // })
+    const job = schedule.scheduleJob('1 * * * * *', async() => {
+        console.log("user schedule")
+        await update_session()
+    })
 }
 
 module.exports = {
