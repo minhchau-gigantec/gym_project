@@ -13,6 +13,10 @@
             "description": "API for users in the system"
         },
         {
+            "name": "airtable",
+            "description": "API for airtable in the system"
+        },
+        {
             "name": "programs",
             "description": "API for programs in the system"
         },
@@ -1684,6 +1688,104 @@
                     },
                     "439": {
                         "description": "tracker not found"
+                    }
+                }
+            }
+        },
+
+
+        "/pricing": {
+            "post": {
+                "summary": "",
+                "tags": [
+                    "airtable"
+                ],
+                "description": "",
+
+                "parameters": [{
+                    "name": "",
+                    "in": "body",
+                    "description": "",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "email",
+                            "phone",
+                            "name"
+                        ],
+                        "properties": {
+                            "email": {
+                                "type": "string",
+                                "example": "email@gmail.com"
+                            },
+                            "phone": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "create user info to airtable success"
+                    },
+                    "409": {
+                        "description": "create user info to airtable failure"
+                    }
+                }
+            }
+        },
+        "/members-benefits": {
+            "post": {
+                "summary": "",
+                "tags": [
+                    "airtable"
+                ],
+                "description": "",
+
+                "parameters": [{
+                    "name": "",
+                    "in": "body",
+                    "description": "",
+                    "schema": {
+                        "type": "object",
+                        "required": [
+                            "email",
+                            "phone",
+                            "name",
+                            "my_thoughts"
+                        ],
+                        "properties": {
+                            "email": {
+                                "type": "string",
+                                "example": "email@gmail.com"
+                            },
+                            "phone": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "my_thoughts": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "create user info to airtable success"
+                    },
+                    "409": {
+                        "description": "create user info to airtable failure"
                     }
                 }
             }
