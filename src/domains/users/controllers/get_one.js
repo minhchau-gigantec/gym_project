@@ -3,6 +3,7 @@ const user_profile = require('../services/user_profile')
 module.exports = async(req, res) => {
     try {
         const { user } = req
+
         return res.json({
             code: 200,
             message: 'handler success',
