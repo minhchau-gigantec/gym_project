@@ -62,7 +62,6 @@ const start = async() => {
     const { PORT, HOST } = env.config
     app.listen(PORT, () => {
         console.log(`SERVER: listen on ${HOST}:${PORT}`)
-        console.log(`enviroment: ${process.env.ENVIRONMENT12}`)
     })
 }
 

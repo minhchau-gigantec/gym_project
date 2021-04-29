@@ -3,6 +3,8 @@ const axios  = require('axios')
 const mongo = require('../core/mongo')
 const {v4: uuid} = require('uuid')
 const auth0 = require('../domains/users/services/auth0')
+const user_profile = require('../domains/users/services/user_profile')
+ 
 
 
 module.exports = async (req, res, next) => {
@@ -10,7 +12,6 @@ module.exports = async (req, res, next) => {
         const url = env.config.AUTH_DOMAIN + '/userinfo'
         const token = req.headers.authorization
 
-        // console.log({token})
         const response = await axios.get(url,  { headers: { Authorization: token}})
         
         if(response.status !== 200) {
@@ -20,25 +21,17 @@ module.exports = async (req, res, next) => {
         const user_auth = response.data
         const collection = mongo.db.collection('user_profiles')
 
-        var user_profile = await collection.findOne({auth_id: user_auth.sub})
+        var user = await collection.findOne({auth_id: user_auth.sub})
 
-        if (!user_profile){
-            const id = uuid() 
-            await collection.insertOne({
-                _id: id,
-                email: user_auth.email,
-                auth_id: user_auth.sub,
-                is_answered: false
-            })
-
-            user_profile = await collection.findOne({auth_id: user_auth.sub})
+        if (!user){
+            user = await user_profile.create_one(user_auth)
         }
-        // console.log({user_profile})
 
         const roles = await auth0.get_role(user_auth.sub)
 
         user_profile.roles = roles
-        req.user = user_profile
+
+        req.user = user
         return next()
     }catch(error){
         return res.status(401).send({message: 'UnAuthentication'})
