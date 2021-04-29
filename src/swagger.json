@@ -71,13 +71,9 @@
                     "schema": {
                         "type": "object",
                         "properties": {
-                            "first_name": {
+                            "fullname": {
                                 "type": "string",
                                 "example": "Nguyen"
-                            },
-                            "last_name": {
-                                "type": "string",
-                                "example": "Phong"
                             },
                             "phone": {
                                 "type": "string",
