@@ -34,7 +34,6 @@ module.exports = async (req, res, next) => {
         req.user = user
         return next()
     }catch(error){
-        console.log(error)
         return res.status(401).send({message: 'UnAuthentication'})
     }
 
